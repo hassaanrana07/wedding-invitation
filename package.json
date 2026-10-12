@@ -1,0 +1,11 @@
+{
+  "name": "riha-wedding",
+  "version": "2.0.0",
+  "description": "RIHA — Premium Pakistani Wedding Invitation Web Application (Frontend-Only)",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "preview": "npm --prefix client run preview"
+  }
+}
