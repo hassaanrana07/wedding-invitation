@@ -124,3 +124,24 @@
 .animate-floral-sway {
   animation: floralSway 7s ease-in-out infinite;
 }
+
+/* Subtle 3D Card Hover Depth */
+.card-3d-hover {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-3d-hover:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 20px 45px rgba(27, 56, 43, 0.08), 0 4px 15px rgba(197, 160, 89, 0.14);
+  }
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  .animate-subtle-float,
+  .animate-floral-sway {
+    animation: none !important;
+  }
+}

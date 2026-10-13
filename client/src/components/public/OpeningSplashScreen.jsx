@@ -7,11 +7,11 @@ import RoyalMonogramSeal from '../ui/RoyalMonogramSeal';
 import { HangingWeddingBulb, BloomingFlowerOrnament } from '../ui/BotanicalOrnaments';
 
 // Controlled State Sequence Phases:
-// 1. 'CLOSED_CURTAINS'    -> Velvet curtains closed with illuminated A & H monogram medallion seal (122px) centered in viewport
-// 2. 'CURTAIN_OPENING'    -> Curtains glide outward diagonally for 1.4 seconds (1400ms); audio starts playing
-// 3. 'SCRATCH_INVITATION' -> Circular canvas scratch card appears dead-center in viewport
-// 4. 'INVITATION_REVEALED'-> Scratched >= 87% (or instant reveal) -> Celebratory confetti, blooming flower & Pakistani invitation card
-// 5. 'HOMEPAGE'           -> Opening experience unmounts, revealing the full website starting at Hero section
+// 1. 'CLOSED_CURTAINS'    -> Regal velvet curtains with 3D depth, pleats & centered H&A logo medallion
+// 2. 'CURTAIN_OPENING'    -> Curtains glide outward with 3D perspective fold for 1.4s (1400ms); music starts
+// 3. 'SCRATCH_INVITATION' -> Circular canvas scratch card appears dead-center; feathered wide brush scratching
+// 4. 'INVITATION_REVEALED'-> Scratched >= 38% (or instant reveal) -> Celebratory fireworks, blooming flower & Pakistani card
+// 5. 'HOMEPAGE'           -> Unmounts opening screen, smoothly landing at the top Hero section
 
 export default function OpeningSplashScreen({ onComplete }) {
   const { unlockAndPlayAudio } = useWedding();
@@ -24,13 +24,14 @@ export default function OpeningSplashScreen({ onComplete }) {
   const [cardRevealed, setCardRevealed] = useState(false);
   const [hasInteractedScratch, setHasInteractedScratch] = useState(false);
   const [showFlowerBloom, setShowFlowerBloom] = useState(false);
+  const [sparkles, setSparkles] = useState([]);
 
   // Guarantee that initial page entry or refresh stays at top (Hero section)
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, []);
 
-  // Canvas & Flower Refs
+  // Canvas & Pointer Refs
   const canvasRef = useRef(null);
   const isPointerDownRef = useRef(false);
   const lastPointRef = useRef(null);
@@ -38,34 +39,34 @@ export default function OpeningSplashScreen({ onComplete }) {
   const confettiFiredRef = useRef(false);
   const flowerBloomedRef = useRef(false);
 
-  // Initialize Canvas Circular Scratch Layer
+  // Initialize Canvas Circular Scratch Layer with high-DPI crispness
   const initCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
-    const width = canvas.offsetWidth;
-    const height = canvas.offsetHeight;
-    if (width === 0 || height === 0) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    canvas.width = Math.round(rect.width * dpr);
+    canvas.height = Math.round(rect.height * dpr);
 
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    ctx.scale(dpr, dpr);
-
+    const width = canvas.width;
+    const height = canvas.height;
     const radius = Math.min(width, height) / 2;
     const cx = width / 2;
     const cy = height / 2;
 
     ctx.save();
     ctx.beginPath();
-    ctx.arc(cx, cy, radius - 1, 0, Math.PI * 2);
+    ctx.arc(cx, cy, radius - 2, 0, Math.PI * 2);
     ctx.clip();
 
-    // 1. Base Champagne / Antique Gold Radial Gradient
+    // 1. Rich Champagne & Antique Gold Radial Gradient
     const grad = ctx.createRadialGradient(cx, cy, radius * 0.15, cx, cy, radius);
-    grad.addColorStop(0, '#FFF5DD');
+    grad.addColorStop(0, '#FFF6E0');
     grad.addColorStop(0.25, '#E5C77A');
     grad.addColorStop(0.55, '#C5A059');
     grad.addColorStop(0.85, '#D4B872');
@@ -75,12 +76,12 @@ export default function OpeningSplashScreen({ onComplete }) {
 
     // 2. Luxury Golden Stardust Particles
     ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
-    for (let i = 0; i < 95; i++) {
+    for (let i = 0; i < 90; i++) {
       const angle = (i * 137.5) * (Math.PI / 180);
-      const r = Math.sqrt(i / 95) * (radius - 18);
+      const r = Math.sqrt(i / 90) * (radius - 18 * dpr);
       const rx = cx + r * Math.cos(angle);
       const ry = cy + r * Math.sin(angle);
-      const rSize = (i % 3) + 1;
+      const rSize = ((i % 3) + 1) * dpr * 0.8;
       ctx.beginPath();
       ctx.arc(rx, ry, rSize, 0, Math.PI * 2);
       ctx.fill();
@@ -88,35 +89,32 @@ export default function OpeningSplashScreen({ onComplete }) {
 
     // 3. Ornate Concentric Gold Filigree Rings
     ctx.strokeStyle = 'rgba(140, 105, 43, 0.7)';
-    ctx.lineWidth = 2.5;
+    ctx.lineWidth = 2.5 * dpr;
     ctx.beginPath();
-    ctx.arc(cx, cy, radius - 8, 0, Math.PI * 2);
+    ctx.arc(cx, cy, radius - 8 * dpr, 0, Math.PI * 2);
     ctx.stroke();
 
     ctx.strokeStyle = 'rgba(255, 245, 220, 0.8)';
-    ctx.lineWidth = 1.2;
-    ctx.setLineDash([4, 4]);
+    ctx.lineWidth = 1.2 * dpr;
+    ctx.setLineDash([4 * dpr, 4 * dpr]);
     ctx.beginPath();
-    ctx.arc(cx, cy, radius - 14, 0, Math.PI * 2);
+    ctx.arc(cx, cy, radius - 14 * dpr, 0, Math.PI * 2);
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // 4. Center Typography
+    // 4. Center Scratch Prompt Typography
     ctx.fillStyle = '#261706';
-    ctx.font = '700 11px Cinzel, serif';
+    ctx.font = `700 ${11 * dpr}px Cinzel, serif`;
     ctx.textAlign = 'center';
-    ctx.letterSpacing = '2.5px';
-    ctx.fillText('✦ ROYAL WEDDING ✦', cx, cy - 30);
+    ctx.fillText('✦ ROYAL WEDDING ✦', cx, cy - 30 * dpr);
 
     ctx.fillStyle = '#1A0E03';
-    ctx.font = 'bold 20px Cinzel, serif';
-    ctx.letterSpacing = '3px';
+    ctx.font = `bold ${20 * dpr}px Cinzel, serif`;
     ctx.fillText('SCRATCH TO REVEAL', cx, cy);
 
     ctx.fillStyle = '#3E280C';
-    ctx.font = 'italic 12px Cormorant Garamond, serif';
-    ctx.letterSpacing = '0.5px';
-    ctx.fillText('Touch or drag to reveal A & H', cx, cy + 26);
+    ctx.font = `italic ${12 * dpr}px Cormorant Garamond, serif`;
+    ctx.fillText('Touch or drag to reveal A & H', cx, cy + 26 * dpr);
 
     ctx.restore();
   }, []);
@@ -161,7 +159,7 @@ export default function OpeningSplashScreen({ onComplete }) {
       confettiFiredRef.current = true;
       try {
         confetti({
-          particleCount: 80,
+          particleCount: 85,
           angle: 60,
           spread: 80,
           origin: { x: 0.15, y: 0.65 },
@@ -169,7 +167,7 @@ export default function OpeningSplashScreen({ onComplete }) {
           ticks: 240,
         });
         confetti({
-          particleCount: 80,
+          particleCount: 85,
           angle: 120,
           spread: 80,
           origin: { x: 0.85, y: 0.65 },
@@ -178,8 +176,8 @@ export default function OpeningSplashScreen({ onComplete }) {
         });
         setTimeout(() => {
           confetti({
-            particleCount: 95,
-            spread: 105,
+            particleCount: 100,
+            spread: 110,
             origin: { x: 0.5, y: 0.55 },
             colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2'],
             ticks: 250,
@@ -188,32 +186,32 @@ export default function OpeningSplashScreen({ onComplete }) {
       } catch (e) {}
     }
 
-    // Transition smoothly to revealed card state after fireworks trigger
+    // Transition smoothly to revealed card state
     setTimeout(() => {
       setPhase('INVITATION_REVEALED');
     }, 400);
   }, [cardRevealed, unlockAndPlayAudio]);
 
-  // Calculate Scratched Area Percentage for Circular Geometry
+  // Calculate Scratched Area Percentage with high-performance sampling
   const checkScratchPercentage = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas || cardRevealed) return;
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
-    const dpr = window.devicePixelRatio || 1;
-    const width = Math.floor(canvas.offsetWidth * dpr);
-    const height = Math.floor(canvas.offsetHeight * dpr);
+    const width = canvas.width;
+    const height = canvas.height;
     const cx = width / 2;
     const cy = height / 2;
-    const rSquared = Math.pow((Math.min(width, height) / 2) - 6 * dpr, 2);
+    const radius = Math.min(width, height) / 2 - 4;
+    const rSquared = radius * radius;
 
     try {
       const imgData = ctx.getImageData(0, 0, width, height);
       const data = imgData.data;
       let clearPixels = 0;
       let totalInCircle = 0;
-      const step = 8; // High-precision sampling
+      const step = Math.max(6, Math.floor(width / 45)); // Sample ~45x45 grid for instant check
 
       for (let y = 0; y < height; y += step) {
         for (let x = 0; x < width; x += step) {
@@ -222,7 +220,7 @@ export default function OpeningSplashScreen({ onComplete }) {
           if (dx * dx + dy * dy <= rSquared) {
             totalInCircle++;
             const idx = (y * width + x) * 4 + 3;
-            if (data[idx] < 35) {
+            if (data[idx] < 60) {
               clearPixels++;
             }
           }
@@ -233,84 +231,136 @@ export default function OpeningSplashScreen({ onComplete }) {
         const percentage = Math.round((clearPixels / totalInCircle) * 100);
         setScratchPercent(percentage);
 
-        // Auto reveal strictly when reaching 87%
-        if (percentage >= 87) {
+        // Auto reveal at comfortable 38% threshold (a few natural finger/mouse swipes)
+        if (percentage >= 38) {
           triggerCompleteReveal();
         }
       }
     } catch (e) {}
   }, [cardRevealed, triggerCompleteReveal]);
 
-  // Pointer Scratch Handlers
-  const handlePointerDown = (e) => {
-    if (cardRevealed) return;
-    isPointerDownRef.current = true;
-    setIsScratching(true);
-    setHasInteractedScratch(true);
-    const rect = canvasRef.current.getBoundingClientRect();
-    lastPointRef.current = {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    };
-    scratchAt(lastPointRef.current.x, lastPointRef.current.y);
-  };
-
-  const handlePointerMove = (e) => {
-    if (!isPointerDownRef.current || cardRevealed) return;
-    const rect = canvasRef.current.getBoundingClientRect();
-    const currentPoint = {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    };
-
-    scratchLine(lastPointRef.current, currentPoint);
-    lastPointRef.current = currentPoint;
-
-    throttleCheckRef.current++;
-    if (throttleCheckRef.current % 6 === 0) {
-      checkScratchPercentage();
-    }
-  };
-
-  const handlePointerUp = () => {
-    isPointerDownRef.current = false;
-    setIsScratching(false);
-    checkScratchPercentage();
-  };
-
-  const scratchAt = (x, y) => {
+  // Soft, Feathered Radial Brush Scratching Function
+  const scratchPoint = (x, y) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Generous, comfortable brush radius: ~42px to 48px depending on canvas DPR
+    const brushRadius = Math.max(36, Math.round(canvas.width * 0.098));
+
     ctx.save();
     ctx.globalCompositeOperation = 'destination-out';
+
+    // Soft feathered radial gradient mask
+    const grad = ctx.createRadialGradient(x, y, brushRadius * 0.25, x, y, brushRadius);
+    grad.addColorStop(0, 'rgba(0, 0, 0, 1)');
+    grad.addColorStop(0.7, 'rgba(0, 0, 0, 0.95)');
+    grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+    ctx.fillStyle = grad;
     ctx.beginPath();
-    ctx.arc(x, y, 28, 0, Math.PI * 2);
+    ctx.arc(x, y, brushRadius, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   };
 
-  const scratchLine = (p1, p2) => {
-    const canvas = canvasRef.current;
-    if (!canvas || !p1 || !p2) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+  // Continuous Interpolation so fast dragging never leaves broken stroke gaps
+  const scratchInterpolated = (p1, p2) => {
+    if (!p1 || !p2) return;
+    const dx = p2.x - p1.x;
+    const dy = p2.y - p1.y;
+    const dist = Math.hypot(dx, dy);
+    const step = 8; // Step size in canvas pixels
+    const steps = Math.max(1, Math.ceil(dist / step));
 
-    ctx.save();
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.lineWidth = 55;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.beginPath();
-    ctx.moveTo(p1.x, p1.y);
-    ctx.lineTo(p2.x, p2.y);
-    ctx.stroke();
-    ctx.restore();
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const x = p1.x + dx * t;
+      const y = p1.y + dy * t;
+      scratchPoint(x, y);
+    }
   };
 
-  // Phase 1 -> 2: Curtain Opening Trigger (Cinematic 1.4s opening)
+  // Spawn visual sparkle feedback while scratching
+  const spawnSparkle = (clientX, clientY) => {
+    const id = Date.now() + Math.random();
+    setSparkles((prev) => [
+      ...prev.slice(-8), // Keep only recent particles for lightweight performance
+      { id, x: clientX, y: clientY },
+    ]);
+    setTimeout(() => {
+      setSparkles((prev) => prev.filter((s) => s.id !== id));
+    }, 600);
+  };
+
+  // Pointer Scratch Handlers (Works uniformly for finger touch, mouse, trackpad)
+  const handlePointerDown = (e) => {
+    if (cardRevealed) return;
+    e.preventDefault();
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch (err) {}
+
+    isPointerDownRef.current = true;
+    setIsScratching(true);
+    setHasInteractedScratch(true);
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
+    const pt = {
+      x: (e.clientX - rect.left) * scaleX,
+      y: (e.clientY - rect.top) * scaleY,
+    };
+    lastPointRef.current = pt;
+    scratchPoint(pt.x, pt.y);
+    spawnSparkle(e.clientX, e.clientY);
+  };
+
+  const handlePointerMove = (e) => {
+    if (!isPointerDownRef.current || cardRevealed) return;
+    e.preventDefault();
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
+    const currentPt = {
+      x: (e.clientX - rect.left) * scaleX,
+      y: (e.clientY - rect.top) * scaleY,
+    };
+
+    scratchInterpolated(lastPointRef.current, currentPt);
+    lastPointRef.current = currentPt;
+
+    if (Math.random() > 0.4) {
+      spawnSparkle(e.clientX, e.clientY);
+    }
+
+    throttleCheckRef.current++;
+    if (throttleCheckRef.current % 5 === 0) {
+      checkScratchPercentage();
+    }
+  };
+
+  const handlePointerUp = (e) => {
+    if (e?.currentTarget) {
+      try {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+    }
+    isPointerDownRef.current = false;
+    setIsScratching(false);
+    checkScratchPercentage();
+  };
+
+  // Phase 1 -> 2: Curtain Opening Trigger (Cinematic 1.4s 3D opening)
   const handleOpenCurtains = () => {
     if (phase !== 'CLOSED_CURTAINS' || isOpening) return;
     setIsOpening(true);
@@ -318,7 +368,7 @@ export default function OpeningSplashScreen({ onComplete }) {
     setPhase('CURTAIN_OPENING');
     unlockAndPlayAudio();
 
-    // Curtains glide smoothly away for exactly 1.4s (1400ms) before mounting the scratch card
+    // Curtains glide smoothly away with 3D depth for exactly 1.4s (1400ms)
     setTimeout(() => {
       setPhase('SCRATCH_INVITATION');
       setIsOpening(false);
@@ -361,7 +411,7 @@ export default function OpeningSplashScreen({ onComplete }) {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.03, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }}
           className="fixed inset-0 z-50 bg-[#FAF8F5] text-[#1B382B] select-none overflow-hidden"
-          style={{ perspective: '1600px' }}
+          style={{ perspective: '1400px' }}
           role="dialog"
           aria-modal="true"
           aria-label="Ahmed and Ayesha Wedding Invitation Opening Experience"
@@ -376,14 +426,27 @@ export default function OpeningSplashScreen({ onComplete }) {
           </button>
 
           {/* Ambient Radial Stage Glows (Strictly absolute positioned to prevent flex shift) */}
-          <div className="absolute w-[600px] h-[600px] bg-[#C5A059]/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[130px] pointer-events-none" />
+          <div className="absolute w-[600px] h-[600px] bg-[#C5A059]/12 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[130px] pointer-events-none" />
           <div className="absolute w-96 h-96 bg-[#2E5A45]/10 bottom-10 right-10 blur-[100px] pointer-events-none" />
+
+          {/* Floating Gold Sparkle Feedback while Scratching */}
+          {sparkles.map((sp) => (
+            <div
+              key={sp.id}
+              className="fixed pointer-events-none z-50 w-2.5 h-2.5 rounded-full bg-gradient-to-tr from-[#FFF2D6] to-[#C5A059] shadow-[0_0_12px_#E5C77A] animate-ping"
+              style={{
+                left: sp.x - 5,
+                top: sp.y - 5,
+                animationDuration: '600ms',
+              }}
+            />
+          ))}
 
           {/* ============================================================== */}
           {/* SCENE 3 & 4: INNER STAGE (Dead-Center Viewport Card Container) */}
           {/* ============================================================== */}
           {(phase === 'SCRATCH_INVITATION' || phase === 'INVITATION_REVEALED') && (
-            <div className="fixed inset-0 z-20 flex items-center justify-center p-4 pointer-events-auto overflow-y-auto">
+            <div className="fixed inset-0 z-20 flex items-center justify-center p-4 pointer-events-auto overflow-y-auto overscroll-none select-none">
               {/* Phase 3: Interactive Circular Scratch Card */}
               {phase === 'SCRATCH_INVITATION' && (
                 <motion.div
@@ -400,14 +463,14 @@ export default function OpeningSplashScreen({ onComplete }) {
                     className="mb-4 sm:mb-5 flex items-center gap-2 px-5 py-2 rounded-full bg-[#FFFDF9] border border-[#C5A059]/60 text-[#1B382B] text-xs font-cinzel tracking-wider uppercase shadow-md"
                   >
                     <Sparkles className="w-3.5 h-3.5 text-[#B89047] animate-pulse" />
-                    <span>Scratch Card to Reveal The Invitation</span>
+                    <span>Swipe or drag finger to reveal</span>
                     <Sparkles className="w-3.5 h-3.5 text-[#B89047] animate-pulse" />
                   </motion.div>
 
                   {/* Circular Scratch Card */}
-                  <div className="relative w-[320px] h-[320px] sm:w-[380px] sm:h-[380px] md:w-[410px] md:h-[410px] max-w-[85vw] max-h-[85vw] aspect-square rounded-full border-4 border-[#C5A059] p-2 bg-[#FAF8F5] shadow-[0_15px_50px_rgba(27,56,43,0.14)] overflow-hidden">
+                  <div className="relative w-[320px] h-[320px] sm:w-[380px] sm:h-[380px] md:w-[410px] md:h-[410px] max-w-[85vw] max-h-[85vw] aspect-square rounded-full border-4 border-[#C5A059] p-2 bg-[#FAF8F5] shadow-[0_15px_50px_rgba(27,56,43,0.14)] overflow-hidden touch-none select-none">
                     {/* UNDERNEATH LAYER (The Hidden Ahmed & Ayesha Card) */}
-                    <div className="absolute inset-2 rounded-full bg-[#FFFDF9] flex flex-col items-center justify-center p-6 text-center border-2 border-[#C5A059]/40 overflow-hidden">
+                    <div className="absolute inset-2 rounded-full bg-[#FFFDF9] flex flex-col items-center justify-center p-6 text-center border-2 border-[#C5A059]/40 overflow-hidden pointer-events-none select-none">
                       <div className="absolute inset-0 botanical-dots opacity-30 pointer-events-none" />
 
                       <span className="font-cinzel text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[#756A5E] block mb-1">
@@ -433,8 +496,8 @@ export default function OpeningSplashScreen({ onComplete }) {
                         onPointerMove={handlePointerMove}
                         onPointerUp={handlePointerUp}
                         onPointerCancel={handlePointerUp}
-                        className="absolute inset-2 rounded-full w-[calc(100%-16px)] h-[calc(100%-16px)] z-10 cursor-pointer touch-none"
-                        style={{ touchAction: 'none' }}
+                        className="absolute inset-2 rounded-full w-[calc(100%-16px)] h-[calc(100%-16px)] z-10 cursor-pointer touch-none select-none"
+                        style={{ touchAction: 'none', WebkitTouchCallout: 'none' }}
                       />
                     )}
 
@@ -458,7 +521,7 @@ export default function OpeningSplashScreen({ onComplete }) {
                   {/* Scratch Progress & Instant Reveal Fallback */}
                   <div className="mt-5 flex items-center justify-between gap-4 w-full max-w-[380px] px-3">
                     <span className="text-xs font-mono text-[#756A5E]">
-                      {scratchPercent > 0 ? `${scratchPercent}% Scratched (87% required)` : 'Scratch card with finger or mouse'}
+                      {scratchPercent > 0 ? `${scratchPercent}% revealed` : 'Swipe finger or drag mouse'}
                     </span>
 
                     <button
@@ -593,9 +656,7 @@ export default function OpeningSplashScreen({ onComplete }) {
           )}
 
           {/* ============================================================== */}
-          {/* ISSUE 1 FIX: MATHEMATICALLY DEAD-CENTERED H&A LOGO & SEAL      */}
-          {/* Spans fixed inset-0 using pure Flexbox centering. No translate */}
-          {/* classes on the button so transforms never shift it sideways.  */}
+          {/* CENTERED H&A LOGO & MEDALLION BUTTON (STRICT VIEWPORT CENTER)  */}
           {/* ============================================================== */}
           <div className="fixed inset-0 z-50 flex flex-col items-center justify-center pointer-events-none p-4">
             <motion.button
@@ -638,7 +699,7 @@ export default function OpeningSplashScreen({ onComplete }) {
                 )}
               </div>
 
-              {/* Click / Tap Prompt Pill (Fades cleanly during curtain opening) */}
+              {/* Click / Tap Prompt Pill */}
               <motion.div
                 animate={{
                   opacity: curtainsOpened ? 0 : 1,
@@ -655,105 +716,117 @@ export default function OpeningSplashScreen({ onComplete }) {
           </div>
 
           {/* ============================================================== */}
-          {/* ISSUE 2 FIX: CINEMATIC CURTAINS WITH 1.4s SMOOTH CSS MOTION    */}
-          {/* Pure GPU-accelerated translate3d transition; immune to Framer  */}
-          {/* motion unit conflicts and OS reduced-motion bypass bugs.       */}
+          {/* 3D THEATRICAL VELVET CURTAINS WITH REALISTIC FOLDS & DEPTH     */}
           {/* ============================================================== */}
 
           {/* LEFT CURTAIN PANEL */}
           <div
             onClick={handleOpenCurtains}
-            className={`absolute top-0 left-0 w-1/2 h-full z-30 shadow-[35px_0_70px_rgba(0,0,0,0.95)] ${
+            className={`absolute top-0 left-0 w-1/2 h-full z-30 shadow-[35px_0_75px_rgba(0,0,0,0.85)] ${
               !curtainsOpened ? 'cursor-pointer' : 'pointer-events-none'
             }`}
             style={{
               transformOrigin: 'top left',
               transform: curtainsOpened
-                ? 'translate3d(-105%, -18%, 0) rotate(-4.5deg)'
-                : 'translate3d(0, 0, 0) rotate(0deg)',
+                ? 'translate3d(-108%, -15%, -100px) rotateY(-20deg) rotate(-3.5deg)'
+                : 'translate3d(0, 0, 0) rotateY(0deg) rotate(0deg)',
               opacity: curtainsOpened ? 0 : 1,
               transition: 'transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1)',
               willChange: 'transform, opacity',
+              boxShadow: 'inset 0 -40px 90px rgba(0,0,0,0.22), inset 0 50px 80px rgba(0,0,0,0.25), 35px 0 75px rgba(0,0,0,0.85)',
               background: `
                 linear-gradient(to right,
-                  #c8bea8 0%,
-                  #eee6d5 14%,
-                  #dfd4be 28%,
-                  #fcf9f2 44%,
-                  #dcd1be 58%,
-                  #f2ebdb 76%,
-                  #c2b59f 100%
+                  #c2b79f 0%,
+                  #eae1cd 14%,
+                  #dbcfb7 28%,
+                  #faf6ec 44%,
+                  #d8cca7 58%,
+                  #eee5d3 76%,
+                  #bfae92 100%
                 )
               `,
             }}
           >
-            {/* Vertical Fabric Folds & Lighting */}
+            {/* Multi-layered Velvet Folds with Cylindrical Shading */}
             <div
-              className="absolute inset-0 opacity-55 pointer-events-none"
+              className="absolute inset-0 opacity-65 pointer-events-none"
               style={{
                 backgroundImage: `
                   repeating-linear-gradient(
                     to right,
-                    rgba(90, 78, 62, 0.38) 0px,
-                    rgba(130, 118, 98, 0.16) 18px,
-                    rgba(255, 255, 255, 0.6) 36px,
-                    rgba(80, 68, 52, 0.4) 54px
+                    rgba(35, 26, 15, 0.45) 0px,
+                    rgba(75, 62, 42, 0.22) 13px,
+                    rgba(255, 255, 255, 0.65) 26px,
+                    rgba(246, 236, 218, 0.9) 34px,
+                    rgba(105, 90, 65, 0.28) 46px,
+                    rgba(35, 26, 15, 0.45) 58px
                   )
                 `,
               }}
             />
 
-            {/* Golden Velvet Trim */}
-            <div className="absolute top-0 right-0 bottom-0 w-4 bg-gradient-to-r from-[#B89047] via-[#F4E3B5] to-[#8C692B] shadow-xl" />
-            <div className="absolute top-0 right-4 bottom-0 w-1.5 bg-[#EAD7A5]/60" />
+            {/* Stage Valance Top Shadow & Vignette */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/35 pointer-events-none" />
+
+            {/* Ornate Gold Velvet Trim & Inner Border */}
+            <div className="absolute top-0 right-0 bottom-0 w-4 bg-gradient-to-r from-[#B89047] via-[#FCE9B8] via-[#D4AF37] to-[#8C692B] shadow-2xl" />
+            <div className="absolute top-0 right-4 bottom-0 w-1.5 bg-[#EAD7A5]/70" />
+            <div className="absolute top-0 right-6 bottom-0 w-0.5 bg-black/20" />
           </div>
 
           {/* RIGHT CURTAIN PANEL */}
           <div
             onClick={handleOpenCurtains}
-            className={`absolute top-0 right-0 w-1/2 h-full z-30 shadow-[-35px_0_70px_rgba(0,0,0,0.95)] ${
+            className={`absolute top-0 right-0 w-1/2 h-full z-30 shadow-[-35px_0_75px_rgba(0,0,0,0.85)] ${
               !curtainsOpened ? 'cursor-pointer' : 'pointer-events-none'
             }`}
             style={{
               transformOrigin: 'top right',
               transform: curtainsOpened
-                ? 'translate3d(105%, -18%, 0) rotate(4.5deg)'
-                : 'translate3d(0, 0, 0) rotate(0deg)',
+                ? 'translate3d(108%, -15%, -100px) rotateY(20deg) rotate(3.5deg)'
+                : 'translate3d(0, 0, 0) rotateY(0deg) rotate(0deg)',
               opacity: curtainsOpened ? 0 : 1,
               transition: 'transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1)',
               willChange: 'transform, opacity',
+              boxShadow: 'inset 0 -40px 90px rgba(0,0,0,0.22), inset 0 50px 80px rgba(0,0,0,0.25), -35px 0 75px rgba(0,0,0,0.85)',
               background: `
                 linear-gradient(to left,
-                  #c8bea8 0%,
-                  #eee6d5 14%,
-                  #dfd4be 28%,
-                  #fcf9f2 44%,
-                  #dcd1be 58%,
-                  #f2ebdb 76%,
-                  #c2b59f 100%
+                  #c2b79f 0%,
+                  #eae1cd 14%,
+                  #dbcfb7 28%,
+                  #faf6ec 44%,
+                  #d8cca7 58%,
+                  #eee5d3 76%,
+                  #bfae92 100%
                 )
               `,
             }}
           >
-            {/* Vertical Fabric Folds & Lighting */}
+            {/* Multi-layered Velvet Folds with Cylindrical Shading */}
             <div
-              className="absolute inset-0 opacity-55 pointer-events-none"
+              className="absolute inset-0 opacity-65 pointer-events-none"
               style={{
                 backgroundImage: `
                   repeating-linear-gradient(
                     to left,
-                    rgba(90, 78, 62, 0.38) 0px,
-                    rgba(130, 118, 98, 0.16) 18px,
-                    rgba(255, 255, 255, 0.6) 36px,
-                    rgba(80, 68, 52, 0.4) 54px
+                    rgba(35, 26, 15, 0.45) 0px,
+                    rgba(75, 62, 42, 0.22) 13px,
+                    rgba(255, 255, 255, 0.65) 26px,
+                    rgba(246, 236, 218, 0.9) 34px,
+                    rgba(105, 90, 65, 0.28) 46px,
+                    rgba(35, 26, 15, 0.45) 58px
                   )
                 `,
               }}
             />
 
-            {/* Golden Velvet Trim */}
-            <div className="absolute top-0 left-0 bottom-0 w-4 bg-gradient-to-l from-[#B89047] via-[#F4E3B5] to-[#8C692B] shadow-xl" />
-            <div className="absolute top-0 left-4 bottom-0 w-1.5 bg-[#EAD7A5]/60" />
+            {/* Stage Valance Top Shadow & Vignette */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/35 pointer-events-none" />
+
+            {/* Ornate Gold Velvet Trim & Inner Border */}
+            <div className="absolute top-0 left-0 bottom-0 w-4 bg-gradient-to-l from-[#B89047] via-[#FCE9B8] via-[#D4AF37] to-[#8C692B] shadow-2xl" />
+            <div className="absolute top-0 left-4 bottom-0 w-1.5 bg-[#EAD7A5]/70" />
+            <div className="absolute top-0 left-6 bottom-0 w-0.5 bg-black/20" />
           </div>
         </motion.div>
       </AnimatePresence>

@@ -57,18 +57,18 @@ export const weddingData = {
     autoplay_prompt: 1
   },
 
-  // Exactly TWO Wedding Functions: Shandi & Walima
+  // Exactly TWO Wedding Functions: Shanti The Grand & Walima
   events: [
     {
       id: 'event-shandi',
       slug: 'shandi',
-      name: 'Shandi',
+      name: 'Shanti The Grand',
       event_day: 'Saturday',
       event_date: '2027-03-27',
       formatted_date: 'Saturday, 27 March 2027',
       start_time: '08:00 PM',
       end_time: '11:30 PM',
-      tagline: 'The Grand Wedding Celebration & Barat',
+      tagline: 'Wedding Celebration & Baraat',
       description: 'The auspicious centerpiece of our celebrations. Under divine blessings, the sacred marriage ceremony will be recited, followed by the grand royal dinner reception welcoming Ahmed, Ayesha, and honored guests.',
       venue_name: 'The Nishat Grand Ballroom (Emporium)',
       venue_address: 'Abdul Haque Road, Commercial Area Phase 2, Johar Town, Lahore, Pakistan',
@@ -76,7 +76,10 @@ export const weddingData = {
       google_maps_url: 'https://maps.google.com/?q=The+Nishat+Hotel+Johar+Town+Lahore',
       cover_image_url: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=1000&q=80',
       dress_code: 'Royal Formal / Sherwani, Formal Dark Suits & Heavily Embellished Bridal Formals',
-      additional_notes: 'Dedicated valet parking at Emporium East Ballroom Gate. Ceremony commences at 08:30 PM sharp.',
+      color_palette: 'Emerald Green, Antique Gold, Deep Crimson & Regal Ivory',
+      menu_details: 'Royal Mughlai Banquet • Live Barbecue & Mutton Karahi, Roghani Naan, Traditional Kashmiri Chai & Lahori Kheer (Banquet served at 09:45 PM)',
+      hospitality_notes: 'Dedicated valet parking at Emporium East Ballroom Gate. Guests are requested to be seated by 08:30 PM.',
+      additional_notes: 'Ahmed & Ayesha warmly invite you to share this sacred milestone with prayers and joyous family portraits.',
       program_highlights: 'Baraat Arrival at 8:00 PM • Sacred Ceremony at 8:45 PM • Royal Dinner Banquet at 9:45 PM • Rukhsati at 11:15 PM',
       display_order: 1,
       is_active: 1
@@ -84,7 +87,7 @@ export const weddingData = {
     {
       id: 'event-walima',
       slug: 'walima',
-      name: 'Walima',
+      name: 'Walima Grand Reception',
       event_day: 'Sunday',
       event_date: '2027-03-28',
       formatted_date: 'Sunday, 28 March 2027',
@@ -98,7 +101,10 @@ export const weddingData = {
       google_maps_url: 'https://maps.google.com/?q=Defence+Raya+Golf+and+Country+Club+Lahore',
       cover_image_url: 'https://images.unsplash.com/photo-1519225424982-f79a957a0752?auto=format&fit=crop&w=1000&q=80',
       dress_code: 'Formal Black Tie / Tuxedos, Dark Suits, Pastel Chiffons & Raw Silks',
-      additional_notes: 'Live acoustic instrumental sitar and shehnai melodies throughout dinner. Valet available at Main Clubhouse entrance.',
+      color_palette: 'Soft Champagne, Slate Blue, Blush Pink & Rose Gold',
+      menu_details: 'Continental & Oriental Fusion Buffet • Live Carving Stations, Artisanal Pastries & Starlit Terrace Refreshments (Banquet served at 09:45 PM)',
+      hospitality_notes: 'Valet parking available at Main Clubhouse entrance. Live acoustic sitar and shehnai melodies throughout dinner.',
+      additional_notes: 'Hosted with profound gratitude by the Groom’s family to celebrate our new beginning.',
       program_highlights: 'Guest Reception at 8:00 PM • Couple Grand Entry at 8:45 PM • Family Felicitations at 9:15 PM • Gourmet Dinner at 9:45 PM',
       display_order: 2,
       is_active: 1

@@ -14,6 +14,10 @@ import {
   ListOrdered,
   Info,
   ExternalLink,
+  UtensilsCrossed,
+  Palette,
+  FileText,
+  CheckCircle2,
 } from 'lucide-react';
 import EventCard from './EventCard';
 import ImageWithFallback from '../ui/ImageWithFallback';
@@ -64,94 +68,77 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
     };
   }, [selectedEvent]);
 
-  if (!events || events.length === 0) return null;
-
   return (
-    <section id="timeline" className="relative py-24 sm:py-32 px-4 sm:px-6 overflow-hidden bg-[#FAF8F5]">
-      {/* Decorative Background Elements */}
-      <div className="absolute inset-0 botanical-dots opacity-30 pointer-events-none" />
+    <section
+      id="events"
+      className="relative py-20 sm:py-28 bg-[#FAF8F5] text-[#1B382B] overflow-hidden"
+    >
+      {/* Background Decorative Floral Accents */}
+      <div className="absolute top-12 -left-16 opacity-30 pointer-events-none">
+        <BotanicalFloralSprig className="scale-125" />
+      </div>
+      <div className="absolute bottom-16 -right-16 opacity-30 pointer-events-none transform -scale-x-125">
+        <BotanicalFloralSprig />
+      </div>
 
-      <div className="max-w-5xl mx-auto relative z-10">
-        {/* ============================================================== */}
-        {/* REFERENCE B: BEAUTIFUL SCRIPT-STYLE HEADING FOR PROGRAM TIMELINE*/}
-        {/* ============================================================== */}
-        <div className="text-center mb-16 sm:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center justify-center gap-2 mb-1.5"
-          >
-            <DelicateHeart size={14} className="text-[#B89047]" />
-            <p className="font-cinzel text-xs tracking-[0.35em] uppercase text-[#B89047] font-semibold">
-              {isPersonalized ? 'Your Personal Itinerary' : 'Schedule of Celebrations'}
-            </p>
-            <DelicateHeart size={14} className="text-[#B89047]" />
-          </motion.div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center max-w-2xl mx-auto mb-14 sm:mb-20"
+        >
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <BotanicalHeaderArch className="scale-90" />
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="font-script text-5xl sm:text-6xl lg:text-7xl text-[#1B382B] leading-none my-2 drop-shadow-sm select-none"
-          >
-            Program Timeline
-          </motion.h2>
+          <span className="font-cinzel text-xs tracking-[0.35em] uppercase text-[#756A5E] block mb-2 font-medium">
+            Wedding Itinerary
+          </span>
 
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-sm sm:text-base text-[#5D5347] max-w-xl mx-auto mt-2 font-serif italic"
-          >
-            {isPersonalized
-              ? 'You are warmly invited to honor us with your gracious presence at the following functions.'
-              : 'Join us across our memorable multi-day Pakistani wedding festivities in Lahore.'}
-          </motion.p>
+          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#1B382B] tracking-tight">
+            Schedule & Celebrations
+          </h2>
 
-          <FloralDivider variant="gold" className="mt-4" />
-        </div>
+          <FloralDivider className="my-3" />
 
-        {/* ============================================================== */}
-        {/* REFERENCE B: VERTICAL TIMELINE WITH CONNECTING LINES & MARKERS */}
-        {/* ============================================================== */}
+          <p className="font-serif italic text-base sm:text-lg text-[#5D5347] max-w-lg mx-auto leading-relaxed">
+            "Join our families in celebrating two blessed occasions of prayers, dinner, and togetherness."
+          </p>
+        </motion.div>
+
+        {/* Vertical Timeline Container */}
         <div className="relative">
-          {/* Continuous Vertical Timeline Line (Center on desktop, Left on mobile) */}
-          <div className="absolute top-8 bottom-8 left-4 md:left-1/2 -translate-x-1/2 w-[2px] bg-gradient-to-b from-[#C5A059]/20 via-[#C5A059]/75 to-[#C5A059]/20 pointer-events-none" />
+          {/* Central Connecting Vertical Line (Desktop only) */}
+          <div className="hidden md:block absolute left-1/2 top-4 bottom-8 -translate-x-1/2 w-[1.5px] bg-gradient-to-b from-[#C5A059]/10 via-[#C5A059]/40 to-[#C5A059]/10 pointer-events-none" />
 
-          <div className="space-y-12 md:space-y-16">
+          {/* Timeline Event Cards */}
+          <div className="space-y-12 sm:space-y-16">
             {events.map((event, index) => {
               const isEven = index % 2 === 0;
 
               return (
                 <div
-                  key={event.id || event.slug}
-                  className={`relative flex flex-col md:flex-row items-center ${
-                    isEven ? 'md:flex-row-reverse' : ''
+                  key={event.id || index}
+                  className={`relative flex flex-col md:flex-row items-center gap-8 ${
+                    isEven ? 'md:flex-row' : 'md:flex-row-reverse'
                   }`}
                 >
-                  {/* Timeline Node Marker (Center ring with heart) */}
-                  <div className="absolute left-4 md:left-1/2 -translate-x-1/2 z-20 flex items-center justify-center">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#FFFDF9] border-2 border-[#C5A059] shadow-md flex items-center justify-center text-[#B89047]"
-                    >
-                      <DelicateHeart size={14} className="text-[#B89047]" />
-                    </motion.div>
+                  {/* Central Node Marker on Desktop Connecting Line */}
+                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 z-20 items-center justify-center w-10 h-10 rounded-full bg-[#FFFDF9] border-2 border-[#C5A059] shadow-md">
+                    <span className="font-cinzel text-xs font-bold text-[#1B382B]">
+                      {index + 1}
+                    </span>
                   </div>
 
-                  {/* Left / Right Card Container */}
-                  <div className="w-full pl-12 md:pl-0 md:w-1/2 md:px-8">
+                  {/* Card Column */}
+                  <div className="w-full md:w-1/2 md:px-6">
                     <EventCard
                       event={event}
                       index={index}
                       onSelectEvent={handleSelectEvent}
-                      isTimelineItem={true}
                     />
                   </div>
 
@@ -165,7 +152,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
       </div>
 
       {/* ============================================================== */}
-      {/* IN-PLACE EVENT DETAILS VIEW / MODAL WITH ZERO RELOAD           */}
+      {/* IN-PLACE STRUCTURED FULL DETAILS MODAL                         */}
       {/* ============================================================== */}
       <AnimatePresence>
         {selectedEvent && (
@@ -188,14 +175,14 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
               onClick={(e) => e.stopPropagation()}
               className="relative w-full max-w-3xl my-auto rounded-[32px] border-2 border-[#C5A059]/60 bg-[#FAF8F5] text-[#1B382B] shadow-[0_25px_60px_rgba(27,56,43,0.18)] overflow-hidden max-h-[92vh] flex flex-col"
             >
-              {/* Sticky Top Navigation Bar with Back Button */}
-              <div className="sticky top-0 z-30 flex items-center justify-between px-5 sm:px-7 py-4 bg-[#FAF8F5]/98 backdrop-blur-md border-b border-[#E3D8C4]">
+              {/* Sticky Top Navigation Bar */}
+              <div className="sticky top-0 z-30 flex items-center justify-between px-5 sm:px-7 py-3.5 bg-[#FAF8F5]/98 backdrop-blur-md border-b border-[#E3D8C4]">
                 <button
                   onClick={handleCloseModal}
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-xs font-cinzel font-semibold uppercase tracking-wider transition-all cursor-pointer shadow-sm"
                 >
                   <ArrowLeft className="w-4 h-4" />
-                  <span>Back to Program Timeline</span>
+                  <span>Back to Timeline</span>
                 </button>
 
                 <button
@@ -210,7 +197,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
               {/* Scrollable Modal Content */}
               <div className="overflow-y-auto flex-1 p-5 sm:p-8 space-y-6">
                 {/* Hero Cover Banner */}
-                <div className="relative h-56 sm:h-72 w-full rounded-2xl overflow-hidden bg-[#F5EFE6] border border-[#C5A059]/30">
+                <div className="relative h-48 sm:h-64 w-full rounded-2xl overflow-hidden bg-[#F5EFE6] border border-[#C5A059]/30">
                   <ImageWithFallback
                     src={
                       selectedEvent.cover_image_url ||
@@ -220,138 +207,178 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                     className="w-full h-full object-cover"
                     containerClassName="w-full h-full"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1B382B]/85 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1B382B]/90 via-[#1B382B]/30 to-transparent pointer-events-none" />
 
                   {/* Title Overlay in Banner */}
                   <div className="absolute bottom-4 left-5 right-5 z-10">
                     <span className="font-cinzel text-xs uppercase tracking-[0.3em] text-[#EAD7A5] block mb-1">
-                      Ceremony Itinerary
+                      Wedding Celebration Details
                     </span>
                     <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white">
                       {selectedEvent.name}
                     </h2>
                     {selectedEvent.tagline && (
-                      <p className="font-serif text-sm sm:text-base text-[#F5EFE6] italic mt-1 font-light">
+                      <p className="font-serif text-sm sm:text-base text-[#F5EFE6] italic mt-0.5 font-light">
                         {selectedEvent.tagline}
                       </p>
                     )}
                   </div>
-
-                  {/* Audio Track Play Button */}
-                  {selectedEvent.music_url && (
-                    <button
-                      onClick={() => playCustomTrack(selectedEvent.music_url, selectedEvent.name)}
-                      className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1B382B] text-[#FAF8F5] text-xs font-semibold shadow-lg hover:bg-[#B89047] transition-all cursor-pointer"
-                      title="Play ceremony track"
-                    >
-                      <Music className="w-3.5 h-3.5" />
-                      <span>Play Track</span>
-                    </button>
-                  )}
                 </div>
 
-                {/* Key Facts Summary Matrix */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-sm">
-                  <div className="flex items-start gap-3">
-                    <div className="p-2.5 rounded-xl bg-[#FAF8F5] border border-[#C5A059]/30 text-[#B89047] shrink-0">
-                      <Calendar className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <span className="font-cinzel text-[10px] uppercase tracking-wider text-[#756A5E] block">
-                        Date
+                {/* ========================================================== */}
+                {/* 1. EVENT INFORMATION                                       */}
+                {/* ========================================================== */}
+                <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
+                  <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
+                    <Info className="w-4 h-4 text-[#B89047]" />
+                    <h3 className="font-cinzel text-xs uppercase tracking-widest font-bold text-[#1B382B]">
+                      1. Event Information
+                    </h3>
+                  </div>
+
+                  {/* Details Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                    <div className="p-3 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
+                      <span className="font-cinzel text-[10px] uppercase text-[#756A5E] block font-semibold">
+                        Function Date
                       </span>
-                      <p className="font-serif text-sm sm:text-base font-bold text-[#1B382B] mt-0.5">
+                      <p className="font-serif text-sm font-bold text-[#1B382B] mt-1">
                         {selectedEvent.formatted_date || selectedEvent.event_date}
                       </p>
                     </div>
-                  </div>
 
-                  <div className="flex items-start gap-3">
-                    <div className="p-2.5 rounded-xl bg-[#FAF8F5] border border-[#C5A059]/30 text-[#B89047] shrink-0">
-                      <Clock className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <span className="font-cinzel text-[10px] uppercase tracking-wider text-[#756A5E] block">
+                    <div className="p-3 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
+                      <span className="font-cinzel text-[10px] uppercase text-[#756A5E] block font-semibold">
                         Timings
                       </span>
-                      <p className="font-serif text-sm sm:text-base font-bold text-[#1B382B] mt-0.5">
+                      <p className="font-serif text-sm font-bold text-[#1B382B] mt-1">
                         {selectedEvent.start_time} {selectedEvent.end_time ? `— ${selectedEvent.end_time}` : ''}
                       </p>
                     </div>
-                  </div>
 
-                  <div className="flex items-start gap-3 sm:col-span-2 lg:col-span-1">
-                    <div className="p-2.5 rounded-xl bg-[#FAF8F5] border border-[#C5A059]/30 text-[#B89047] shrink-0">
-                      <MapPin className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <span className="font-cinzel text-[10px] uppercase tracking-wider text-[#756A5E] block">
+                    <div className="p-3 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
+                      <span className="font-cinzel text-[10px] uppercase text-[#756A5E] block font-semibold">
                         Venue
                       </span>
-                      <p className="font-serif text-sm sm:text-base font-bold text-[#1B382B] mt-0.5">
+                      <p className="font-serif text-sm font-bold text-[#1B382B] mt-1 truncate" title={selectedEvent.venue_name}>
                         {selectedEvent.venue_name}
                       </p>
-                      <p className="text-[11px] text-[#756A5E] mt-0.5">
+                      <p className="text-[11px] text-[#756A5E] mt-0.5 truncate">
                         {selectedEvent.venue_address || selectedEvent.city}
                       </p>
                     </div>
                   </div>
-                </div>
 
-                {/* About & Description */}
-                <div>
-                  <h3 className="font-serif text-xl font-bold text-[#1B382B] mb-2">
-                    About This Celebration
-                  </h3>
-                  <p className="text-[#5D5347] text-sm sm:text-base leading-relaxed font-light whitespace-pre-line">
-                    {selectedEvent.description}
-                  </p>
-                </div>
+                  {/* Description */}
+                  {selectedEvent.description && (
+                    <p className="text-[#5D5347] text-xs sm:text-sm leading-relaxed mb-3 font-light">
+                      {selectedEvent.description}
+                    </p>
+                  )}
 
-                {/* Program Timeline & Schedule */}
-                {selectedEvent.program_highlights && (
-                  <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4]">
-                    <div className="flex items-center gap-2 mb-2 text-[#1B382B]">
-                      <ListOrdered className="w-4 h-4 text-[#B89047]" />
-                      <h4 className="font-cinzel text-xs uppercase tracking-wider font-bold">
-                        Program Schedule & Highlights
-                      </h4>
+                  {/* Schedule & Highlights */}
+                  {selectedEvent.program_highlights && (
+                    <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2] flex items-start gap-2.5">
+                      <ListOrdered className="w-4 h-4 text-[#B89047] shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-cinzel text-[10px] uppercase text-[#756A5E] font-bold block mb-0.5">
+                          Schedule & Highlights
+                        </span>
+                        <p className="text-xs text-[#1B382B] leading-relaxed">
+                          {selectedEvent.program_highlights}
+                        </p>
+                      </div>
                     </div>
-                    <p className="text-xs sm:text-sm text-[#5D5347] leading-relaxed">
-                      {selectedEvent.program_highlights}
+                  )}
+                </div>
+
+                {/* ========================================================== */}
+                {/* 2. DRESS CODE & COLOR PALETTE                              */}
+                {/* ========================================================== */}
+                <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
+                  <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
+                    <Shirt className="w-4 h-4 text-[#B89047]" />
+                    <h3 className="font-cinzel text-xs uppercase tracking-widest font-bold text-[#1B382B]">
+                      2. Dress Code & Color Palette
+                    </h3>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
+                      <span className="font-cinzel text-[10px] uppercase text-[#756A5E] font-bold block mb-1">
+                        Dress Code
+                      </span>
+                      <p className="text-xs sm:text-sm text-[#1B382B] font-medium leading-relaxed">
+                        {selectedEvent.dress_code || 'Royal Formal / Sherwani, Formal Suits & Heavily Embellished Formals'}
+                      </p>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <Palette className="w-3.5 h-3.5 text-[#B89047]" />
+                        <span className="font-cinzel text-[10px] uppercase text-[#756A5E] font-bold">
+                          Recommended Color Palette
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm text-[#1B382B] font-medium leading-relaxed">
+                        {selectedEvent.color_palette || 'Emerald Green, Antique Gold, Deep Crimson & Regal Ivory'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ========================================================== */}
+                {/* 3. MENU & REFRESHMENTS                                     */}
+                {/* ========================================================== */}
+                <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
+                  <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
+                    <UtensilsCrossed className="w-4 h-4 text-[#B89047]" />
+                    <h3 className="font-cinzel text-xs uppercase tracking-widest font-bold text-[#1B382B]">
+                      3. Menu & Dining Information
+                    </h3>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
+                    <p className="text-xs sm:text-sm text-[#1B382B] leading-relaxed">
+                      {selectedEvent.menu_details || 'Royal Mughlai Banquet • Live Barbecue & Mutton Karahi, Roghani Naan, Traditional Kashmiri Chai & Lahori Desserts (Banquet service begins at 09:45 PM)'}
                     </p>
                   </div>
-                )}
+                </div>
 
-                {/* Dress Code & Hospitality Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {selectedEvent.dress_code && (
-                    <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] flex items-start gap-3">
-                      <Shirt className="w-4 h-4 text-[#B89047] shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-cinzel text-[10px] uppercase text-[#756A5E] tracking-wider block">
-                          Dress Code
-                        </span>
-                        <p className="text-xs sm:text-sm text-[#1B382B] mt-0.5 font-medium">
-                          {selectedEvent.dress_code}
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                {/* ========================================================== */}
+                {/* 4. HOSPITALITY NOTES                                       */}
+                {/* ========================================================== */}
+                <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
+                  <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
+                    <CheckCircle2 className="w-4 h-4 text-[#B89047]" />
+                    <h3 className="font-cinzel text-xs uppercase tracking-widest font-bold text-[#1B382B]">
+                      4. Hospitality Notes
+                    </h3>
+                  </div>
 
-                  {selectedEvent.additional_notes && (
-                    <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] flex items-start gap-3">
-                      <Info className="w-4 h-4 text-[#B89047] shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-cinzel text-[10px] uppercase text-[#756A5E] tracking-wider block">
-                          Hospitality Note
-                        </span>
-                        <p className="text-xs sm:text-sm text-[#756A5E] italic mt-0.5">
-                          {selectedEvent.additional_notes}
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                  <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
+                    <p className="text-xs sm:text-sm text-[#5D5347] leading-relaxed">
+                      {selectedEvent.hospitality_notes || selectedEvent.additional_notes || 'Dedicated valet parking available. Guests are warmly requested to arrive on time.'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* ========================================================== */}
+                {/* 5. ADDITIONAL INFORMATION                                  */}
+                {/* ========================================================== */}
+                <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
+                  <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
+                    <FileText className="w-4 h-4 text-[#B89047]" />
+                    <h3 className="font-cinzel text-xs uppercase tracking-widest font-bold text-[#1B382B]">
+                      5. Additional Information
+                    </h3>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
+                    <p className="text-xs sm:text-sm text-[#5D5347] leading-relaxed">
+                      {selectedEvent.additional_notes || 'Ahmed & Ayesha warmly invite you to join them in heartfelt prayers and joyous celebrations.'}
+                    </p>
+                  </div>
                 </div>
 
                 {/* Action CTAs: Driving Directions & Calendar */}
@@ -377,7 +404,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                       const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
                         `Ahmed & Ayesha: ${selectedEvent.name}`
                       )}&dates=${startIso}/${endIso}&details=${encodeURIComponent(
-                        `${selectedEvent.description || ''}\n\nDress Code: ${selectedEvent.dress_code || 'Formal'}`
+                        `${selectedEvent.description || ''}\n\nDress Code: ${selectedEvent.dress_code || 'Formal'}\nVenue: ${selectedEvent.venue_name}`
                       )}&location=${encodeURIComponent(`${selectedEvent.venue_name}, ${selectedEvent.venue_address || selectedEvent.city}`)}`;
                       window.open(url, '_blank');
                     }}
@@ -389,7 +416,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                 </div>
 
                 {/* Bottom Back Button */}
-                <div className="pt-6 border-t border-[#E3D8C4] flex justify-center">
+                <div className="pt-4 border-t border-[#E3D8C4] flex justify-center">
                   <button
                     onClick={handleCloseModal}
                     className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-xs font-cinzel font-semibold uppercase tracking-wider transition-all cursor-pointer shadow-md"
