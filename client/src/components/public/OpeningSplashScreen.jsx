@@ -10,29 +10,12 @@ export default function OpeningSplashScreen({ onComplete }) {
   const { wedding, unlockAndPlayAudio } = useWedding();
   const prefersReducedMotion = useReducedMotion();
 
-  // Persistent Invitation State Check
+  // Initial State: Curtains unconditionally appear on every website entry and refresh
   const getInitialPhase = () => {
-    if (prefersReducedMotion) return 'done';
-    try {
-      if (typeof window !== 'undefined') {
-        const scratchDone = localStorage.getItem('riha_scratch_completed') === 'true';
-        if (scratchDone) return 'done';
-        const curtainDone = localStorage.getItem('riha_curtain_opened') === 'true';
-        if (curtainDone) return 'scratch_card';
-      }
-    } catch (e) {}
     return 'curtains_closed';
   };
 
   const getInitialCurtainsOpened = () => {
-    try {
-      if (typeof window !== 'undefined') {
-        return (
-          localStorage.getItem('riha_curtain_opened') === 'true' ||
-          localStorage.getItem('riha_scratch_completed') === 'true'
-        );
-      }
-    } catch (e) {}
     return false;
   };
 
@@ -168,9 +151,6 @@ export default function OpeningSplashScreen({ onComplete }) {
     setCardRevealed(true);
     setScratchPercent(100);
 
-    try {
-      localStorage.setItem('riha_scratch_completed', 'true');
-    } catch (e) {}
     unlockAndPlayAudio();
 
     // Trigger flower bloom animation once
@@ -179,33 +159,48 @@ export default function OpeningSplashScreen({ onComplete }) {
       setShowFlowerBloom(true);
     }
 
-    // Fire celebration golden sparkles & rose petals ONLY ONCE
+    // Fire celebration golden fireworks & decorative sparkles
     if (!confettiFiredRef.current) {
       confettiFiredRef.current = true;
       try {
         confetti({
-          particleCount: 75,
+          particleCount: 80,
           angle: 60,
-          spread: 75,
+          spread: 80,
           origin: { x: 0.15, y: 0.65 },
           colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2', '#E28495', '#F5A9B8'],
-          ticks: 220,
+          ticks: 240,
         });
         confetti({
-          particleCount: 75,
+          particleCount: 80,
           angle: 120,
-          spread: 75,
+          spread: 80,
           origin: { x: 0.85, y: 0.65 },
           colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2', '#E28495', '#F5A9B8'],
-          ticks: 220,
+          ticks: 240,
         });
+        setTimeout(() => {
+          confetti({
+            particleCount: 95,
+            spread: 105,
+            origin: { x: 0.5, y: 0.55 },
+            colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2'],
+            ticks: 250,
+          });
+        }, 300);
       } catch (e) {}
     }
 
     setTimeout(() => {
       setPhase('invitation_reveal');
     }, 450);
-  }, [cardRevealed, unlockAndPlayAudio]);
+
+    // After celebratory unveiling, smoothly transition to reveal the homepage
+    setTimeout(() => {
+      setPhase('done');
+      if (onComplete) onComplete();
+    }, 2400);
+  }, [cardRevealed, unlockAndPlayAudio, onComplete]);
 
   // Calculate Scratched Area Percentage for Circular Geometry
   const checkScratchPercentage = useCallback(() => {
@@ -246,8 +241,8 @@ export default function OpeningSplashScreen({ onComplete }) {
         const percentage = Math.round((clearPixels / totalInCircle) * 100);
         setScratchPercent(percentage);
 
-        // Auto reveal at 60-70% cleared area (65%)
-        if (percentage >= 65) {
+        // Auto reveal strictly at 87% completion as required by prompt
+        if (percentage >= 87) {
           triggerCompleteReveal();
         }
       }
@@ -323,31 +318,25 @@ export default function OpeningSplashScreen({ onComplete }) {
     ctx.restore();
   };
 
-  // Scene 2: Interactive Curtain Opening Trigger (1.45s cinematic reveal)
+  // Scene 2: Interactive Curtain Opening Trigger (1.75s cinematic diagonal reveal)
   const handleOpenCurtains = () => {
     if (phase !== 'curtains_closed' || isOpening) return;
     setIsOpening(true);
     setCurtainsOpened(true);
     setPhase('curtains_opening');
-    try {
-      localStorage.setItem('riha_curtain_opened', 'true');
-    } catch (e) {}
     unlockAndPlayAudio();
 
-    // Allow the curtains to naturally part for 1.45s before revealing the scratch card
+    // Curtains move diagonally outward to upper-left and upper-right for 1.75s
+    // Scratch card appears strictly AFTER the curtains have fully cleared the area
     setTimeout(() => {
       setPhase('scratch_card');
       setIsOpening(false);
-    }, 1450);
+    }, 1750);
   };
 
   // Scene 4: Enter Website & Play Wedding Music
   const handleEnterWebsite = () => {
     unlockAndPlayAudio();
-    try {
-      localStorage.setItem('riha_scratch_completed', 'true');
-      localStorage.setItem('riha_curtain_opened', 'true');
-    } catch (e) {}
 
     try {
       confetti({
@@ -365,10 +354,6 @@ export default function OpeningSplashScreen({ onComplete }) {
   const handleSkipIntro = (e) => {
     e.stopPropagation();
     unlockAndPlayAudio();
-    try {
-      localStorage.setItem('riha_scratch_completed', 'true');
-      localStorage.setItem('riha_curtain_opened', 'true');
-    } catch (e) {}
     setPhase('done');
     if (onComplete) onComplete();
   };
@@ -477,13 +462,13 @@ export default function OpeningSplashScreen({ onComplete }) {
 
               {/* Scratch Progress & Instant Reveal Fallback */}
               <div className="mt-5 flex items-center justify-between gap-4 w-full max-w-[390px] px-3">
-                <span className="text-xs font-mono text-gold-300">
-                  {scratchPercent > 0 ? `${scratchPercent}% Scratched` : 'Scratch card with finger or mouse'}
+                <span className="text-xs font-mono text-[#756A5E]">
+                  {scratchPercent > 0 ? `${scratchPercent}% Scratched (87% required)` : 'Scratch card with finger or mouse'}
                 </span>
 
                 <button
                   onClick={triggerCompleteReveal}
-                  className="text-xs text-gold-300 hover:text-white underline cursor-pointer font-cinzel tracking-wider uppercase font-semibold"
+                  className="text-xs text-[#B89047] hover:text-[#1B382B] underline cursor-pointer font-cinzel tracking-wider uppercase font-semibold transition-colors"
                 >
                   Instant Reveal ✦
                 </button>
@@ -608,59 +593,75 @@ export default function OpeningSplashScreen({ onComplete }) {
           </motion.div>
         )}
 
-        {/* High-Contrast Central Seal (Visible during Scene 1 and smoothly transitions) */}
+        {/* Prominent, Interactive RH — RIHA Central Button */}
         {!curtainsOpened && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
+          <motion.button
+            type="button"
+            initial={{ opacity: 0, scale: 0.88 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.15, transition: { duration: 0.6 } }}
+            exit={{ opacity: 0, scale: 1.15, transition: { duration: 0.55 } }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
             transition={{ duration: 0.8 }}
             onClick={handleOpenCurtains}
-            className="absolute z-50 flex flex-col items-center justify-center cursor-pointer group"
+            disabled={isOpening}
+            className="absolute z-50 flex flex-col items-center justify-center cursor-pointer group focus:outline-none"
+            aria-label="Open wedding curtains to reveal invitation"
           >
             {/* Illuminated Medallion Plate in Ivory & Gold */}
             <div
-              className="relative p-3.5 rounded-full border-2 border-[#C5A059] bg-[#FFFDF9] shadow-[0_0_60px_rgba(197,160,89,0.4)] group-hover:scale-105 transition-transform duration-500 overflow-hidden"
+              className="relative p-4 sm:p-5 rounded-full border-2 sm:border-[3px] border-[#C5A059] bg-[#FFFDF9] shadow-[0_0_60px_rgba(197,160,89,0.5),0_15px_35px_rgba(27,56,43,0.18)] group-hover:shadow-[0_0_80px_rgba(197,160,89,0.7)] group-hover:border-[#E5C77A] transition-all duration-500 overflow-hidden"
               style={{ borderRadius: '50%' }}
             >
-              <RoyalMonogramSeal size={135} variant="ivory" showSubtext={true} subtext="RIHA" glow={true} />
+              <RoyalMonogramSeal size={150} variant="ivory" showSubtext={true} subtext="RIHA" glow={true} />
+              
+              {/* Concentric Golden Pulse Rings */}
               <div
-                className="absolute -inset-1.5 rounded-full border border-[#C5A059]/50 animate-pulse pointer-events-none"
+                className="absolute -inset-2 rounded-full border-2 border-[#C5A059]/40 animate-ping pointer-events-none opacity-50"
+                style={{ borderRadius: '50%', animationDuration: '3s' }}
+              />
+              <div
+                className="absolute -inset-1 rounded-full border border-[#E5C77A]/70 pointer-events-none"
                 style={{ borderRadius: '50%' }}
               />
             </div>
 
             {/* Click / Tap Prompt Pill */}
-            <div className="mt-5 px-6 py-2.5 rounded-full bg-[#FFFDF9] border border-[#C5A059] shadow-lg flex items-center gap-2 text-xs font-cinzel tracking-widest uppercase text-[#1B382B] group-hover:bg-[#1B382B] group-hover:text-[#FAF8F5] transition-all">
-              <Sparkles className="w-3.5 h-3.5 text-[#B89047] group-hover:text-[#EAD7A5] animate-spin-slow" />
+            <div className="mt-6 px-7 py-3 rounded-full bg-[#FFFDF9] border border-[#C5A059] shadow-xl flex items-center gap-2.5 text-xs sm:text-sm font-cinzel tracking-widest uppercase text-[#1B382B] group-hover:bg-[#1B382B] group-hover:text-[#FAF8F5] group-hover:border-[#1B382B] transition-all duration-300">
+              <Sparkles className="w-4 h-4 text-[#B89047] group-hover:text-[#EAD7A5] animate-spin-slow" />
               <span className="font-bold">Tap to Open Curtains</span>
+              <Sparkles className="w-4 h-4 text-[#B89047] group-hover:text-[#EAD7A5] animate-spin-slow" />
             </div>
-          </motion.div>
+          </motion.button>
         )}
 
-        {/* LEFT CURTAIN WITH 3D ROTATION, FABRIC WAVE & REALISTIC GATHERING */}
+        {/* LEFT CURTAIN: CINEMATIC DIAGONAL UPPER-LEFT OPENING */}
         <motion.div
           onClick={handleOpenCurtains}
-          initial={{ rotateY: 0, scaleX: 1, x: 0 }}
+          initial={{ rotateY: 0, x: 0, y: 0, rotate: 0, scale: 1, opacity: 1 }}
           animate={
             curtainsOpened
               ? {
-                  rotateY: -78,
-                  scaleX: 0.08,
-                  x: '-100%',
-                  y: [-3, 10, -15],
+                  x: '-130%',
+                  y: '-42%',
+                  rotate: -14,
+                  rotateY: -48,
+                  scale: 0.85,
+                  opacity: [1, 1, 0.85, 0],
                 }
               : {
-                  rotateY: [0, -2, 0, 1.5, 0],
-                  y: [0, -6, 0, 5, 0],
                   x: [0, -2, 0, 2, 0],
-                  scaleX: 1,
+                  y: [0, -4, 0, 3, 0],
+                  rotateY: [0, -2, 0, 1.5, 0],
+                  rotate: 0,
+                  scale: 1,
+                  opacity: 1,
                 }
           }
           transition={
             curtainsOpened
               ? {
-                  duration: prefersReducedMotion ? 0.01 : 1.45,
+                  duration: prefersReducedMotion ? 0.01 : 1.75,
                   ease: [0.22, 1, 0.36, 1],
                 }
               : {
@@ -673,7 +674,7 @@ export default function OpeningSplashScreen({ onComplete }) {
             !curtainsOpened ? 'cursor-pointer' : 'pointer-events-none'
           }`}
           style={{
-            transformOrigin: 'left center',
+            transformOrigin: 'top left',
             transformStyle: 'preserve-3d',
             background: `
               linear-gradient(to right,
@@ -709,29 +710,33 @@ export default function OpeningSplashScreen({ onComplete }) {
           <div className="absolute top-0 right-4 bottom-0 w-1.5 bg-[#EAD7A5]/60" />
         </motion.div>
 
-        {/* RIGHT CURTAIN WITH 3D ROTATION, FABRIC WAVE & REALISTIC GATHERING */}
+        {/* RIGHT CURTAIN: CINEMATIC DIAGONAL UPPER-RIGHT OPENING */}
         <motion.div
           onClick={handleOpenCurtains}
-          initial={{ rotateY: 0, scaleX: 1, x: 0 }}
+          initial={{ rotateY: 0, x: 0, y: 0, rotate: 0, scale: 1, opacity: 1 }}
           animate={
             curtainsOpened
               ? {
-                  rotateY: 78,
-                  scaleX: 0.08,
-                  x: '100%',
-                  y: [3, -10, 15],
+                  x: '130%',
+                  y: '-42%',
+                  rotate: 14,
+                  rotateY: 48,
+                  scale: 0.85,
+                  opacity: [1, 1, 0.85, 0],
                 }
               : {
-                  rotateY: [0, 2, 0, -1.5, 0],
-                  y: [0, 6, 0, -5, 0],
                   x: [0, 2, 0, -2, 0],
-                  scaleX: 1,
+                  y: [0, 4, 0, -3, 0],
+                  rotateY: [0, 2, 0, -1.5, 0],
+                  rotate: 0,
+                  scale: 1,
+                  opacity: 1,
                 }
           }
           transition={
             curtainsOpened
               ? {
-                  duration: prefersReducedMotion ? 0.01 : 1.45,
+                  duration: prefersReducedMotion ? 0.01 : 1.75,
                   ease: [0.22, 1, 0.36, 1],
                 }
               : {
@@ -744,7 +749,7 @@ export default function OpeningSplashScreen({ onComplete }) {
             !curtainsOpened ? 'cursor-pointer' : 'pointer-events-none'
           }`}
           style={{
-            transformOrigin: 'right center',
+            transformOrigin: 'top right',
             transformStyle: 'preserve-3d',
             background: `
               linear-gradient(to left,

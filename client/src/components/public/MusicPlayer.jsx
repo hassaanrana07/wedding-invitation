@@ -10,14 +10,14 @@ export default function MusicPlayer() {
   if (!musicTrack || !musicTrack.is_active) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2">
+    <div className="fixed bottom-6 left-6 z-40 flex items-center gap-2.5 select-none">
       <AnimatePresence>
         {showControls && (
           <motion.div
-            initial={{ opacity: 0, x: 20, scale: 0.95 }}
+            initial={{ opacity: 0, x: -20, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 20, scale: 0.95 }}
-            className="flex flex-col rounded-2xl bg-[#FFFDF9]/98 backdrop-blur-md border border-[#C5A059]/40 p-3 text-xs shadow-2xl space-y-2 min-w-[210px]"
+            exit={{ opacity: 0, x: -20, scale: 0.95 }}
+            className="absolute bottom-14 left-0 flex flex-col rounded-2xl bg-[#FFFDF9]/98 backdrop-blur-md border border-[#C5A059]/40 p-3 text-xs shadow-2xl space-y-2 min-w-[210px]"
           >
             <div className="flex items-center justify-between gap-2 border-b border-[#EAE0D2] pb-1.5">
               <span className="font-serif font-bold text-[#1B382B] flex items-center gap-1.5 truncate">
@@ -106,6 +106,18 @@ export default function MusicPlayer() {
           <Sliders className="w-3.5 h-3.5" />
         </button>
       </motion.div>
+
+      {/* Powered by Netlify Branding Badge on Left Side */}
+      <a
+        href="https://www.netlify.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#C5A059]/40 bg-[#FFFDF9]/95 backdrop-blur-md text-[10px] text-[#756A5E] hover:text-[#1B382B] transition-all shadow-[0_8px_25px_rgba(27,56,43,0.06)]"
+        title="Deployed with Netlify"
+      >
+        <span className="font-sans font-medium">Powered by</span>
+        <span className="font-bold text-[#00AD9F]">Netlify</span>
+      </a>
     </div>
   );
 }

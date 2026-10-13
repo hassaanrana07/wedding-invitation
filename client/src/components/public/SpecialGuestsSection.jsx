@@ -9,24 +9,25 @@ export default function SpecialGuestsSection() {
   const { specialGuests } = useWedding();
   const activeGuests = (specialGuests || []).filter((g) => g.is_visible !== 0);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [[page, direction], setPage] = useState([0, 0]);
   const total = activeGuests.length;
   const lastActionTimeRef = useRef(0);
 
-  // Debounced navigation guards against rapid clicking
-  const handlePrev = useCallback(() => {
-    const now = Date.now();
-    if (now - lastActionTimeRef.current < 350) return;
-    lastActionTimeRef.current = now;
-    setCurrentIndex((prev) => (prev - 1 + total) % total);
-  }, [total]);
+  const currentIndex = ((page % total) + total) % total;
 
-  const handleNext = useCallback(() => {
-    const now = Date.now();
-    if (now - lastActionTimeRef.current < 350) return;
-    lastActionTimeRef.current = now;
-    setCurrentIndex((prev) => (prev + 1) % total);
-  }, [total]);
+  // Debounced navigation guards against rapid clicking
+  const paginate = useCallback(
+    (newDirection) => {
+      const now = Date.now();
+      if (now - lastActionTimeRef.current < 450) return;
+      lastActionTimeRef.current = now;
+      setPage([page + newDirection, newDirection]);
+    },
+    [page]
+  );
+
+  const handlePrev = useCallback(() => paginate(-1), [paginate]);
+  const handleNext = useCallback(() => paginate(1), [paginate]);
 
   // Keyboard navigation support
   useEffect(() => {
@@ -40,15 +41,42 @@ export default function SpecialGuestsSection() {
 
   if (total === 0) return null;
 
-  // Helper to resolve circular indices for 3 visible slots
-  const getGuestAtOffset = (offset) => {
-    const idx = (currentIndex + offset + total) % total;
-    return { guest: activeGuests[idx], index: idx };
-  };
+  const currentGuest = activeGuests[currentIndex];
 
-  const leftItem = getGuestAtOffset(-1);
-  const centerItem = getGuestAtOffset(0);
-  const rightItem = getGuestAtOffset(1);
+  const cardVariants = {
+    enter: (dir) => ({
+      x: dir > 0 ? 320 : -320,
+      rotateY: dir > 0 ? 25 : -25,
+      scale: 0.84,
+      opacity: 0,
+    }),
+    center: {
+      zIndex: 30,
+      x: 0,
+      rotateY: 0,
+      scale: 1,
+      opacity: 1,
+      transition: {
+        x: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+        rotateY: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+        opacity: { duration: 0.45 },
+        scale: { duration: 0.5 },
+      },
+    },
+    exit: (dir) => ({
+      zIndex: 10,
+      x: dir > 0 ? -320 : 320,
+      rotateY: dir > 0 ? -25 : 25,
+      scale: 0.84,
+      opacity: 0,
+      transition: {
+        x: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+        rotateY: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+        opacity: { duration: 0.35 },
+        scale: { duration: 0.45 },
+      },
+    }),
+  };
 
   return (
     <section
@@ -97,13 +125,13 @@ export default function SpecialGuestsSection() {
           <FloralDivider variant="gold" className="mt-4" />
         </div>
 
-        {/* 3D 3-Person Rotating Carousel Stage */}
-        <div className="relative max-w-5xl mx-auto min-h-[460px] sm:min-h-[500px] flex items-center justify-center">
+        {/* 3D Rotating Carousel Stage */}
+        <div className="relative max-w-4xl mx-auto min-h-[460px] sm:min-h-[500px] flex items-center justify-center">
           {/* Left Arrow Button */}
           <button
             onClick={handlePrev}
             aria-label="Previous Family Member"
-            className="absolute left-2 sm:left-4 z-40 p-3 sm:p-3.5 rounded-full bg-[#FFFDF9] hover:bg-[#1B382B] text-[#1B382B] hover:text-[#FAF8F5] border border-[#C5A059]/50 shadow-md transition-all cursor-pointer hover:scale-110 active:scale-95"
+            className="absolute left-2 sm:left-6 z-40 p-3.5 rounded-full bg-[#FFFDF9] hover:bg-[#1B382B] text-[#1B382B] hover:text-[#FAF8F5] border border-[#C5A059]/50 shadow-md transition-all cursor-pointer hover:scale-110 active:scale-95"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
@@ -112,88 +140,47 @@ export default function SpecialGuestsSection() {
           <button
             onClick={handleNext}
             aria-label="Next Family Member"
-            className="absolute right-2 sm:right-4 z-40 p-3 sm:p-3.5 rounded-full bg-[#FFFDF9] hover:bg-[#1B382B] text-[#1B382B] hover:text-[#FAF8F5] border border-[#C5A059]/50 shadow-md transition-all cursor-pointer hover:scale-110 active:scale-95"
+            className="absolute right-2 sm:right-6 z-40 p-3.5 rounded-full bg-[#FFFDF9] hover:bg-[#1B382B] text-[#1B382B] hover:text-[#FAF8F5] border border-[#C5A059]/50 shadow-md transition-all cursor-pointer hover:scale-110 active:scale-95"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
 
-          {/* Cards Track with Touch Swipe */}
-          <motion.div
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.25}
-            onDragEnd={(_, { offset, velocity }) => {
-              if (offset.x > 35 || velocity.x > 0.3) {
-                handlePrev();
-              } else if (offset.x < -35 || velocity.x < -0.3) {
-                handleNext();
-              }
-            }}
-            className="relative w-full h-[460px] sm:h-[500px] flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
-            style={{ perspective: 1200 }}
+          {/* Animated 3D Carousel Stage with Directional Slide & Rotation */}
+          <div
+            className="relative w-full h-[460px] sm:h-[500px] flex items-center justify-center select-none overflow-hidden"
+            style={{ perspective: 1400 }}
           >
-            {/* 1. LEFT CARD (Adjacent - Subtly Scaled & Rotated) */}
-            <motion.div
-              key={`left-${leftItem.guest.id}`}
-              onClick={handlePrev}
-              initial={false}
-              animate={{
-                x: '-64%',
-                scale: 0.84,
-                opacity: 0.6,
-                zIndex: 10,
-                rotateY: 18,
-              }}
-              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
-              className="absolute w-[270px] sm:w-[320px] rounded-3xl border border-[#E3D8C4] bg-[#FFFDF9]/95 backdrop-blur-md p-5 sm:p-6 text-center cursor-pointer hover:opacity-90 hover:scale-[0.87] transition-all hidden md:flex flex-col items-center justify-between shadow-lg overflow-hidden"
-              style={{ transformStyle: 'preserve-3d' }}
-            >
-              <FamilyCardContent guest={leftItem.guest} isCenter={false} />
-            </motion.div>
+            <AnimatePresence initial={false} custom={direction} mode="popLayout">
+              <motion.div
+                key={page}
+                custom={direction}
+                variants={cardVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.3}
+                onDragEnd={(_, { offset, velocity }) => {
+                  if (offset.x > 40 || velocity.x > 0.3) {
+                    paginate(-1);
+                  } else if (offset.x < -40 || velocity.x < -0.3) {
+                    paginate(1);
+                  }
+                }}
+                className="relative w-[300px] sm:w-[370px] rounded-[32px] border-2 border-[#C5A059] bg-[#FFFDF9] backdrop-blur-xl p-6 sm:p-7 text-center shadow-[0_22px_55px_rgba(27,56,43,0.09),0_6px_20px_rgba(197,160,89,0.18)] flex flex-col items-center justify-between cursor-grab active:cursor-grabbing"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                {/* Corner Golden Accents */}
+                <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-[#C5A059] pointer-events-none" />
+                <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-[#C5A059] pointer-events-none" />
+                <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-[#C5A059] pointer-events-none" />
+                <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-[#C5A059] pointer-events-none" />
 
-            {/* 2. CENTER CARD (Active & Prominent Front) */}
-            <motion.div
-              key={`center-${centerItem.guest.id}`}
-              initial={false}
-              animate={{
-                x: '0%',
-                scale: 1.05,
-                opacity: 1,
-                zIndex: 30,
-                rotateY: 0,
-              }}
-              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
-              className="relative w-[300px] sm:w-[360px] rounded-[32px] border-2 border-[#C5A059] bg-[#FFFDF9] backdrop-blur-xl p-6 sm:p-7 text-center shadow-[0_22px_55px_rgba(27,56,43,0.09),0_6px_20px_rgba(197,160,89,0.18)] flex flex-col items-center justify-between overflow-hidden"
-              style={{ transformStyle: 'preserve-3d' }}
-            >
-              {/* Corner Golden Accents */}
-              <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-[#C5A059] pointer-events-none" />
-              <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-[#C5A059] pointer-events-none" />
-              <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-[#C5A059] pointer-events-none" />
-              <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-[#C5A059] pointer-events-none" />
-
-              <FamilyCardContent guest={centerItem.guest} isCenter={true} />
-            </motion.div>
-
-            {/* 3. RIGHT CARD (Adjacent - Subtly Scaled & Rotated) */}
-            <motion.div
-              key={`right-${rightItem.guest.id}`}
-              onClick={handleNext}
-              initial={false}
-              animate={{
-                x: '64%',
-                scale: 0.84,
-                opacity: 0.6,
-                zIndex: 10,
-                rotateY: -18,
-              }}
-              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
-              className="absolute w-[270px] sm:w-[320px] rounded-3xl border border-[#E3D8C4] bg-[#FFFDF9]/95 backdrop-blur-md p-5 sm:p-6 text-center cursor-pointer hover:opacity-90 hover:scale-[0.87] transition-all hidden md:flex flex-col items-center justify-between shadow-lg overflow-hidden"
-              style={{ transformStyle: 'preserve-3d' }}
-            >
-              <FamilyCardContent guest={rightItem.guest} isCenter={false} />
-            </motion.div>
-          </motion.div>
+                <FamilyCardContent guest={currentGuest} isCenter={true} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
 
         {/* Carousel Indicators / Pagination Dots */}
@@ -203,9 +190,10 @@ export default function SpecialGuestsSection() {
               key={idx}
               onClick={() => {
                 const now = Date.now();
-                if (now - lastActionTimeRef.current < 350) return;
+                if (now - lastActionTimeRef.current < 450) return;
                 lastActionTimeRef.current = now;
-                setCurrentIndex(idx);
+                const dir = idx > currentIndex ? 1 : -1;
+                setPage([page + (idx - currentIndex), dir]);
               }}
               aria-label={`Go to family member ${idx + 1}`}
               className={`transition-all duration-300 rounded-full cursor-pointer ${
