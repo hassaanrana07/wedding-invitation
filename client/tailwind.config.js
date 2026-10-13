@@ -79,9 +79,10 @@ export default {
         cormorant: ['"Cormorant Garamond"', 'serif'],
         playfair: ['"Playfair Display"', 'Georgia', 'serif'],
         cinzel: ['"Cinzel"', 'serif'],
-        script: ['"Alex Brush"', '"Great Vibes"', 'cursive'],
+        script: ['"Great Vibes"', '"Alex Brush"', 'cursive'],
         calligraphy: ['"Great Vibes"', '"Alex Brush"', 'cursive'],
         alex: ['"Alex Brush"', 'cursive'],
+        lora: ['"Lora"', '"Cormorant Garamond"', 'serif'],
         sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
       },
       animation: {

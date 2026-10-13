@@ -31,11 +31,13 @@ export default function OpeningSplashScreen({ onComplete }) {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, []);
 
-  // Canvas & Pointer Refs
+  // Canvas & Pointer Scratch Refs
   const canvasRef = useRef(null);
   const isPointerDownRef = useRef(false);
   const lastPointRef = useRef(null);
-  const throttleCheckRef = useRef(0);
+  const lastCheckTimeRef = useRef(0);
+  const lastSparkleTimeRef = useRef(0);
+  const cardRevealedRef = useRef(false);
   const confettiFiredRef = useRef(false);
   const flowerBloomedRef = useRef(false);
 
@@ -119,30 +121,10 @@ export default function OpeningSplashScreen({ onComplete }) {
     ctx.restore();
   }, []);
 
-  // When phase becomes 'SCRATCH_INVITATION', initialize canvas
-  useEffect(() => {
-    if (phase === 'SCRATCH_INVITATION') {
-      const timer = setTimeout(() => {
-        initCanvas();
-      }, 50);
-      return () => clearTimeout(timer);
-    }
-  }, [phase, initCanvas]);
-
-  // Handle Resize for Canvas
-  useEffect(() => {
-    const handleResize = () => {
-      if (phase === 'SCRATCH_INVITATION' && !cardRevealed) {
-        initCanvas();
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [phase, cardRevealed, initCanvas]);
-
   // Trigger Complete Reveal of the Invitation Card
   const triggerCompleteReveal = useCallback(() => {
-    if (cardRevealed) return;
+    if (cardRevealedRef.current) return;
+    cardRevealedRef.current = true;
     setCardRevealed(true);
     setScratchPercent(100);
 
@@ -190,12 +172,12 @@ export default function OpeningSplashScreen({ onComplete }) {
     setTimeout(() => {
       setPhase('INVITATION_REVEALED');
     }, 400);
-  }, [cardRevealed, unlockAndPlayAudio]);
+  }, [unlockAndPlayAudio]);
 
   // Calculate Scratched Area Percentage with high-performance sampling
   const checkScratchPercentage = useCallback(() => {
     const canvas = canvasRef.current;
-    if (!canvas || cardRevealed) return;
+    if (!canvas || cardRevealedRef.current) return;
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
@@ -220,7 +202,8 @@ export default function OpeningSplashScreen({ onComplete }) {
           if (dx * dx + dy * dy <= rSquared) {
             totalInCircle++;
             const idx = (y * width + x) * 4 + 3;
-            if (data[idx] < 60) {
+            // Clear threshold: alpha <= 30
+            if (data[idx] <= 30) {
               clearPixels++;
             }
           }
@@ -231,134 +214,177 @@ export default function OpeningSplashScreen({ onComplete }) {
         const percentage = Math.round((clearPixels / totalInCircle) * 100);
         setScratchPercent(percentage);
 
-        // Auto reveal at comfortable 38% threshold (a few natural finger/mouse swipes)
-        if (percentage >= 38) {
+        // Auto reveal at genuine 60% threshold (in requested 55%-65% range)
+        if (percentage >= 60) {
           triggerCompleteReveal();
         }
       }
     } catch (e) {}
-  }, [cardRevealed, triggerCompleteReveal]);
+  }, [triggerCompleteReveal]);
 
-  // Soft, Feathered Radial Brush Scratching Function
-  const scratchPoint = (x, y) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // Generous, comfortable brush radius: ~42px to 48px depending on canvas DPR
-    const brushRadius = Math.max(36, Math.round(canvas.width * 0.098));
-
+  // Vector stroke drawing helpers (eliminates all bubble / beaded artifacts)
+  const drawStrokeSegment = (ctx, p1, p2, brushWidth, dpr) => {
     ctx.save();
     ctx.globalCompositeOperation = 'destination-out';
-
-    // Soft feathered radial gradient mask
-    const grad = ctx.createRadialGradient(x, y, brushRadius * 0.25, x, y, brushRadius);
-    grad.addColorStop(0, 'rgba(0, 0, 0, 1)');
-    grad.addColorStop(0.7, 'rgba(0, 0, 0, 0.95)');
-    grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-    ctx.fillStyle = grad;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = brushWidth;
+    ctx.shadowBlur = Math.round(8 * dpr);
+    ctx.shadowColor = '#000000';
+    ctx.strokeStyle = '#000000';
     ctx.beginPath();
-    ctx.arc(x, y, brushRadius, 0, Math.PI * 2);
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.stroke();
+    ctx.restore();
+  };
+
+  const drawInitialDot = (ctx, pt, brushWidth, dpr) => {
+    ctx.save();
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.shadowBlur = Math.round(8 * dpr);
+    ctx.shadowColor = '#000000';
+    ctx.fillStyle = '#000000';
+    ctx.beginPath();
+    ctx.arc(pt.x, pt.y, brushWidth / 2, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   };
 
-  // Continuous Interpolation so fast dragging never leaves broken stroke gaps
-  const scratchInterpolated = (p1, p2) => {
-    if (!p1 || !p2) return;
-    const dx = p2.x - p1.x;
-    const dy = p2.y - p1.y;
-    const dist = Math.hypot(dx, dy);
-    const step = 8; // Step size in canvas pixels
-    const steps = Math.max(1, Math.ceil(dist / step));
+  // Throttled sparkle feedback (max 3 particles, at most once per 250ms)
+  const maybeSpawnSparkle = (clientX, clientY) => {
+    const now = Date.now();
+    if (now - lastSparkleTimeRef.current < 250) return;
+    lastSparkleTimeRef.current = now;
 
-    for (let i = 0; i <= steps; i++) {
-      const t = i / steps;
-      const x = p1.x + dx * t;
-      const y = p1.y + dy * t;
-      scratchPoint(x, y);
-    }
-  };
-
-  // Spawn visual sparkle feedback while scratching
-  const spawnSparkle = (clientX, clientY) => {
-    const id = Date.now() + Math.random();
+    const id = now + Math.random();
     setSparkles((prev) => [
-      ...prev.slice(-8), // Keep only recent particles for lightweight performance
+      ...prev.slice(-3),
       { id, x: clientX, y: clientY },
     ]);
     setTimeout(() => {
       setSparkles((prev) => prev.filter((s) => s.id !== id));
-    }, 600);
+    }, 450);
   };
 
-  // Pointer Scratch Handlers (Works uniformly for finger touch, mouse, trackpad)
-  const handlePointerDown = (e) => {
-    if (cardRevealed) return;
-    e.preventDefault();
-    try {
-      e.currentTarget.setPointerCapture(e.pointerId);
-    } catch (err) {}
+  // Handle Resize for Canvas
+  useEffect(() => {
+    const handleResize = () => {
+      if (phase === 'SCRATCH_INVITATION' && !cardRevealedRef.current) {
+        initCanvas();
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [phase, initCanvas]);
 
-    isPointerDownRef.current = true;
-    setIsScratching(true);
-    setHasInteractedScratch(true);
-
+  // Native DOM pointer event listeners directly on canvas (zero React state drag stutter)
+  useEffect(() => {
+    if (phase !== 'SCRATCH_INVITATION') return;
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
 
-    const pt = {
-      x: (e.clientX - rect.left) * scaleX,
-      y: (e.clientY - rect.top) * scaleY,
-    };
-    lastPointRef.current = pt;
-    scratchPoint(pt.x, pt.y);
-    spawnSparkle(e.clientX, e.clientY);
-  };
+    const initTimer = setTimeout(() => {
+      initCanvas();
+    }, 40);
 
-  const handlePointerMove = (e) => {
-    if (!isPointerDownRef.current || cardRevealed) return;
-    e.preventDefault();
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-
-    const currentPt = {
-      x: (e.clientX - rect.left) * scaleX,
-      y: (e.clientY - rect.top) * scaleY,
+    const getCanvasPoint = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      return {
+        x: (e.clientX - rect.left) * scaleX,
+        y: (e.clientY - rect.top) * scaleY,
+      };
     };
 
-    scratchInterpolated(lastPointRef.current, currentPt);
-    lastPointRef.current = currentPt;
+    const getDpr = () => Math.min(window.devicePixelRatio || 1, 2.5);
 
-    if (Math.random() > 0.4) {
-      spawnSparkle(e.clientX, e.clientY);
-    }
+    const onPointerDown = (e) => {
+      if (cardRevealedRef.current) return;
+      if (e.button !== undefined && e.button !== 0) return;
+      e.preventDefault();
 
-    throttleCheckRef.current++;
-    if (throttleCheckRef.current % 5 === 0) {
-      checkScratchPercentage();
-    }
-  };
-
-  const handlePointerUp = (e) => {
-    if (e?.currentTarget) {
       try {
-        e.currentTarget.releasePointerCapture(e.pointerId);
+        canvas.setPointerCapture(e.pointerId);
       } catch (err) {}
-    }
-    isPointerDownRef.current = false;
-    setIsScratching(false);
-    checkScratchPercentage();
-  };
+
+      isPointerDownRef.current = true;
+      setIsScratching(true);
+      setHasInteractedScratch(true);
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const dpr = getDpr();
+      const rect = canvas.getBoundingClientRect();
+      const brushWidth = Math.round(Math.max(40, rect.width * 0.12) * dpr);
+      const pt = getCanvasPoint(e);
+
+      drawInitialDot(ctx, pt, brushWidth, dpr);
+      lastPointRef.current = pt;
+      maybeSpawnSparkle(e.clientX, e.clientY);
+    };
+
+    const onPointerMove = (e) => {
+      if (!isPointerDownRef.current || cardRevealedRef.current) return;
+      e.preventDefault();
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const dpr = getDpr();
+      const rect = canvas.getBoundingClientRect();
+      const brushWidth = Math.round(Math.max(40, rect.width * 0.12) * dpr);
+      const currentPt = getCanvasPoint(e);
+
+      if (lastPointRef.current) {
+        drawStrokeSegment(ctx, lastPointRef.current, currentPt, brushWidth, dpr);
+      } else {
+        drawInitialDot(ctx, currentPt, brushWidth, dpr);
+      }
+      lastPointRef.current = currentPt;
+
+      maybeSpawnSparkle(e.clientX, e.clientY);
+
+      const now = Date.now();
+      if (now - lastCheckTimeRef.current > 200) {
+        lastCheckTimeRef.current = now;
+        checkScratchPercentage();
+      }
+    };
+
+    const onPointerUp = (e) => {
+      if (canvas && e?.pointerId !== undefined) {
+        try {
+          if (canvas.hasPointerCapture(e.pointerId)) {
+            canvas.releasePointerCapture(e.pointerId);
+          }
+        } catch (err) {}
+      }
+      isPointerDownRef.current = false;
+      lastPointRef.current = null;
+      setIsScratching(false);
+      if (!cardRevealedRef.current) {
+        checkScratchPercentage();
+      }
+    };
+
+    canvas.addEventListener('pointerdown', onPointerDown, { passive: false });
+    canvas.addEventListener('pointermove', onPointerMove, { passive: false });
+    canvas.addEventListener('pointerup', onPointerUp, { passive: false });
+    canvas.addEventListener('pointercancel', onPointerUp, { passive: false });
+    canvas.addEventListener('lostpointercapture', onPointerUp, { passive: false });
+
+    return () => {
+      clearTimeout(initTimer);
+      canvas.removeEventListener('pointerdown', onPointerDown);
+      canvas.removeEventListener('pointermove', onPointerMove);
+      canvas.removeEventListener('pointerup', onPointerUp);
+      canvas.removeEventListener('pointercancel', onPointerUp);
+      canvas.removeEventListener('lostpointercapture', onPointerUp);
+    };
+  }, [phase, initCanvas, checkScratchPercentage]);
 
   // Phase 1 -> 2: Curtain Opening Trigger (Cinematic 1.4s 3D opening)
   const handleOpenCurtains = () => {
@@ -492,10 +518,6 @@ export default function OpeningSplashScreen({ onComplete }) {
                     {!cardRevealed && (
                       <canvas
                         ref={canvasRef}
-                        onPointerDown={handlePointerDown}
-                        onPointerMove={handlePointerMove}
-                        onPointerUp={handlePointerUp}
-                        onPointerCancel={handlePointerUp}
                         className="absolute inset-2 rounded-full w-[calc(100%-16px)] h-[calc(100%-16px)] z-10 cursor-pointer touch-none select-none"
                         style={{ touchAction: 'none', WebkitTouchCallout: 'none' }}
                       />
@@ -618,7 +640,7 @@ export default function OpeningSplashScreen({ onComplete }) {
 
                   <p className="text-xs text-[#756A5E] font-serif italic flex items-center gap-1.5 mt-3">
                     <Music className="w-3.5 h-3.5 text-[#B89047]" />
-                    <span>Plays traditional wedding Shehnai melody automatically</span>
+                    <span>Plays romantic wedding harp & piano melody</span>
                   </p>
                 </motion.div>
               )}

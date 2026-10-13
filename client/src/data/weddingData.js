@@ -41,8 +41,8 @@ export const weddingData = {
     background_color: '#FAF8F5', // Warm ivory
     surface_color: '#FFFDF9',
     font_heading: 'Cormorant Garamond',
-    font_script: 'Alex Brush',
-    font_body: 'Plus Jakarta Sans',
+    font_script: 'Great Vibes',
+    font_body: 'Lora',
     particle_effects: 1,
     border_radius: 'rounded-2xl',
     animation_intensity: 'smooth'
@@ -50,8 +50,8 @@ export const weddingData = {
 
   music: {
     id: 'track-1',
-    title: 'Royal Wedding March & Sitar Harmony (Instrumental)',
-    artist: 'Traditional Shehnai & Strings Ensemble',
+    title: 'Wedding Melody (Harp, Piano & Romantic Strings)',
+    artist: 'Francisco Alvear',
     file_url: '/audio/wedding-melody.mp3',
     is_active: 1,
     autoplay_prompt: 1

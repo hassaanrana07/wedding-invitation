@@ -21,13 +21,13 @@
     overflow-x: hidden;
   }
 
-  h1, h2, h3, .font-serif-heading {
+  h1, h2, h3, .font-serif-heading, .font-wedding-heading {
     font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
     letter-spacing: 0.02em;
   }
 
-  .font-script {
-    font-family: 'Alex Brush', 'Great Vibes', cursive;
+  .font-script, .font-couple-names {
+    font-family: 'Great Vibes', 'Alex Brush', cursive;
   }
 
   .font-calligraphy {
@@ -36,6 +36,10 @@
 
   .font-cinzel {
     font-family: 'Cinzel', serif;
+  }
+
+  .font-wedding-body, .font-lora {
+    font-family: 'Lora', 'Plus Jakarta Sans', Georgia, serif;
   }
 }
 
