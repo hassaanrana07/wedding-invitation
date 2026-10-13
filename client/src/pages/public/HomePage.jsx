@@ -18,9 +18,27 @@ export default function HomePage() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
+    // Guarantee page always starts at top (Hero section) on initial mount or refresh
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+    const handleBeforeUnload = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
     fetchEvents()
       .then((data) => setEvents(data || []))
       .catch((err) => console.error(err));
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, []);
 
   return (
