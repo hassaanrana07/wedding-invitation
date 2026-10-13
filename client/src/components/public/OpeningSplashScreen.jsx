@@ -379,7 +379,7 @@ export default function OpeningSplashScreen({ onComplete }) {
         key="riha-cinematic-stage"
         initial={{ opacity: 1 }}
         exit={{ opacity: 0, scale: 1.03, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-[#07090D] text-[#EFE2C8] select-none overflow-hidden"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-[#FAF8F5] text-[#1B382B] select-none overflow-hidden"
         style={{ perspective: '1600px' }}
         role="dialog"
         aria-modal="true"
@@ -388,15 +388,15 @@ export default function OpeningSplashScreen({ onComplete }) {
         {/* Persistent Skip Button (Top Right) */}
         <button
           onClick={handleSkipIntro}
-          className="absolute top-5 right-5 z-50 px-4 py-2 rounded-full bg-black/80 hover:bg-gold-500/20 text-gold-200 hover:text-white text-[11px] font-cinzel tracking-widest uppercase border border-gold-400/50 backdrop-blur-md transition-all shadow-2xl cursor-pointer"
+          className="absolute top-5 right-5 z-50 px-4 py-2 rounded-full bg-[#FFFDF9]/90 hover:bg-[#1B382B] text-[#1B382B] hover:text-[#FAF8F5] text-[11px] font-cinzel tracking-widest uppercase border border-[#C5A059]/50 backdrop-blur-md transition-all shadow-md cursor-pointer"
           aria-label="Skip to website"
         >
           Skip Intro
         </button>
 
         {/* Ambient Radial Stage Glows Behind Curtains */}
-        <div className="ambient-glow w-[600px] h-[600px] bg-gold-500/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[130px] pointer-events-none" />
-        <div className="ambient-glow w-96 h-96 bg-emerald-deep/40 bottom-10 right-10 blur-[100px] pointer-events-none" />
+        <div className="ambient-glow w-[600px] h-[600px] bg-[#C5A059]/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[130px] pointer-events-none" />
+        <div className="ambient-glow w-96 h-96 bg-[#2E5A45]/10 bottom-10 right-10 blur-[100px] pointer-events-none" />
 
         {/* ============================================================== */}
         {/* SCENE 3 & 4: INNER STAGE (Circular Scratch Card & Reveal)       */}
@@ -415,30 +415,30 @@ export default function OpeningSplashScreen({ onComplete }) {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-5 flex items-center gap-2 px-5 py-2 rounded-full bg-gold-950/70 border border-gold-400/50 text-gold-200 text-xs font-cinzel tracking-wider uppercase shadow-xl"
+                className="mb-5 flex items-center gap-2 px-5 py-2 rounded-full bg-[#FFFDF9] border border-[#C5A059]/60 text-[#1B382B] text-xs font-cinzel tracking-wider uppercase shadow-md"
               >
-                <Sparkles className="w-3.5 h-3.5 text-gold-400 animate-pulse" />
+                <Sparkles className="w-3.5 h-3.5 text-[#B89047] animate-pulse" />
                 <span>Scratch Card to Reveal The Invitation</span>
-                <Sparkles className="w-3.5 h-3.5 text-gold-400 animate-pulse" />
+                <Sparkles className="w-3.5 h-3.5 text-[#B89047] animate-pulse" />
               </motion.div>
 
               {/* Perfectly Circular, Larger Scratch Card */}
-              <div className="relative w-[320px] h-[320px] sm:w-[390px] sm:h-[390px] md:w-[420px] md:h-[420px] max-w-[85vw] max-h-[85vw] aspect-square rounded-full border-4 border-gold-400/80 p-2 bg-gradient-to-br from-gold-950 via-[#141822] to-black shadow-[0_0_60px_rgba(197,160,89,0.35)] overflow-hidden">
+              <div className="relative w-[320px] h-[320px] sm:w-[390px] sm:h-[390px] md:w-[420px] md:h-[420px] max-w-[85vw] max-h-[85vw] aspect-square rounded-full border-4 border-[#C5A059] p-2 bg-[#FAF8F5] shadow-[0_15px_50px_rgba(27,56,43,0.12)] overflow-hidden">
                 {/* UNDERNEATH LAYER (The Hidden R & H Monogram Seal) */}
-                <div className="absolute inset-2 rounded-full bg-gradient-to-br from-[#0C1510] via-[#0C1017] to-[#1E0F16] flex flex-col items-center justify-center p-6 text-center border-2 border-gold-400/40 overflow-hidden">
-                  <div className="absolute inset-0 pattern-bg opacity-30 pointer-events-none" />
+                <div className="absolute inset-2 rounded-full bg-[#FFFDF9] flex flex-col items-center justify-center p-6 text-center border-2 border-[#C5A059]/40 overflow-hidden">
+                  <div className="absolute inset-0 botanical-dots opacity-30 pointer-events-none" />
 
-                  <span className="font-cinzel text-[10px] sm:text-xs tracking-[0.35em] uppercase text-gold-400 block mb-2">
+                  <span className="font-cinzel text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[#756A5E] block mb-2">
                     Together With Their Families
                   </span>
 
                   {/* Centered Vector Royal Monogram */}
-                  <RoyalMonogramSeal size={135} showSubtext={true} subtext="RIHA" glow={true} />
+                  <RoyalMonogramSeal size={135} variant="ivory" showSubtext={true} subtext="RIHA" glow={true} />
 
-                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-gold-light mt-3">
+                  <h3 className="font-script text-3xl sm:text-4xl text-[#1B382B] mt-2">
                     Rida & Harish
                   </h3>
-                  <p className="font-cinzel text-[10px] sm:text-xs text-cream-300/80 tracking-widest uppercase mt-1">
+                  <p className="font-cinzel text-[10px] sm:text-xs text-[#756A5E] tracking-widest uppercase mt-1">
                     27 March 2027 • Lahore, Pakistan
                   </p>
                 </div>
@@ -495,11 +495,11 @@ export default function OpeningSplashScreen({ onComplete }) {
               initial={{ opacity: 0, scale: 0.92, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.8, ease: 'easeOut' }}
-              className="flex flex-col items-center max-w-lg w-full"
+              className="flex flex-col items-center max-w-lg w-full p-8 sm:p-10 rounded-[36px] bg-[#FFFDF9] border-2 border-[#C5A059] shadow-[0_20px_60px_rgba(27,56,43,0.12)] text-center relative overflow-hidden"
             >
               {/* Royal Monogram Badge */}
-              <div className="mb-5">
-                <RoyalMonogramSeal size={100} showSubtext={true} subtext="RIHA" glow={true} />
+              <div className="mb-4">
+                <RoyalMonogramSeal size={90} variant="ivory" showSubtext={true} subtext="RIHA" glow={true} />
               </div>
 
               {/* Bismillah Screen in Sacred Calligraphy */}
@@ -507,53 +507,57 @@ export default function OpeningSplashScreen({ onComplete }) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="mb-4"
+                className="mb-3"
               >
-                <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-gold-200 tracking-wider font-medium leading-relaxed drop-shadow">
+                <p
+                  dir="rtl"
+                  lang="ar"
+                  className="font-serif text-2xl sm:text-3xl text-[#1B382B] tracking-wide font-normal leading-relaxed"
+                >
                   بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
                 </p>
-                <p className="font-serif text-sm sm:text-base text-gold-300/90 tracking-widest italic mt-1 font-light">
+                <p className="font-serif italic text-xs sm:text-sm text-[#756A5E] mt-0.5">
                   "Bismillah-ir-Rahman-ir-Raheem"
                 </p>
               </motion.div>
 
               {/* Decorative Filigree Divider */}
-              <div className="flex items-center justify-center gap-3 my-3 w-48 sm:w-64">
-                <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-gold-400/60 to-gold-400" />
-                <span className="text-gold-400 text-xs">❖</span>
-                <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-gold-400/60 to-gold-400" />
+              <div className="flex items-center justify-center gap-3 my-2 w-48 sm:w-64">
+                <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#C5A059]/60 to-[#C5A059]" />
+                <span className="text-[#B89047] text-xs">❖</span>
+                <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#C5A059]/60 to-[#C5A059]" />
               </div>
 
               {/* Wedding of Rida & Harish */}
-              <div className="mb-6">
-                <span className="font-cinzel text-xs tracking-[0.4em] uppercase text-gold-400 block mb-1">
+              <div className="mb-5">
+                <span className="font-cinzel text-xs tracking-[0.35em] uppercase text-[#756A5E] block mb-1">
                   The Wedding of
                 </span>
-                <h1 className="font-serif text-4xl sm:text-6xl font-bold gold-text-gradient">
+                <h1 className="font-script text-5xl sm:text-6xl text-[#1B382B] leading-none my-1">
                   Rida & Harish
                 </h1>
-                <p className="font-serif text-sm sm:text-base text-cream-200/95 italic mt-3 max-w-md mx-auto font-light leading-relaxed">
+                <p className="font-serif italic text-sm text-[#5D5347] mt-2 max-w-md mx-auto leading-relaxed">
                   "Together with their families warmly invite you to celebrate our union of love, prayers, and togetherness."
                 </p>
-                <p className="font-cinzel text-xs text-gold-300 tracking-widest uppercase mt-2">
+                <p className="font-cinzel text-xs text-[#B89047] tracking-widest uppercase mt-2 font-semibold">
                   Saturday, 27 March 2027 • Lahore, Pakistan
                 </p>
               </div>
 
               {/* Enter Button */}
               <motion.button
-                whileHover={{ scale: 1.04, boxShadow: '0 0 35px rgba(197, 160, 89, 0.55)' }}
+                whileHover={{ scale: 1.04, boxShadow: '0 10px 30px rgba(27, 56, 43, 0.2)' }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleEnterWebsite}
-                className="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 rounded-full bg-gradient-to-r from-gold-500 via-gold-400 to-gold-600 text-black font-cinzel font-bold text-sm sm:text-base tracking-wider uppercase shadow-2xl shadow-gold-500/30 cursor-pointer overflow-hidden"
+                className="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] font-cinzel font-bold text-xs sm:text-sm tracking-wider uppercase shadow-lg cursor-pointer overflow-hidden"
               >
-                <Sparkles className="w-4 h-4 text-black group-hover:rotate-45 transition-transform" />
+                <Sparkles className="w-4 h-4 text-[#EAD7A5] group-hover:rotate-45 transition-transform" />
                 <span>Enter Wedding Celebration</span>
-                <ChevronRight className="w-5 h-5 text-black group-hover:translate-x-1 transition-transform" />
+                <ChevronRight className="w-4 h-4 text-[#EAD7A5] group-hover:translate-x-1 transition-transform" />
               </motion.button>
 
-              <p className="text-xs text-gold-300/80 font-sans tracking-wide flex items-center gap-1.5 mt-3">
-                <Music className="w-3.5 h-3.5 text-gold-400" />
+              <p className="text-xs text-[#756A5E] font-serif italic flex items-center gap-1.5 mt-3">
+                <Music className="w-3.5 h-3.5 text-[#B89047]" />
                 <span>Plays traditional wedding Shehnai melody automatically</span>
               </p>
             </motion.div>
@@ -573,21 +577,21 @@ export default function OpeningSplashScreen({ onComplete }) {
             onClick={handleOpenCurtains}
             className="absolute z-50 flex flex-col items-center justify-center cursor-pointer group"
           >
-            {/* Illuminated Medallion Plate - High Contrast & Clearly Visible */}
+            {/* Illuminated Medallion Plate in Ivory & Gold */}
             <div
-              className="relative p-3.5 rounded-full border-2 border-gold-300 bg-gradient-to-br from-[#251D14] via-[#100D09] to-[#1F170F] shadow-[0_0_60px_rgba(245,225,175,0.7),0_0_120px_rgba(197,160,89,0.3)] group-hover:scale-105 transition-transform duration-500 overflow-hidden"
+              className="relative p-3.5 rounded-full border-2 border-[#C5A059] bg-[#FFFDF9] shadow-[0_0_60px_rgba(197,160,89,0.4)] group-hover:scale-105 transition-transform duration-500 overflow-hidden"
               style={{ borderRadius: '50%' }}
             >
-              <RoyalMonogramSeal size={135} showSubtext={true} subtext="RIHA" glow={true} />
+              <RoyalMonogramSeal size={135} variant="ivory" showSubtext={true} subtext="RIHA" glow={true} />
               <div
-                className="absolute -inset-1.5 rounded-full border border-gold-400/40 animate-pulse pointer-events-none"
+                className="absolute -inset-1.5 rounded-full border border-[#C5A059]/50 animate-pulse pointer-events-none"
                 style={{ borderRadius: '50%' }}
               />
             </div>
 
             {/* Click / Tap Prompt Pill */}
-            <div className="mt-5 px-6 py-2.5 rounded-full bg-black/90 border border-gold-300/80 backdrop-blur-md shadow-[0_0_25px_rgba(197,160,89,0.4)] flex items-center gap-2 text-xs font-cinzel tracking-widest uppercase text-gold-200 group-hover:bg-gold-500 group-hover:text-black transition-all">
-              <Sparkles className="w-3.5 h-3.5 text-gold-400 group-hover:text-black animate-spin-slow" />
+            <div className="mt-5 px-6 py-2.5 rounded-full bg-[#FFFDF9] border border-[#C5A059] shadow-lg flex items-center gap-2 text-xs font-cinzel tracking-widest uppercase text-[#1B382B] group-hover:bg-[#1B382B] group-hover:text-[#FAF8F5] transition-all">
+              <Sparkles className="w-3.5 h-3.5 text-[#B89047] group-hover:text-[#EAD7A5] animate-spin-slow" />
               <span className="font-bold">Tap to Open Curtains</span>
             </div>
           </motion.div>

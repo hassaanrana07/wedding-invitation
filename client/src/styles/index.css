@@ -4,27 +4,34 @@
 
 @layer base {
   :root {
+    --bg-ivory: #FAF8F5;
+    --bg-champagne: #F5EFE6;
+    --text-forest: #1B382B;
+    --text-muted: #5D5347;
     --primary-gold: #C5A059;
+    --gold-antique: #B89047;
     --gold-light: #EAD7A5;
-    --gold-dark: #8C692B;
-    --emerald-dark: #0F2E23;
-    --dark-bg: #0C0F14;
+    --border-gold: rgba(197, 160, 89, 0.35);
   }
 
   body {
-    background-color: #0C0F14;
-    color: #EFE2C8;
+    background-color: #FAF8F5;
+    color: #1B382B;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
   }
 
   h1, h2, h3, .font-serif-heading {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
     letter-spacing: 0.02em;
   }
 
   .font-script {
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Alex Brush', 'Great Vibes', cursive;
+  }
+
+  .font-calligraphy {
+    font-family: 'Great Vibes', 'Alex Brush', cursive;
   }
 
   .font-cinzel {
@@ -32,92 +39,88 @@
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Luxury Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #0C0F14;
+  background: #F4EFE6;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2A2315;
+  background: #D9C49E;
   border-radius: 4px;
-  border: 1px solid rgba(197, 160, 89, 0.2);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C5A059;
+  background: #B89047;
 }
 
-/* Gold Gradient Shimmer */
+/* Luxury Antique Gold Gradient */
 .gold-text-gradient {
-  background: linear-gradient(135deg, #FFF9E6 0%, #EAD7A5 25%, #C5A059 60%, #8C692B 100%);
+  background: linear-gradient(135deg, #7A5B22 0%, #AF8840 25%, #C5A059 55%, #8C692B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.gold-border-gradient {
-  border-image: linear-gradient(135deg, #EAD7A5, #C5A059, #8C692B) 1;
+.forest-text-gradient {
+  background: linear-gradient(135deg, #13281E 0%, #1B382B 50%, #2E5A45 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Glassmorphism Card */
-.glass-card {
-  background: rgba(18, 22, 28, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(197, 160, 89, 0.15);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+/* Ivory Luxury Cards */
+.ivory-card {
+  background: #FFFDF9;
+  border: 1px solid rgba(197, 160, 89, 0.28);
+  box-shadow: 0 10px 30px rgba(27, 56, 43, 0.04), 0 1px 3px rgba(197, 160, 89, 0.08);
 }
 
-.glass-card-hover {
+.ivory-card-hover {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.glass-card-hover:hover {
+.ivory-card-hover:hover {
   transform: translateY(-4px);
-  border-color: rgba(197, 160, 89, 0.4);
-  box-shadow: 0 25px 60px rgba(197, 160, 89, 0.15);
+  border-color: rgba(197, 160, 89, 0.55);
+  box-shadow: 0 18px 40px rgba(197, 160, 89, 0.14), 0 4px 10px rgba(27, 56, 43, 0.06);
 }
 
-/* Islamic Geometric & Floral Motif Accents */
-.pattern-bg {
-  background-image: radial-gradient(rgba(197, 160, 89, 0.08) 1px, transparent 0);
+.champagne-surface {
+  background: linear-gradient(180deg, #FAF8F5 0%, #F5EFE6 50%, #FAF8F5 100%);
+}
+
+/* Delicate Arch Frames & Floral Borders */
+.invitation-arch {
+  border-top-left-radius: 9999px;
+  border-top-right-radius: 9999px;
+}
+
+/* Subtle botanical dot pattern */
+.botanical-dots {
+  background-image: radial-gradient(rgba(184, 144, 71, 0.12) 1.2px, transparent 1.2px);
   background-size: 24px 24px;
 }
 
-/* Animated soundwave bars */
-.sound-bar {
-  animation: soundBars 1.2s ease-in-out infinite alternate;
-}
-@keyframes soundBars {
-  0% { height: 4px; }
-  100% { height: 20px; }
+/* 3D Perspective Stage Helper */
+.stage-3d {
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 
-/* Ambient glow */
-.ambient-glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  pointer-events: none;
-}
-
-/* Subtle Shimmer & Micro-Interactions */
-@keyframes goldShimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-.gold-shimmer-hover:hover {
-  background-size: 200% auto;
-  animation: goldShimmer 3s linear infinite;
-}
-
+/* Subtle Floating Animations */
 @keyframes subtleFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(1deg); }
 }
 
 .animate-subtle-float {
-  animation: subtleFloat 5s ease-in-out infinite;
+  animation: subtleFloat 6s ease-in-out infinite;
 }
 
+@keyframes floralSway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(2.5deg); }
+}
+
+.animate-floral-sway {
+  animation: floralSway 7s ease-in-out infinite;
+}

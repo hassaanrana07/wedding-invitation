@@ -34,16 +34,18 @@ export const weddingData = {
   },
 
   theme: {
-    theme_preset: 'royal_gold',
-    primary_color: '#C5A059',
-    secondary_color: '#0F2E23',
-    accent_color: '#EAD7A5',
-    background_color: '#0C0F14',
+    theme_preset: 'ivory_champagne_luxury',
+    primary_color: '#1B382B', // Deep forest green
+    secondary_color: '#C5A059', // Antique Royal Gold
+    accent_color: '#B89047',
+    background_color: '#FAF8F5', // Warm ivory
+    surface_color: '#FFFDF9',
     font_heading: 'Cormorant Garamond',
+    font_script: 'Alex Brush',
     font_body: 'Plus Jakarta Sans',
     particle_effects: 1,
     border_radius: 'rounded-2xl',
-    animation_intensity: 'medium'
+    animation_intensity: 'smooth'
   },
 
   music: {
@@ -415,31 +417,23 @@ export const weddingData = {
     }
   ],
 
-  // 4 Verified Family Contacts for the Footer
+  // Exactly TWO Verified Family Contacts (Bride's & Groom's Leads)
   contacts: [
     {
-      role: "Bride's Family Lead (Ladkiwalay)",
+      role: "Bride's Family Representative",
+      relation: 'Brother of the Bride',
       name: 'Mr. Ahmed Sami Khan',
       phone: '+92 333 9988776',
-      formatted_phone: '+92 333 9988776'
+      formatted_phone: '+92 333 9988776',
+      whatsapp: '923339988776'
     },
     {
-      role: "Groom's Family Lead (Ladkewale)",
+      role: "Groom's Family Representative",
+      relation: 'Elder Brother of the Groom',
       name: 'Dr. Shahzad Hassan',
       phone: '+92 301 4433221',
-      formatted_phone: '+92 301 4433221'
-    },
-    {
-      role: 'Baraat Seating & Dignitaries',
-      name: 'Mr. Tariq Rana',
-      phone: '+92 300 1122334',
-      formatted_phone: '+92 300 1122334'
-    },
-    {
-      role: 'Wedding Concierge & RSVP Desk',
-      name: 'Rana Usman Saeed',
-      phone: '+92 300 1234567',
-      formatted_phone: '+92 300 1234567'
+      formatted_phone: '+92 301 4433221',
+      whatsapp: '923014433221'
     }
   ],
 

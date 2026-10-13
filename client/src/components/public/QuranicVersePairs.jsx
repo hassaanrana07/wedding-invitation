@@ -1,45 +1,47 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { DelicateHeart, FloralDivider } from '../ui/BotanicalOrnaments';
 
 /**
  * QuranicVersePairs Component (Center Quranic Verse)
- * Placed around the Couple / Our Story section.
  * Surah An-Naba (78:8) - "And We created you in pairs"
+ * Styled in warm ivory, champagne, and deep forest green calligraphy.
  */
 export default function QuranicVersePairs() {
   return (
-    <section className="relative py-14 px-5 sm:px-6 overflow-hidden bg-gradient-to-b from-[#0C0F14] via-[#0E131B] to-[#0C0F14]">
-      {/* Soft Ambient Radiance */}
-      <div className="ambient-glow w-80 h-80 bg-gold-600/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-
+    <section className="relative py-16 px-5 sm:px-6 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F4EDE0]/60 to-[#FAF8F5]">
       <div className="max-w-2xl mx-auto text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.96, y: 20 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="p-6 sm:p-9 rounded-3xl border border-gold-400/30 bg-gradient-to-b from-gold-950/25 via-[#111622]/85 to-black/60 backdrop-blur-md shadow-2xl relative"
+          className="p-7 sm:p-10 rounded-[32px] border border-[#C5A059]/35 bg-[#FFFDF9] shadow-[0_12px_35px_rgba(27,56,43,0.05)] relative"
         >
-          {/* Top Filigree Accent */}
-          <div className="text-gold-400 text-sm mb-3 opacity-80 tracking-widest">❖ ❖ ❖</div>
+          {/* Top Heart & Filigree */}
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <div className="w-10 h-[1px] bg-[#C5A059]/40" />
+            <DelicateHeart size={14} className="text-[#B89047]" />
+            <div className="w-10 h-[1px] bg-[#C5A059]/40" />
+          </div>
 
           {/* Authentic Arabic Calligraphy */}
           <p
             dir="rtl"
             lang="ar"
-            className="font-serif text-3xl sm:text-4xl md:text-5xl text-gold-100 leading-relaxed tracking-wider mb-3 font-medium drop-shadow"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl text-[#1B382B] leading-relaxed tracking-wider mb-2 font-normal"
           >
             وَخَلَقْنَاكُمْ أَزْوَاجًا
           </p>
 
           {/* English Translation */}
-          <p className="font-serif text-base sm:text-lg text-cream-200/95 italic max-w-md mx-auto leading-relaxed">
+          <p className="font-serif italic text-base sm:text-lg text-[#5D5347] max-w-md mx-auto leading-relaxed">
             "And We created you in pairs."
           </p>
 
           {/* Canonical Reference */}
-          <p className="text-[11px] sm:text-xs font-cinzel tracking-widest text-gold-400 mt-3 uppercase font-semibold">
-            Surah An-Naba — Surah 78, Ayah 8
+          <p className="text-[11px] sm:text-xs font-cinzel tracking-[0.25em] text-[#B89047] mt-3 uppercase font-semibold">
+            Surah An-Naba — 78:8
           </p>
         </motion.div>
       </div>

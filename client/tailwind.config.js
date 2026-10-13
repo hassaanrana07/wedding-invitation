@@ -7,6 +7,38 @@ export default {
   theme: {
     extend: {
       colors: {
+        ivory: {
+          50: '#FDFCF9',
+          100: '#FAF8F5',
+          200: '#F5F1E8',
+          300: '#EDE6D8',
+          400: '#E4DAC6',
+          500: '#D5C7AD',
+        },
+        champagne: {
+          50: '#FCFAF5',
+          100: '#F7F2E7',
+          200: '#EFE5D2',
+          300: '#E5D6BA',
+          400: '#D9C49E',
+          500: '#C9AF7E',
+        },
+        forest: {
+          50: '#F3F7F5',
+          100: '#E2ECE6',
+          200: '#C4D9CD',
+          600: '#2E5A45',
+          700: '#234737',
+          800: '#1B382B', // Primary deep forest green
+          900: '#13281E',
+          deep: '#0F231A',
+        },
+        olive: {
+          500: '#5A6B48',
+          600: '#48563A',
+          700: '#38432D',
+          800: '#2A3322',
+        },
         gold: {
           50: '#FDFBF7',
           100: '#F9F4EB',
@@ -20,6 +52,7 @@ export default {
           900: '#473310',
           light: '#EAD7A5',
           metallic: '#D4AF37',
+          antique: '#B89047',
         },
         rosewood: {
           50: '#FAF5F5',
@@ -33,10 +66,6 @@ export default {
           800: '#431E18',
           900: '#2A100C',
         },
-        emerald: {
-          deep: '#0F2E23',
-          royal: '#0A3B2C',
-        },
         cream: {
           50: '#FDFCF9',
           100: '#FAF7F0',
@@ -44,14 +73,15 @@ export default {
           300: '#ECE4CF',
           400: '#DFD4BA',
         },
-        midnight: '#0C0F14',
-        velvet: '#140D17',
       },
       fontFamily: {
-        serif: ['"Cormorant Garamond"', 'Playfair Display', 'Georgia', 'serif'],
+        serif: ['"Cormorant Garamond"', '"Playfair Display"', 'Georgia', 'serif'],
         cormorant: ['"Cormorant Garamond"', 'serif'],
+        playfair: ['"Playfair Display"', 'Georgia', 'serif'],
         cinzel: ['"Cinzel"', 'serif'],
-        script: ['"Great Vibes"', 'cursive'],
+        script: ['"Alex Brush"', '"Great Vibes"', 'cursive'],
+        calligraphy: ['"Great Vibes"', '"Alex Brush"', 'cursive'],
+        alex: ['"Alex Brush"', 'cursive'],
         sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
       },
       animation: {

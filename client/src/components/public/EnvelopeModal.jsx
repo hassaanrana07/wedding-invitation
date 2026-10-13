@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { Sparkles, Heart, Music, MailOpen } from 'lucide-react';
+import { Sparkles, Music, MailOpen } from 'lucide-react';
 import { useWedding } from '../../context/WeddingContext';
 import RoyalMonogramSeal from '../ui/RoyalMonogramSeal';
+import { BotanicalCornerFlourish, FloralDivider } from '../ui/BotanicalOrnaments';
 
 export default function EnvelopeModal({ guestName }) {
   const { wedding, hasEnteredInvitation, unlockAndPlayAudio } = useWedding();
@@ -14,20 +15,18 @@ export default function EnvelopeModal({ guestName }) {
   const handleOpen = () => {
     setIsOpen(true);
     
-    // Trigger celebratory gold confetti
+    // Trigger celebratory antique gold and champagne confetti
     confetti({
       particleCount: 90,
       spread: 70,
       origin: { y: 0.6 },
-      colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#0F2E23', '#9E5B4F'],
+      colors: ['#C5A059', '#EAD7A5', '#FFFDF9', '#1B382B', '#2D523E'],
     });
 
     setTimeout(() => {
       unlockAndPlayAudio();
     }, 600);
   };
-
-  const monogram = wedding.couple_monogram || `${wedding.bride_name?.[0] || 'R'} & ${wedding.groom_name?.[0] || 'H'}`;
 
   return (
     <AnimatePresence>
@@ -36,11 +35,11 @@ export default function EnvelopeModal({ guestName }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.8 } }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-xl p-4 sm:p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#1B382B]/60 backdrop-blur-md p-4 sm:p-6"
         >
           {/* Ambient Lighting */}
-          <div className="ambient-glow w-96 h-96 bg-gold-500/20 top-1/4 left-1/4 -translate-x-1/2 pointer-events-none" />
-          <div className="ambient-glow w-96 h-96 bg-emerald-deep/40 bottom-1/4 right-1/4 translate-x-1/2 pointer-events-none" />
+          <div className="absolute w-96 h-96 rounded-full bg-[#C5A059]/15 blur-3xl top-1/4 left-1/4 -translate-x-1/2 pointer-events-none" />
+          <div className="absolute w-96 h-96 rounded-full bg-[#FAF8F5]/30 blur-3xl bottom-1/4 right-1/4 translate-x-1/2 pointer-events-none" />
 
           {/* Invitation Envelope Card */}
           <motion.div
@@ -48,65 +47,70 @@ export default function EnvelopeModal({ guestName }) {
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 1.05, opacity: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-gold-500/30 bg-[#12161C] p-8 sm:p-12 text-center shadow-2xl shadow-gold-900/30"
+            className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-[#C5A059]/40 bg-[#FFFDF9] p-8 sm:p-12 text-center shadow-2xl shadow-[#1B382B]/20"
           >
-            {/* Traditional Gold Corner Accents */}
-            <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-gold-400/60 rounded-tl-lg" />
-            <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-gold-400/60 rounded-tr-lg" />
-            <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-gold-400/60 rounded-bl-lg" />
-            <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-gold-400/60 rounded-br-lg" />
+            {/* Corner Botanical Flourishes */}
+            <BotanicalCornerFlourish position="top-left" className="scale-75 origin-top-left" />
+            <BotanicalCornerFlourish position="top-right" className="scale-75 origin-top-right" />
+            <BotanicalCornerFlourish position="bottom-left" className="scale-75 origin-bottom-left" />
+            <BotanicalCornerFlourish position="bottom-right" className="scale-75 origin-bottom-right" />
+
+            {/* Inner Border Frame */}
+            <div className="absolute inset-3 border border-[#C5A059]/20 rounded-2xl pointer-events-none" />
 
             {/* Monogram Seal */}
-            <div className="mx-auto mb-6 flex items-center justify-center">
-              <RoyalMonogramSeal size={74} glow={true} />
+            <div className="relative mx-auto mb-5 flex items-center justify-center">
+              <RoyalMonogramSeal size={74} glow={true} variant="ivory" />
             </div>
 
             {/* Bismillah / Greeting */}
-            <p className="font-serif text-sm tracking-widest text-gold-300/80 uppercase mb-2">
+            <p className="font-serif text-sm tracking-widest text-[#B89047] mb-1">
               بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
             </p>
-            <h3 className="font-cinzel text-xs tracking-widest text-gold-400/90 uppercase mb-4">
+            <h3 className="font-cinzel text-xs tracking-[0.25em] text-[#1B382B]/75 uppercase mb-3 font-semibold">
               Wedding Invitation
             </h3>
 
             {/* Personalized greeting or General */}
             {guestName ? (
-              <div className="mb-4">
-                <p className="text-gold-200 text-sm font-sans tracking-wide">Warmly Welcoming</p>
-                <h4 className="font-serif text-2xl sm:text-3xl font-bold text-gold-light mt-1">
+              <div className="mb-3">
+                <p className="text-[#5D5347] text-xs uppercase tracking-widest font-sans font-medium">Warmly Welcoming</p>
+                <h4 className="font-serif text-2xl sm:text-3xl font-semibold text-[#1B382B] mt-1">
                   {guestName}
                 </h4>
               </div>
             ) : (
-              <p className="text-gold-200/80 text-sm font-sans tracking-wide mb-2">
+              <p className="text-[#5D5347] text-xs uppercase tracking-widest font-sans font-medium mb-1">
                 Together with their families
               </p>
             )}
 
+            <FloralDivider className="!my-2 scale-90" />
+
             {/* Couple Names */}
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold gold-text-gradient my-2">
+            <h1 className="font-script text-4xl sm:text-5xl lg:text-6xl text-[#1B382B] my-2 leading-tight">
               {wedding.couple_title || 'Rida & Harish'}
             </h1>
 
-            <p className="text-sm font-light text-cream-200/80 max-w-sm mx-auto my-5 leading-relaxed">
+            <p className="text-xs sm:text-sm font-light text-[#5D5347] max-w-sm mx-auto my-4 leading-relaxed font-sans">
               Cordially request the honor of your gracious presence and heartfelt prayers to celebrate their wedding ceremonies.
             </p>
 
             {/* Open Invitation CTA Button */}
             <motion.button
-              whileHover={{ scale: 1.03, boxShadow: '0 0 25px rgba(197, 160, 89, 0.6)' }}
+              whileHover={{ scale: 1.03, boxShadow: '0 8px 30px rgba(184, 144, 71, 0.35)' }}
               whileTap={{ scale: 0.98 }}
               onClick={handleOpen}
-              className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-gold-500 via-gold-400 to-gold-600 text-black font-semibold text-base shadow-xl shadow-gold-500/25 transition-all overflow-hidden"
+              className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-[#1B382B] via-[#244A39] to-[#1B382B] text-[#FFFDF9] font-medium text-sm tracking-wide shadow-lg shadow-[#1B382B]/20 border border-[#C5A059]/40 transition-all overflow-hidden"
             >
-              <MailOpen className="w-5 h-5 text-black transition-transform group-hover:rotate-12" />
-              <span>Open Invitation</span>
-              <Sparkles className="w-4 h-4 text-black animate-spin-slow" />
+              <MailOpen className="w-4 h-4 text-[#C5A059] transition-transform group-hover:rotate-12" />
+              <span className="font-serif tracking-wider uppercase text-xs">Open Invitation</span>
+              <Sparkles className="w-3.5 h-3.5 text-[#C5A059] animate-spin-slow" />
             </motion.button>
 
-            <div className="mt-4 flex items-center justify-center gap-1.5 text-xs text-gold-400/70">
-              <Music className="w-3.5 h-3.5" />
-              <span>Includes traditional wedding music</span>
+            <div className="mt-4 flex items-center justify-center gap-1.5 text-xs text-[#5D5347]/80">
+              <Music className="w-3.5 h-3.5 text-[#B89047]" />
+              <span className="font-sans text-[11px]">Includes traditional wedding audio</span>
             </div>
           </motion.div>
         </motion.div>

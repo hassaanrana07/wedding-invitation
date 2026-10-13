@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import {
   Calendar,
   Clock,
@@ -17,8 +16,9 @@ import {
 } from 'lucide-react';
 import ImageWithFallback from '../ui/ImageWithFallback';
 import { useWedding } from '../../context/WeddingContext';
+import { DelicateHeart } from '../ui/BotanicalOrnaments';
 
-export default function EventCard({ event, index, onSelectEvent }) {
+export default function EventCard({ event, index, onSelectEvent, isTimelineItem = false }) {
   const { playCustomTrack } = useWedding();
 
   const formattedDate = event.formatted_date || (event.event_date
@@ -58,30 +58,30 @@ export default function EventCard({ event, index, onSelectEvent }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group relative flex flex-col rounded-3xl border border-gold-500/30 bg-[#13171F] overflow-hidden glass-card-hover shadow-xl hover:shadow-2xl hover:border-gold-400/60 transition-all duration-300"
+      className="group relative flex flex-col rounded-[32px] border border-[#E3D8C4] bg-[#FFFDF9] overflow-hidden shadow-[0_10px_30px_rgba(27,56,43,0.04)] hover:shadow-[0_18px_45px_rgba(197,160,89,0.14)] hover:border-[#C5A059]/70 transition-all duration-300"
     >
-      {/* Cover Image with Fallback */}
-      <div className="relative h-56 sm:h-64 w-full overflow-hidden bg-black/60">
+      {/* Cover Image Banner with Warm Champagne Tone Overlay */}
+      <div className="relative h-52 sm:h-60 w-full overflow-hidden bg-[#F5EFE6]">
         <ImageWithFallback
           src={event.cover_image_url || 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80'}
           alt={event.name}
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           containerClassName="w-full h-full"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#13171F] via-[#13171F]/40 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#FFFDF9] via-transparent to-black/35 pointer-events-none" />
 
-        {/* Function Name Badge */}
+        {/* Function Day & Name Badges */}
         <div className="absolute top-4 left-4 flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-gold-400/50 text-gold-200 text-xs font-semibold tracking-wider uppercase font-cinzel shadow-lg">
-            <Sparkles className="w-3 h-3 text-gold-400" />
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FAF8F5]/90 backdrop-blur-md border border-[#C5A059]/40 text-[#1B382B] text-xs font-cinzel font-semibold tracking-wider uppercase shadow-sm">
+            <DelicateHeart size={12} className="text-[#B89047]" />
             {event.name}
           </span>
           {eventDay && (
-            <span className="px-3 py-1 rounded-full bg-gold-500 text-black text-[11px] font-bold font-mono uppercase tracking-wider shadow">
+            <span className="px-3 py-1 rounded-full bg-[#1B382B] text-[#FAF8F5] text-[11px] font-bold font-mono uppercase tracking-wider shadow">
               {eventDay}
             </span>
           )}
@@ -91,7 +91,7 @@ export default function EventCard({ event, index, onSelectEvent }) {
         {event.music_url && (
           <button
             onClick={() => playCustomTrack(event.music_url, event.name)}
-            className="absolute top-4 right-4 p-2.5 rounded-full bg-gold-500 text-black hover:scale-110 shadow-lg transition-transform cursor-pointer"
+            className="absolute top-4 right-4 p-2.5 rounded-full bg-[#1B382B] text-[#FAF8F5] hover:bg-[#B89047] shadow-lg transition-colors cursor-pointer"
             title="Play Function Theme Track"
           >
             <Music className="w-3.5 h-3.5" />
@@ -104,11 +104,14 @@ export default function EventCard({ event, index, onSelectEvent }) {
         <div>
           {/* Header Title & Tagline */}
           <div>
-            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-gold-light group-hover:text-gold-300 transition-colors">
-              {event.name}
-            </h3>
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1B382B] group-hover:text-[#2E5A45] transition-colors">
+                {event.name}
+              </h3>
+              <DelicateHeart size={16} className="text-[#C5A059]/40 group-hover:text-[#C5A059] transition-colors shrink-0" />
+            </div>
             {event.tagline && (
-              <p className="font-serif text-sm text-gold-400/90 italic mt-0.5">{event.tagline}</p>
+              <p className="font-serif italic text-sm text-[#B89047] mt-0.5">{event.tagline}</p>
             )}
           </div>
 
@@ -116,93 +119,73 @@ export default function EventCard({ event, index, onSelectEvent }) {
           <div className="my-4">
             <button
               onClick={handleOpenDetails}
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-gold-500 via-gold-400 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-black font-cinzel font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-gold-500/20 transition-all cursor-pointer group/btn"
+              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-[#1B382B] hover:bg-[#254A39] text-[#FAF8F5] font-cinzel font-semibold text-xs uppercase tracking-wider shadow-sm transition-all cursor-pointer group/btn"
             >
-              <Sparkles className="w-3.5 h-3.5 text-black group-hover/btn:rotate-45 transition-transform" />
+              <Sparkles className="w-3.5 h-3.5 text-[#EAD7A5] group-hover/btn:rotate-45 transition-transform" />
               <span>View Event Details</span>
-              <ChevronRight className="w-4 h-4 text-black group-hover/btn:translate-x-0.5 transition-transform" />
+              <ChevronRight className="w-4 h-4 text-[#EAD7A5] group-hover/btn:translate-x-0.5 transition-transform" />
             </button>
           </div>
 
           {/* Meaningful Event Description */}
-          <p className="text-cream-300/85 text-xs sm:text-sm leading-relaxed mb-5 font-light">
+          <p className="text-[#5D5347] text-xs sm:text-sm leading-relaxed mb-4 font-light">
             {event.description}
           </p>
 
-          {/* Structured Details Matrix */}
-          <div className="space-y-3 text-xs sm:text-sm text-cream-200/90 border-t border-gold-500/20 pt-4 bg-black/20 p-4 rounded-2xl border">
+          {/* Structured Details Matrix in Warm Cream Inset */}
+          <div className="space-y-3 text-xs sm:text-sm text-[#1B382B] border border-[#EAE0D2] bg-[#FAF8F5] p-4 rounded-2xl">
             {/* 1. Date & Day */}
             <div className="flex items-center gap-2.5">
-              <Calendar className="w-4 h-4 text-gold-400 shrink-0" />
+              <Calendar className="w-4 h-4 text-[#B89047] shrink-0" />
               <div>
-                <span className="text-gold-300 font-semibold">{formattedDate}</span>
-                {eventDay && <span className="text-cream-400/80 ml-1.5 font-mono">({eventDay})</span>}
+                <span className="font-semibold text-[#1B382B]">{formattedDate}</span>
+                {eventDay && <span className="text-[#756A5E] ml-1.5 font-mono">({eventDay})</span>}
               </div>
             </div>
 
             {/* 2. Timing */}
             <div className="flex items-center gap-2.5">
-              <Clock className="w-4 h-4 text-gold-400 shrink-0" />
+              <Clock className="w-4 h-4 text-[#B89047] shrink-0" />
               <span>
-                <strong className="text-gold-300">Time:</strong> {event.start_time} {event.end_time ? `— ${event.end_time}` : ''}
+                <strong className="text-[#1B382B]">Time:</strong> {event.start_time} {event.end_time ? `— ${event.end_time}` : ''}
               </span>
             </div>
 
             {/* 3. Venue & Address */}
             <div className="flex items-start gap-2.5">
-              <MapPin className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
+              <MapPin className="w-4 h-4 text-[#B89047] shrink-0 mt-0.5" />
               <div className="flex flex-col">
-                <span className="font-bold text-gold-light">{event.venue_name}</span>
-                <span className="text-xs text-cream-400/80 leading-relaxed mt-0.5">
+                <span className="font-bold text-[#1B382B]">{event.venue_name}</span>
+                <span className="text-xs text-[#756A5E] leading-relaxed mt-0.5">
                   {event.venue_address || event.city}
                 </span>
               </div>
             </div>
 
-            {/* 4. Program Highlights */}
-            {event.program_highlights && (
-              <div className="flex items-start gap-2.5 pt-1 border-t border-gold-500/10">
-                <ListOrdered className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
-                <span className="text-xs text-cream-300/90 leading-relaxed">
-                  <strong className="text-gold-300">Schedule:</strong> {event.program_highlights}
-                </span>
-              </div>
-            )}
-
-            {/* 5. Dress Code */}
+            {/* 4. Dress Code */}
             {event.dress_code && (
-              <div className="flex items-start gap-2.5 pt-1 border-t border-gold-500/10">
-                <Shirt className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
-                <span className="text-xs text-gold-300/95 font-medium leading-relaxed">
-                  <strong>Dress Code:</strong> {event.dress_code}
-                </span>
-              </div>
-            )}
-
-            {/* 6. Additional Hospitality Note */}
-            {event.additional_notes && (
-              <div className="flex items-start gap-2.5 pt-1 border-t border-gold-500/10">
-                <Info className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
-                <span className="text-xs text-cream-400/80 italic leading-relaxed">
-                  {event.additional_notes}
+              <div className="flex items-start gap-2.5 pt-1 border-t border-[#EAE0D2]">
+                <Shirt className="w-4 h-4 text-[#B89047] shrink-0 mt-0.5" />
+                <span className="text-xs text-[#5D5347] font-medium leading-relaxed">
+                  <strong className="text-[#1B382B]">Dress Code:</strong> {event.dress_code}
                 </span>
               </div>
             )}
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="mt-5 pt-4 border-t border-gold-500/20 flex flex-wrap items-center justify-between gap-3">
+        {/* Action Buttons: Directions & Calendar */}
+        <div className="mt-5 pt-4 border-t border-[#EAE0D2] flex flex-wrap items-center justify-between gap-3">
           {event.google_maps_url ? (
             <a
               href={event.google_maps_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gold-950/70 border border-gold-400/40 text-gold-300 hover:text-black hover:bg-gold-400 transition-all text-xs font-semibold shadow cursor-pointer group/nav"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#FAF8F5] border border-[#C5A059]/50 text-[#1B382B] hover:bg-[#1B382B] hover:text-[#FAF8F5] transition-all text-xs font-semibold shadow-sm cursor-pointer group/nav"
             >
-              <Navigation className="w-3.5 h-3.5 text-gold-400 group-hover/nav:text-black transition-colors" />
+              <Navigation className="w-3.5 h-3.5 text-[#B89047] group-hover/nav:text-[#EAD7A5] transition-colors" />
               <span>Get Directions</span>
-              <ExternalLink className="w-3 h-3 ml-0.5 opacity-70 group-hover/nav:text-black" />
+              <ExternalLink className="w-3 h-3 ml-0.5 opacity-60 group-hover/nav:text-[#FAF8F5]" />
             </a>
           ) : <div />}
 
@@ -210,14 +193,14 @@ export default function EventCard({ event, index, onSelectEvent }) {
             <button
               onClick={handleAddToCalendar}
               title="Add to Google Calendar"
-              className="p-2.5 rounded-xl bg-gold-500/15 hover:bg-gold-500/25 text-gold-300 text-xs transition-colors border border-gold-500/30 flex items-center gap-1.5 cursor-pointer"
+              className="p-2.5 rounded-xl bg-[#FAF8F5] hover:bg-[#F5EFE6] text-[#1B382B] text-xs transition-colors border border-[#E3D8C4] flex items-center gap-1.5 cursor-pointer shadow-sm"
             >
-              <CalendarPlus className="w-4 h-4 text-gold-400" />
+              <CalendarPlus className="w-4 h-4 text-[#B89047]" />
               <span className="hidden sm:inline text-[11px] font-mono">Add to Cal</span>
             </button>
             <button
               onClick={handleOpenDetails}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gold-950/60 hover:bg-gold-500/20 border border-gold-400/40 text-gold-300 font-medium text-xs transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FAF8F5] hover:bg-[#F5EFE6] border border-[#C5A059]/40 text-[#1B382B] font-medium text-xs transition-all cursor-pointer shadow-sm"
             >
               <span>Full Details</span>
             </button>
