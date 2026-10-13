@@ -44,7 +44,7 @@ export default function HeroSection() {
     const endDate = new Date(new Date(dateStr).getTime() + 4 * 3600 * 1000).toISOString().replace(/-|:|\.\d\d\d/g, '');
 
     const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-      `Wedding of ${wedding.couple_title || 'Rida & Harish'}`
+      `Wedding of ${wedding.couple_title || 'Ahmed & Ayesha'}`
     )}&dates=${startDate}/${endDate}&details=${encodeURIComponent(
       wedding.invitation_message || 'Wedding celebrations in Lahore, Pakistan'
     )}&location=${encodeURIComponent('The Nishat Grand Ballroom, Lahore, Pakistan')}`;
@@ -129,7 +129,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="my-3 flex justify-center"
         >
-          <RoyalMonogramSeal size={84} variant="ivory" glow={true} showSubtext={true} subtext="RIHA" />
+          <RoyalMonogramSeal size={84} variant="ivory" glow={true} showSubtext={true} subtext="AH" />
         </motion.div>
 
         {/* "Together with their families" */}
@@ -155,7 +155,7 @@ export default function HeroSection() {
           className="my-3 sm:my-5"
         >
           <h1 className="font-script text-5xl sm:text-6xl md:text-7xl text-[#1B382B] leading-none tracking-normal drop-shadow-sm select-none">
-            Rida & Harish
+            {wedding.couple_title || 'Ahmed & Ayesha'}
           </h1>
         </motion.div>
 

@@ -14,13 +14,13 @@ import {
 export default function CoupleSection() {
   const { wedding } = useWedding();
 
-  const brideName = wedding.bride_name || 'Rida Sami';
+  const brideName = wedding.bride_name || 'Ayesha Fatima';
   const brideRelation = wedding.bride_relation || 'Daughter of';
-  const brideParents = wedding.bride_parents || 'Mr. and Mrs. Rana Sami-ul-Aziz Khan';
+  const brideParents = wedding.bride_parents || 'Mr. Muhammad Imran & Mrs. Shazia Imran';
 
-  const groomName = wedding.groom_name || 'Harish Hassan';
+  const groomName = wedding.groom_name || 'Ahmed Hassan';
   const groomRelation = wedding.groom_relation || 'Son of';
-  const groomParents = wedding.groom_parents || 'Mr. and Mrs. Shameem Rana';
+  const groomParents = wedding.groom_parents || 'Mr. Muhammad Asif & Mrs. Naila Asif';
 
   return (
     <section
@@ -72,7 +72,7 @@ export default function CoupleSection() {
           className="mt-5 mb-7 max-w-2xl mx-auto"
         >
           <p className="font-serif italic text-sm sm:text-lg text-[#5D5347] leading-relaxed font-light">
-            "With immense gratitude to Allah Almighty and the deepest blessings of our beloved parents, we warmly invite you to celebrate the joyous union of Rida & Harish. Your gracious presence and heartfelt prayers will illuminate our new beginning."
+            "With immense gratitude to Allah Almighty and the deepest blessings of our beloved parents, we warmly invite you to celebrate the joyous union of Ahmed & Ayesha. Your gracious presence and heartfelt prayers will illuminate our new beginning."
           </p>
           <div className="flex items-center justify-center gap-2 mt-4">
             <div className="w-12 h-[1px] bg-[#C5A059]/50" />
@@ -98,14 +98,14 @@ export default function CoupleSection() {
                     wedding.couple_image_url ||
                     'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=85'
                   }
-                  alt={wedding.couple_title || 'The Couple'}
+                  alt={wedding.couple_title || 'Ahmed & Ayesha'}
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1B382B]/60 via-transparent to-transparent pointer-events-none" />
 
                 <div className="absolute bottom-5 left-5 right-5 text-center pointer-events-none">
                   <span className="font-script text-3xl sm:text-4xl text-[#FFF9E6] block drop-shadow-sm">
-                    Rida & Harish
+                    {wedding.couple_title || 'Ahmed & Ayesha'}
                   </span>
                   <span className="font-cinzel text-[10px] sm:text-[11px] tracking-[0.25em] text-[#EAD7A5] uppercase mt-0.5 block">
                     March 2027 • Lahore

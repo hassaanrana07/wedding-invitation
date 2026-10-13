@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // Elegant embedded SVG fallback placeholder for luxury wedding theme
-const DEFAULT_FALLBACK_SVG = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" fill="none"><rect width="600" height="400" fill="%230F251E"/><path d="M300 120 L330 170 L390 180 L345 220 L355 280 L300 250 L245 280 L255 220 L210 180 L270 170 Z" stroke="%23D4AF37" stroke-width="1.5" fill="none" opacity="0.4"/><circle cx="300" cy="200" r="110" stroke="%23D4AF37" stroke-dasharray="4 4" stroke-width="1" opacity="0.5"/><text x="300" y="208" text-anchor="middle" fill="%23D4AF37" font-family="serif" font-size="22" letter-spacing="4" font-style="italic">RIHA</text><text x="300" y="234" text-anchor="middle" fill="%23E6D5B8" font-family="sans-serif" font-size="10" letter-spacing="3" opacity="0.75">RIDA &amp; HARISH</text></svg>`;
+const DEFAULT_FALLBACK_SVG = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" fill="none"><rect width="600" height="400" fill="%230F251E"/><path d="M300 120 L330 170 L390 180 L345 220 L355 280 L300 250 L245 280 L255 220 L210 180 L270 170 Z" stroke="%23D4AF37" stroke-width="1.5" fill="none" opacity="0.4"/><circle cx="300" cy="200" r="110" stroke="%23D4AF37" stroke-dasharray="4 4" stroke-width="1" opacity="0.5"/><text x="300" y="208" text-anchor="middle" fill="%23D4AF37" font-family="serif" font-size="22" letter-spacing="4" font-style="italic">AH</text><text x="300" y="234" text-anchor="middle" fill="%23E6D5B8" font-family="sans-serif" font-size="10" letter-spacing="3" opacity="0.75">AHMED &amp; AYESHA</text></svg>`;
 
 export default function ImageWithFallback({
   src,

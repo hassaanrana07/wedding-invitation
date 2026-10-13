@@ -8,9 +8,9 @@ import React from 'react';
 export default function RoyalMonogramSeal({
   size = 40,
   className = '',
-  monogram = 'R & H',
+  monogram = 'A & H',
   showSubtext = false,
-  subtext = 'RIHA',
+  subtext = 'AH',
   glow = false,
   variant = 'ivory', // 'ivory' | 'dark' | 'gold'
 }) {
@@ -32,7 +32,7 @@ export default function RoyalMonogramSeal({
         viewBox="0 0 100 100"
         className="w-full h-full select-none rounded-full overflow-hidden"
         style={{ borderRadius: '50%' }}
-        aria-label="R & H Royal Wedding Monogram"
+        aria-label="A & H Royal Wedding Monogram"
       >
         <defs>
           <linearGradient id="monogramGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -137,7 +137,7 @@ export default function RoyalMonogramSeal({
               filter="url(#monogramSubtleShadow)"
               letterSpacing="0.8"
             >
-              <tspan fontSize="23">R</tspan>
+              <tspan fontSize="23">A</tspan>
               <tspan fontSize="14" fontStyle="italic" dy="-2"> &amp; </tspan>
               <tspan fontSize="23" dy="2">H</tspan>
             </text>
@@ -154,7 +154,7 @@ export default function RoyalMonogramSeal({
             filter="url(#monogramSubtleShadow)"
             letterSpacing="0.6"
           >
-            <tspan fontSize="25">R</tspan>
+            <tspan fontSize="25">A</tspan>
             <tspan fontSize="15" fontStyle="italic" dy="-2"> &amp; </tspan>
             <tspan fontSize="25" dy="2">H</tspan>
           </text>

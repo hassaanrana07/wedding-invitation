@@ -100,10 +100,10 @@ export default function Navbar() {
               />
               <div className="flex flex-col text-left">
                 <span className="font-cinzel text-sm font-bold text-[#1B382B] tracking-[0.25em] group-hover:text-[#B89047] transition-colors">
-                  {wedding.app_title || 'RIHA'}
+                  {wedding.app_title || 'AHMED & AYESHA'}
                 </span>
                 <span className="font-serif italic text-[11px] text-[#756A5E] -mt-0.5">
-                  {wedding.couple_title || 'Rida & Harish'}
+                  {wedding.couple_title || 'Ahmed & Ayesha'}
                 </span>
               </div>
             </a>
@@ -137,10 +137,10 @@ export default function Navbar() {
             <RoyalMonogramSeal size={34} variant="ivory" glow={true} />
             <div className="flex flex-col text-left">
               <span className="font-cinzel text-xs font-bold text-[#1B382B] tracking-widest">
-                {wedding.app_title || 'RIHA'}
+                {wedding.app_title || 'AHMED & AYESHA'}
               </span>
               <span className="font-serif italic text-[10px] text-[#756A5E] -mt-0.5">
-                {wedding.couple_title || 'Rida & Harish'}
+                {wedding.couple_title || 'Ahmed & Ayesha'}
               </span>
             </div>
           </a>

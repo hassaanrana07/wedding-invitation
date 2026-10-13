@@ -89,7 +89,7 @@ export default function EnvelopeModal({ guestName }) {
 
             {/* Couple Names */}
             <h1 className="font-script text-4xl sm:text-5xl lg:text-6xl text-[#1B382B] my-2 leading-tight">
-              {wedding.couple_title || 'Rida & Harish'}
+              {wedding.couple_title || 'Ahmed & Ayesha'}
             </h1>
 
             <p className="text-xs sm:text-sm font-light text-[#5D5347] max-w-sm mx-auto my-4 leading-relaxed font-sans">

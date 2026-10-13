@@ -375,7 +375,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                       const startIso = new Date(`${dateStr}T19:00:00+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
                       const endIso = new Date(`${dateStr}T23:30:00+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
                       const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-                        `RIHA: ${selectedEvent.name}`
+                        `Ahmed & Ayesha: ${selectedEvent.name}`
                       )}&dates=${startIso}/${endIso}&details=${encodeURIComponent(
                         `${selectedEvent.description || ''}\n\nDress Code: ${selectedEvent.dress_code || 'Formal'}`
                       )}&location=${encodeURIComponent(`${selectedEvent.venue_name}, ${selectedEvent.venue_address || selectedEvent.city}`)}`;

@@ -24,7 +24,7 @@ export default function Footer() {
           viewport={{ once: true }}
           className="mx-auto flex items-center justify-center"
         >
-          <RoyalMonogramSeal size={88} variant="ivory" showSubtext={true} subtext="RIHA" glow={true} />
+          <RoyalMonogramSeal size={88} variant="ivory" showSubtext={true} subtext="AH" glow={true} />
         </motion.div>
 
         {/* Wedding Identity */}
@@ -35,10 +35,10 @@ export default function Footer() {
           transition={{ delay: 0.1 }}
         >
           <span className="font-cinzel text-xs tracking-[0.4em] uppercase text-[#B89047] block mb-1 font-semibold">
-            {wedding.app_title || 'RIHA'}
+            {wedding.app_title || 'AHMED & AYESHA'}
           </span>
           <h2 className="font-script text-5xl sm:text-7xl text-[#1B382B] leading-none">
-            {wedding.couple_title || 'Rida & Harish'}
+            {wedding.couple_title || 'Ahmed & Ayesha'}
           </h2>
           {wedding.hashtag && (
             <p className="font-sans text-xs tracking-widest uppercase text-[#B89047] font-semibold mt-2.5">
@@ -99,7 +99,7 @@ export default function Footer() {
                   {/* Direct WhatsApp Button */}
                   {c.whatsapp && (
                     <a
-                      href={`https://wa.me/${c.whatsapp}?text=${encodeURIComponent(`Hello ${c.name}, regarding the wedding of Rida & Harish:`)}`}
+                      href={`https://wa.me/${c.whatsapp}?text=${encodeURIComponent(`Hello ${c.name}, regarding the wedding of Ahmed & Ayesha:`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#25D366]/15 hover:bg-[#25D366] text-[#128C7E] hover:text-white border border-[#25D366]/30 transition-all font-sans text-[11px] font-semibold"
@@ -145,7 +145,7 @@ export default function Footer() {
             "Bārak-Allāhu lakumā wa bāraka 'alaykumā wa jama'a baynakumā fī khayr"
           </p>
           <p className="text-[11px] text-[#756A5E] font-mono tracking-wider">
-            © 2027 RIHA — Wedding of Rida & Harish. All rights reserved.
+            © 2027 Wedding of Ahmed Hassan & Ayesha Fatima. All rights reserved.
           </p>
         </div>
       </div>

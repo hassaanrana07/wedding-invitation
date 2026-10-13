@@ -41,7 +41,7 @@ export default function EventCard({ event, index, onSelectEvent, isTimelineItem 
     const endIso = new Date(`${dateStr}T23:30:00+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
 
     const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-      `RIHA: ${event.name}`
+      `Ahmed & Ayesha: ${event.name}`
     )}&dates=${startIso}/${endIso}&details=${encodeURIComponent(
       `${event.description || ''}\n\nDress Code: ${event.dress_code || 'Formal'}`
     )}&location=${encodeURIComponent(`${event.venue_name}, ${event.venue_address || event.city}`)}`;

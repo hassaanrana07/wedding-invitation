@@ -69,7 +69,7 @@ export default function CountdownSection() {
     const endDate = new Date(new Date(dateStr).getTime() + 4 * 3600 * 1000).toISOString().replace(/-|:|\.\d\d\d/g, '');
 
     const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-      `Wedding of ${wedding.couple_title || 'Rida & Harish'}`
+      `Wedding of ${wedding.couple_title || 'Ahmed & Ayesha'}`
     )}&dates=${startDate}/${endDate}&details=${encodeURIComponent(
       wedding.invitation_message || 'Wedding celebrations in Lahore, Pakistan'
     )}&location=${encodeURIComponent('The Nishat Grand Ballroom, Lahore, Pakistan')}`;
@@ -111,7 +111,7 @@ export default function CountdownSection() {
             Counting Down Every Moment
           </h2>
           <p className="font-serif italic text-sm sm:text-base text-[#756A5E] mt-2 max-w-lg mx-auto">
-            Until we gather under divine blessings to celebrate the union of Rida & Harish.
+            Until we gather under divine blessings to celebrate the wedding union of {wedding.couple_title || 'Ahmed & Ayesha'}.
           </p>
         </motion.div>
 

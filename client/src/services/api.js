@@ -1,5 +1,5 @@
 /**
- * RIHA — Local Data Service
+ * Wedding Local Data Service
  * Provides instant local data access and client-side localStorage persistence.
  */
 

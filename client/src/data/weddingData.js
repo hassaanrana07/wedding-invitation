@@ -1,5 +1,5 @@
 /**
- * RIHA — Wedding of Rida & Harish
+ * Wedding of Ahmed Hassan & Ayesha Fatima
  * Centralized Wedding Data & Configuration (100% Frontend-Only)
  * 
  * All wedding details, venues, timings, gallery images, story milestones,
@@ -8,29 +8,29 @@
 
 export const weddingData = {
   settings: {
-    app_title: 'RIHA',
-    couple_title: 'Rida & Harish',
-    bride_name: 'Rida Sami',
+    app_title: 'AHMED & AYESHA',
+    couple_title: 'Ahmed & Ayesha',
+    bride_name: 'Ayesha Fatima',
     bride_relation: 'Daughter of',
-    bride_parents: 'Mr. and Mrs. Rana Sami-ul-Aziz Khan',
-    groom_name: 'Harish Hassan',
+    bride_parents: 'Mr. Muhammad Imran & Mrs. Shazia Imran',
+    groom_name: 'Ahmed Hassan',
     groom_relation: 'Son of',
-    groom_parents: 'Mr. and Mrs. Shameem Rana',
-    couple_monogram: 'R & H',
+    groom_parents: 'Mr. Muhammad Asif & Mrs. Naila Asif',
+    couple_monogram: 'A & H',
     wedding_date: '2027-03-27T19:00:00+05:00',
     wedding_city: 'Lahore, Pakistan',
     timezone: 'Asia/Karachi',
     hero_headline: 'Together with their families',
-    hero_subheadline: 'warmly invite you to celebrate their union of love and togetherness',
-    invitation_message: 'With immense gratitude to Allah Almighty and the blessings of our parents, we cordially invite you to celebrate the joyous union of Rida & Harish. Your gracious presence and prayers will make our celebrations truly unforgettable.',
-    intro_story: 'Two souls destined to meet, two hearts destined to beat as one. From college debates to quiet coffees in Gulberg, through travels across northern peaks to the warmth of family dinners — our story is a celebration of true companionship, shared dreams, and endless laughter.',
+    hero_subheadline: 'warmly invite you to celebrate the wedding union of Ahmed Hassan & Ayesha Fatima',
+    invitation_message: 'With immense gratitude to Allah Almighty and the blessings of our parents, we cordially invite you to celebrate the joyous union of Ahmed & Ayesha. Your gracious presence and prayers will make our celebrations truly unforgettable.',
+    intro_story: 'Two souls destined to meet, two hearts destined to beat as one. A celebration of true companionship, shared dreams, family blessings, and endless prayers.',
     hero_image_url: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=85',
     couple_image_url: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=85',
-    contact_email: 'rsvp@riha.pk',
-    contact_phone: '+92 300 1234567',
-    footer_text: 'Thank you for being an indispensable part of our story and celebrations. Made with love for Rida & Harish.',
-    hashtag: '#RidaWedsHarish',
-    custom_slug: 'rida-harish'
+    contact_email: 'rsvp@ahmed-ayesha.pk',
+    contact_phone: '+92 300 0000000',
+    footer_text: 'Thank you for being an indispensable part of our story and celebrations. Warmly invited by Muhammad Imran, Shazia Imran, Muhammad Asif, and Naila Asif.',
+    hashtag: '#AhmedWedsAyesha',
+    custom_slug: 'ahmed-ayesha'
   },
 
   theme: {
@@ -57,94 +57,50 @@ export const weddingData = {
     autoplay_prompt: 1
   },
 
-  // 4 Traditional Pakistani Wedding Functions (Official March 2027 Schedule)
+  // Exactly TWO Wedding Functions: Shandi & Walima
   events: [
     {
-      id: 'event-mayun',
-      slug: 'mayun',
-      name: 'Mayun & Dholki',
-      event_day: 'Wednesday',
-      event_date: '2027-03-24',
-      formatted_date: 'Wednesday, 24 March 2027',
-      start_time: '06:30 PM',
-      end_time: '10:30 PM',
-      tagline: 'Haldi, Ubtan & Traditional Folk Geet',
-      description: 'An intimate, vibrant pre-wedding evening celebrating timeless family heritage. The ceremony features fragrant ubtan and haldi application, lively dholak rhythms, traditional folk singing, and joyous family bonding.',
-      venue_name: 'The Royal Palm Golf & Country Club',
-      venue_address: '52 Canal Bank Road, Cantt, Lahore, Punjab, Pakistan',
-      city: 'Lahore, Pakistan',
-      google_maps_url: 'https://maps.google.com/?q=Royal+Palm+Golf+and+Country+Club+Lahore',
-      cover_image_url: 'https://images.unsplash.com/photo-1545232979-fbf68fe9ec92?auto=format&fit=crop&w=1000&q=80',
-      dress_code: 'Sunshine Yellow, Mustard, Gold & Traditional Kurta Pajama',
-      additional_notes: 'Traditional floor seating with dholak and desi chai station. Complimentary valet parking at Canal Bank Entrance.',
-      program_highlights: 'Ubtan Ceremony at 7:00 PM • Traditional Dholki at 8:00 PM • Desi Folk Feast at 9:15 PM',
-      display_order: 1,
-      is_active: 1
-    },
-    {
-      id: 'event-mehndi',
-      slug: 'mehndi',
-      name: 'Mehndi Rung',
-      event_day: 'Friday',
-      event_date: '2027-03-26',
-      formatted_date: 'Friday, 26 March 2027',
-      start_time: '07:30 PM',
-      end_time: '12:00 AM',
-      tagline: 'Music, Dance Performances & Henna Night',
-      description: 'An exhilarating night of vibrant festive colors, friendly family dance face-offs between Ladkewale & Ladkiwale, intricate henna application, and authentic Lahore street-food live counters.',
-      venue_name: 'Pearl Continental Grand Marquee',
-      venue_address: 'Shahrah-e-Quaid-e-Azam, Mall Road, Lahore, Pakistan',
-      city: 'Lahore, Pakistan',
-      google_maps_url: 'https://maps.google.com/?q=Pearl+Continental+Hotel+Lahore',
-      cover_image_url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1000&q=80',
-      dress_code: 'Festive Jewel Tones, Emerald Green, Bright Orange, Shararas & Waistcoats',
-      additional_notes: 'Professional henna artists available throughout the evening. Dance performances begin at 09:30 PM sharp.',
-      program_highlights: 'Henna Lounge opens at 7:30 PM • Grand Couple Entry at 8:30 PM • Dance Face-Off at 9:30 PM • Midnight Food Street at 10:30 PM',
-      display_order: 2,
-      is_active: 1
-    },
-    {
-      id: 'event-baraat',
-      slug: 'baraat',
-      name: 'The Baraat & Nikkah',
+      id: 'event-shandi',
+      slug: 'shandi',
+      name: 'Shandi',
       event_day: 'Saturday',
       event_date: '2027-03-27',
       formatted_date: 'Saturday, 27 March 2027',
       start_time: '08:00 PM',
       end_time: '11:30 PM',
-      tagline: 'The Grand Wedding Day & Solemn Nikkah',
-      description: 'The auspicious centerpiece of our celebrations. Under divine blessings, the solemn Nikkah ceremony will be recited, followed by the grand royal dinner reception welcoming Harish, Rida, and honored guests.',
+      tagline: 'The Grand Wedding Celebration & Barat',
+      description: 'The auspicious centerpiece of our celebrations. Under divine blessings, the sacred marriage ceremony will be recited, followed by the grand royal dinner reception welcoming Ahmed, Ayesha, and honored guests.',
       venue_name: 'The Nishat Grand Ballroom (Emporium)',
       venue_address: 'Abdul Haque Road, Commercial Area Phase 2, Johar Town, Lahore, Pakistan',
       city: 'Lahore, Pakistan',
       google_maps_url: 'https://maps.google.com/?q=The+Nishat+Hotel+Johar+Town+Lahore',
       cover_image_url: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=1000&q=80',
       dress_code: 'Royal Formal / Sherwani, Formal Dark Suits & Heavily Embellished Bridal Formals',
-      additional_notes: 'Seerat-un-Nabi recital and Nikkah at 8:45 PM sharp. Dedicated valet parking at Emporium East Ballroom Gate.',
-      program_highlights: 'Baraat Arrival at 8:00 PM • Sacred Nikkah at 8:45 PM • Royal Dinner Banquet at 9:45 PM • Rukhsati at 11:15 PM',
-      display_order: 3,
+      additional_notes: 'Dedicated valet parking at Emporium East Ballroom Gate. Ceremony commences at 08:30 PM sharp.',
+      program_highlights: 'Baraat Arrival at 8:00 PM • Sacred Ceremony at 8:45 PM • Royal Dinner Banquet at 9:45 PM • Rukhsati at 11:15 PM',
+      display_order: 1,
       is_active: 1
     },
     {
       id: 'event-walima',
       slug: 'walima',
-      name: 'The Walima Reception',
+      name: 'Walima',
       event_day: 'Sunday',
       event_date: '2027-03-28',
       formatted_date: 'Sunday, 28 March 2027',
       start_time: '08:00 PM',
       end_time: '11:30 PM',
-      tagline: 'An Evening of Elegance & Gratitude',
-      description: 'Hosted with profound gratitude by the Groom’s family to celebrate our new beginning. An enchanting dinner evening filled with heartfelt speeches, exquisite culinary creations, and joyous family portraits.',
+      tagline: 'The Blessed Walima Reception',
+      description: 'Hosted with profound gratitude by the Groom’s family to celebrate our new beginning. An enchanting dinner evening filled with heartfelt blessings, exquisite culinary creations, and joyous family portraits.',
       venue_name: 'Defence Raya Golf & Country Club',
       venue_address: 'Phase 6, DHA, Lahore, Punjab, Pakistan',
       city: 'Lahore, Pakistan',
       google_maps_url: 'https://maps.google.com/?q=Defence+Raya+Golf+and+Country+Club+Lahore',
       cover_image_url: 'https://images.unsplash.com/photo-1519225424982-f79a957a0752?auto=format&fit=crop&w=1000&q=80',
       dress_code: 'Formal Black Tie / Tuxedos, Dark Suits, Pastel Chiffons & Raw Silks',
-      additional_notes: 'Live acoustic instrumental sitar and shehnai melodies throughout the dinner. Valet available at Main Clubhouse entrance.',
+      additional_notes: 'Live acoustic instrumental sitar and shehnai melodies throughout dinner. Valet available at Main Clubhouse entrance.',
       program_highlights: 'Guest Reception at 8:00 PM • Couple Grand Entry at 8:45 PM • Family Felicitations at 9:15 PM • Gourmet Dinner at 9:45 PM',
-      display_order: 4,
+      display_order: 2,
       is_active: 1
     }
   ],
@@ -153,75 +109,51 @@ export const weddingData = {
   specialGuests: [
     {
       id: 'sp-1',
-      name: 'Rana Zawar Sami',
-      relationship: 'Brother of the Bride',
+      name: 'Muhammad Imran',
+      relationship: 'Father of the Bride',
       family_side: 'bride',
-      contact_phone: '+92 300 1122334',
-      secondary_contact: 'Islamabad Residence',
+      contact_phone: '+92 300 0000000',
+      secondary_contact: 'Lahore (Demo)',
       photo_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
       display_order: 1,
       is_visible: 1,
-      notes: 'Chief Guest Coordinator for Barat Seating'
+      notes: 'Beloved father and guardian of the bride'
     },
     {
       id: 'sp-2',
-      name: 'Begum Perveen Malik',
-      relationship: 'Paternal Grandmother (Dadi Ammi)',
+      name: 'Shazia Imran',
+      relationship: 'Mother of the Bride',
       family_side: 'bride',
-      contact_phone: '+92 321 5566778',
-      secondary_contact: 'Lahore Cantt',
+      contact_phone: '+92 300 0000000',
+      secondary_contact: 'Lahore (Demo)',
       photo_url: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
       display_order: 2,
       is_visible: 1,
-      notes: 'Family Matriarch & Spiritual Guardian'
+      notes: 'Cherished mother and matriarch of the bride’s family'
     },
     {
       id: 'sp-3',
-      name: 'Mr. Ahmed Sami Khan',
-      relationship: 'Brother of the Bride',
-      family_side: 'bride',
-      contact_phone: '+92 333 9988776',
-      secondary_contact: 'Karachi',
+      name: 'Muhammad Asif',
+      relationship: 'Father of the Groom',
+      family_side: 'groom',
+      contact_phone: '+92 300 0000001',
+      secondary_contact: 'Lahore (Demo)',
       photo_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
       display_order: 3,
       is_visible: 1,
-      notes: 'Ladkiwalay Event Lead & Hospitality Head'
+      notes: 'Respected father and head of the groom’s family'
     },
     {
       id: 'sp-4',
-      name: 'Dr. Shahzad Hassan',
-      relationship: 'Elder Brother of the Groom',
+      name: 'Naila Asif',
+      relationship: 'Mother of the Groom',
       family_side: 'groom',
-      contact_phone: '+92 301 4433221',
-      secondary_contact: 'Dubai',
-      photo_url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80',
+      contact_phone: '+92 300 0000001',
+      secondary_contact: 'Lahore (Demo)',
+      photo_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
       display_order: 4,
       is_visible: 1,
-      notes: 'Walima Stage Host & Ladkewale Reception Lead'
-    },
-    {
-      id: 'sp-5',
-      name: 'Mr. Tariq Rana',
-      relationship: 'Maternal Uncle (Mamoo Jaan)',
-      family_side: 'groom',
-      contact_phone: '+92 324 5688745',
-      secondary_contact: 'Lahore',
-      photo_url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80',
-      display_order: 5,
-      is_visible: 1,
-      notes: 'Barat Ceremony Coordinator & Elder'
-    },
-    {
-      id: 'sp-6',
-      name: 'Rana Usman Saeed',
-      relationship: 'Brother-in-Law',
-      family_side: 'bride',
-      contact_phone: '+92 300 8765432',
-      secondary_contact: 'Lahore',
-      photo_url: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80',
-      display_order: 6,
-      is_visible: 1,
-      notes: 'Guest Welcome & Transport Lead'
+      notes: 'Loving mother welcoming the bride with prayers and warmth'
     }
   ],
 
@@ -250,19 +182,19 @@ export const weddingData = {
     {
       id: 'gal-3',
       title: 'Henna & Marigolds',
-      caption: 'Vibrant yellows, ubtan aromas, and traditional folk songs.',
-      category: 'Mayun',
-      collection_type: 'Mehndi',
+      caption: 'Vibrant yellows, ubtan aromas, and traditional wedding folk songs.',
+      category: 'Shandi',
+      collection_type: 'Shandi',
       image_url: 'https://images.unsplash.com/photo-1545232979-fbf68fe9ec92?auto=format&fit=crop&w=1200&q=85',
       display_order: 3,
       is_featured: 0
     },
     {
       id: 'gal-4',
-      title: 'Mehndi Rung Beats',
+      title: 'Traditional Wedding Beats',
       caption: 'Joyous laughter and rhythmic dholak melodies filling the evening air.',
-      category: 'Mehndi',
-      collection_type: 'Mehndi',
+      category: 'Shandi',
+      collection_type: 'Shandi',
       image_url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=85',
       display_order: 4,
       is_featured: 1
@@ -271,8 +203,8 @@ export const weddingData = {
       id: 'gal-5',
       title: 'Royal Baraat Grandeur',
       caption: 'Traditional Pakistani craftsmanship and regal bridal motifs.',
-      category: 'Baraat',
-      collection_type: 'Baraat',
+      category: 'Shandi',
+      collection_type: 'Shandi',
       image_url: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=1200&q=85',
       display_order: 5,
       is_featured: 1
@@ -291,8 +223,8 @@ export const weddingData = {
       id: 'gal-7',
       title: 'The Solemn Nikkah Pledge',
       caption: 'Sacred vows whispered in prayers, uniting two families with divine blessings.',
-      category: 'Baraat',
-      collection_type: 'Baraat',
+      category: 'Shandi',
+      collection_type: 'Shandi',
       image_url: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85',
       display_order: 7,
       is_featured: 1
@@ -300,9 +232,9 @@ export const weddingData = {
     {
       id: 'gal-8',
       title: 'Bridal Henna & Glass Bangles',
-      caption: 'Intricate Pakistani mehndi patterns and shimmering crimson glass churiyaan.',
-      category: 'Mehndi',
-      collection_type: 'Mehndi',
+      caption: 'Intricate Pakistani henna patterns and shimmering crimson glass churiyaan.',
+      category: 'Shandi',
+      collection_type: 'Shandi',
       image_url: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1200&q=85',
       display_order: 8,
       is_featured: 0
@@ -363,7 +295,7 @@ export const weddingData = {
       id: 'story-2',
       year: '2023',
       title: 'The Proposal in Hunza',
-      description: 'Under the golden autumn peaks of Rakaposhi and a canopy of a million stars, Harish asked the question that made two hearts beat forever in unison, promising a lifetime of shared adventures.',
+      description: 'Under the golden autumn peaks of Rakaposhi and a canopy of a million stars, Ahmed asked the question that made two hearts beat forever in unison, promising a lifetime of shared adventures.',
       image_url: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80',
       display_order: 2
     },
@@ -377,11 +309,11 @@ export const weddingData = {
     }
   ],
 
-  // Verified Venue & Location Directory
+  // Verified Venue & Location Directory (Shandi & Walima)
   venues: [
     {
       name: 'The Nishat Grand Ballroom (Emporium)',
-      event: 'The Baraat & Nikkah Ceremony',
+      event: 'Shandi',
       date: 'Saturday, March 27, 2027',
       time: '08:00 PM',
       address: 'Abdul Haque Road, Commercial Area Phase 2, Johar Town, Lahore, Pakistan',
@@ -390,50 +322,32 @@ export const weddingData = {
     },
     {
       name: 'Defence Raya Golf & Country Club',
-      event: 'The Walima Reception',
+      event: 'Walima',
       date: 'Sunday, March 28, 2027',
       time: '08:00 PM',
       address: 'Phase 6, DHA, Lahore, Punjab, Pakistan',
       city: 'Lahore',
       google_maps_url: 'https://maps.google.com/?q=Defence+Raya+Golf+and+Country+Club+Lahore'
-    },
-    {
-      name: 'Pearl Continental Grand Marquee',
-      event: 'Mehndi Rung',
-      date: 'Friday, March 26, 2027',
-      time: '07:30 PM',
-      address: 'Shahrah-e-Quaid-e-Azam, Mall Road, Lahore, Pakistan',
-      city: 'Lahore',
-      google_maps_url: 'https://maps.google.com/?q=Pearl+Continental+Hotel+Lahore'
-    },
-    {
-      name: 'The Royal Palm Golf & Country Club',
-      event: 'Mayun & Dholki',
-      date: 'Wednesday, March 24, 2027',
-      time: '06:30 PM',
-      address: '52 Canal Bank Road, Cantt, Lahore, Punjab, Pakistan',
-      city: 'Lahore',
-      google_maps_url: 'https://maps.google.com/?q=Royal+Palm+Golf+and+Country+Club+Lahore'
     }
   ],
 
-  // Exactly TWO Verified Family Contacts (Bride's & Groom's Leads)
+  // Exactly TWO Verified Family Contacts (Bride's & Groom's Leads - Demo Placeholders)
   contacts: [
     {
       role: "Bride's Family Representative",
-      relation: 'Brother of the Bride',
-      name: 'Mr. Ahmed Sami Khan',
-      phone: '+92 333 9988776',
-      formatted_phone: '+92 333 9988776',
-      whatsapp: '923339988776'
+      relation: 'Father of the Bride',
+      name: 'Muhammad Imran',
+      phone: '+92 300 0000000',
+      formatted_phone: '+92 300 0000000',
+      whatsapp: '923000000000'
     },
     {
       role: "Groom's Family Representative",
-      relation: 'Elder Brother of the Groom',
-      name: 'Dr. Shahzad Hassan',
-      phone: '+92 301 4433221',
-      formatted_phone: '+92 301 4433221',
-      whatsapp: '923014433221'
+      relation: 'Father of the Groom',
+      name: 'Muhammad Asif',
+      phone: '+92 300 0000001',
+      formatted_phone: '+92 300 0000001',
+      whatsapp: '923000000001'
     }
   ],
 
@@ -446,15 +360,15 @@ export const weddingData = {
       greeting_title: 'Dear Ahmed & Family,',
       relationship: 'Family & Friends',
       allowed_guests: 4,
-      phone: '+92 321 9876543',
+      phone: '+92 321 0000000',
       email: 'ahmed.khan@example.com',
       is_vip: 1,
       status: 'pending',
       assigned_events: [
         {
-          id: 'event-baraat',
-          slug: 'baraat',
-          name: 'The Baraat & Nikkah',
+          id: 'event-shandi',
+          slug: 'shandi',
+          name: 'Shandi',
           event_date: '2027-03-27',
           start_time: '08:00 PM',
           venue_name: 'The Nishat Grand Ballroom (Emporium)',
@@ -464,7 +378,7 @@ export const weddingData = {
         {
           id: 'event-walima',
           slug: 'walima',
-          name: 'The Walima Reception',
+          name: 'Walima',
           event_date: '2027-03-28',
           start_time: '08:00 PM',
           venue_name: 'Defence Raya Golf & Country Club',
@@ -480,35 +394,15 @@ export const weddingData = {
       greeting_title: 'Respected Dr. Fatima Malik,',
       relationship: 'Family & Friends',
       allowed_guests: 2,
-      phone: '+92 333 4567890',
+      phone: '+92 333 0000000',
       email: 'fatima.malik@example.com',
       is_vip: 1,
       status: 'confirmed',
       assigned_events: [
         {
-          id: 'event-mayun',
-          slug: 'mayun',
-          name: 'Mayun & Dholki',
-          event_date: '2027-03-24',
-          start_time: '06:30 PM',
-          venue_name: 'The Royal Palm Golf & Country Club',
-          venue_address: '52 Canal Bank Road, Cantt, Lahore',
-          dress_code: 'Sunshine Yellow & Kurtas'
-        },
-        {
-          id: 'event-mehndi',
-          slug: 'mehndi',
-          name: 'Mehndi Rung',
-          event_date: '2027-03-26',
-          start_time: '07:30 PM',
-          venue_name: 'Pearl Continental Grand Marquee',
-          venue_address: 'Mall Road, Lahore',
-          dress_code: 'Festive Jewel Tones'
-        },
-        {
-          id: 'event-baraat',
-          slug: 'baraat',
-          name: 'The Baraat & Nikkah',
+          id: 'event-shandi',
+          slug: 'shandi',
+          name: 'Shandi',
           event_date: '2027-03-27',
           start_time: '08:00 PM',
           venue_name: 'The Nishat Grand Ballroom (Emporium)',
@@ -518,7 +412,7 @@ export const weddingData = {
         {
           id: 'event-walima',
           slug: 'walima',
-          name: 'The Walima Reception',
+          name: 'Walima',
           event_date: '2027-03-28',
           start_time: '08:00 PM',
           venue_name: 'Defence Raya Golf & Country Club',
@@ -534,25 +428,15 @@ export const weddingData = {
       greeting_title: 'Respected Uncle Usman & Dearest Family,',
       relationship: 'Family & Friends',
       allowed_guests: 5,
-      phone: '+92 300 8765432',
+      phone: '+92 300 0000000',
       email: 'usman.tariq@example.com',
       is_vip: 1,
       status: 'confirmed',
       assigned_events: [
         {
-          id: 'event-mehndi',
-          slug: 'mehndi',
-          name: 'Mehndi Rung',
-          event_date: '2027-03-26',
-          start_time: '07:30 PM',
-          venue_name: 'Pearl Continental Grand Marquee',
-          venue_address: 'Mall Road, Lahore',
-          dress_code: 'Festive Jewel Tones'
-        },
-        {
-          id: 'event-baraat',
-          slug: 'baraat',
-          name: 'The Baraat & Nikkah',
+          id: 'event-shandi',
+          slug: 'shandi',
+          name: 'Shandi',
           event_date: '2027-03-27',
           start_time: '08:00 PM',
           venue_name: 'The Nishat Grand Ballroom (Emporium)',
@@ -562,7 +446,7 @@ export const weddingData = {
         {
           id: 'event-walima',
           slug: 'walima',
-          name: 'The Walima Reception',
+          name: 'Walima',
           event_date: '2027-03-28',
           start_time: '08:00 PM',
           venue_name: 'Defence Raya Golf & Country Club',
