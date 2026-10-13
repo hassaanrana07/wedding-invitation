@@ -4,6 +4,7 @@ import { Sparkles, Music, ChevronRight, Hand } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useWedding } from '../../context/WeddingContext';
 import RoyalMonogramSeal from '../ui/RoyalMonogramSeal';
+import { HangingWeddingBulb, BloomingFlowerOrnament } from '../ui/BotanicalOrnaments';
 
 export default function OpeningSplashScreen({ onComplete }) {
   const { wedding, unlockAndPlayAudio } = useWedding();
@@ -37,23 +38,26 @@ export default function OpeningSplashScreen({ onComplete }) {
 
   // Experience Phases:
   // 1: 'curtains_closed'   -> Stage curtains closed with high-contrast centered R & H seal
-  // 2: 'curtains_opening'  -> 3D Curtains swing & rotate outward with fabric folds (1.35s)
-  // 3: 'scratch_card'      -> Circular HTML5 canvas scratch card appears
-  // 4: 'invitation_reveal' -> Scratched >= 65% -> Bismillah & Rida & Harish wedding card revealed
+  // 2: 'curtains_opening'  -> 3D Curtains swing & rotate outward with fabric folds (1.45s)
+  // 3: 'scratch_card'      -> Circular HTML5 canvas scratch card appears AFTER curtains finish opening
+  // 4: 'invitation_reveal' -> Scratched >= 65% -> Flower bloom animation & Bismillah wedding card revealed
   // 5: 'done'              -> Main website revealed
   const [phase, setPhase] = useState(getInitialPhase);
   const [curtainsOpened, setCurtainsOpened] = useState(getInitialCurtainsOpened);
+  const [isOpening, setIsOpening] = useState(false);
   const [scratchPercent, setScratchPercent] = useState(0);
   const [isScratching, setIsScratching] = useState(false);
   const [cardRevealed, setCardRevealed] = useState(false);
   const [hasInteractedScratch, setHasInteractedScratch] = useState(false);
+  const [showFlowerBloom, setShowFlowerBloom] = useState(false);
 
-  // Canvas Refs
+  // Canvas & Flower Refs
   const canvasRef = useRef(null);
   const isPointerDownRef = useRef(false);
   const lastPointRef = useRef(null);
   const throttleCheckRef = useRef(0);
   const confettiFiredRef = useRef(false);
+  const flowerBloomedRef = useRef(false);
 
   // Initialize Canvas Circular Scratch Layer
   const initCanvas = useCallback(() => {
@@ -169,35 +173,31 @@ export default function OpeningSplashScreen({ onComplete }) {
     } catch (e) {}
     unlockAndPlayAudio();
 
-    // Fire celebration fireworks, rose petals, and golden sparkles ONLY ONCE
+    // Trigger flower bloom animation once
+    if (!flowerBloomedRef.current) {
+      flowerBloomedRef.current = true;
+      setShowFlowerBloom(true);
+    }
+
+    // Fire celebration golden sparkles & rose petals ONLY ONCE
     if (!confettiFiredRef.current) {
       confettiFiredRef.current = true;
       try {
-        // Multi-color fireworks and rose petal bursts from left & right cannons
         confetti({
-          particleCount: 85,
+          particleCount: 75,
           angle: 60,
-          spread: 80,
+          spread: 75,
           origin: { x: 0.15, y: 0.65 },
-          colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2', '#E28495', '#F5A9B8', '#FF69B4', '#FFD700'],
-          ticks: 240,
+          colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2', '#E28495', '#F5A9B8'],
+          ticks: 220,
         });
         confetti({
-          particleCount: 85,
+          particleCount: 75,
           angle: 120,
-          spread: 80,
+          spread: 75,
           origin: { x: 0.85, y: 0.65 },
-          colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2', '#E28495', '#F5A9B8', '#FF69B4', '#FFD700'],
-          ticks: 240,
-        });
-        confetti({
-          particleCount: 120,
-          spread: 120,
-          origin: { x: 0.5, y: 0.45 },
-          colors: ['#EAD7A5', '#D4AF37', '#E28495', '#F5A9B8', '#F5D061', '#FFFFFF', '#FF69B4', '#C5A059'],
-          gravity: 0.75,
-          scalar: 1.15,
-          ticks: 280,
+          colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2', '#E28495', '#F5A9B8'],
+          ticks: 220,
         });
       } catch (e) {}
     }
@@ -323,9 +323,10 @@ export default function OpeningSplashScreen({ onComplete }) {
     ctx.restore();
   };
 
-  // Scene 2: Interactive Curtain Opening Trigger (1.35s cinematic reveal)
+  // Scene 2: Interactive Curtain Opening Trigger (1.45s cinematic reveal)
   const handleOpenCurtains = () => {
-    if (phase !== 'curtains_closed') return;
+    if (phase !== 'curtains_closed' || isOpening) return;
+    setIsOpening(true);
     setCurtainsOpened(true);
     setPhase('curtains_opening');
     try {
@@ -333,10 +334,11 @@ export default function OpeningSplashScreen({ onComplete }) {
     } catch (e) {}
     unlockAndPlayAudio();
 
-    // Allow the curtains to naturally part for 1.35s before revealing the scratch card
+    // Allow the curtains to naturally part for 1.45s before revealing the scratch card
     setTimeout(() => {
       setPhase('scratch_card');
-    }, 1350);
+      setIsOpening(false);
+    }, 1450);
   };
 
   // Scene 4: Enter Website & Play Wedding Music
@@ -495,8 +497,20 @@ export default function OpeningSplashScreen({ onComplete }) {
               initial={{ opacity: 0, scale: 0.92, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.8, ease: 'easeOut' }}
-              className="flex flex-col items-center max-w-lg w-full p-8 sm:p-10 rounded-[36px] bg-[#FFFDF9] border-2 border-[#C5A059] shadow-[0_20px_60px_rgba(27,56,43,0.12)] text-center relative overflow-hidden"
+              className="flex flex-col items-center max-w-lg w-full p-8 sm:p-10 rounded-[36px] bg-[#FFFDF9] border-2 border-[#C5A059] shadow-[0_20px_60px_rgba(27,56,43,0.12)] text-center relative overflow-visible"
             >
+              {/* Decorative Flower Blooming Animation (Side-Mounted Frame) */}
+              {showFlowerBloom && (
+                <motion.div
+                  initial={{ scale: 0, opacity: 0, rotate: -25 }}
+                  animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                  transition={{ duration: 1.2, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute -top-10 -right-6 sm:-top-12 sm:-right-8 z-20 pointer-events-none"
+                >
+                  <BloomingFlowerOrnament />
+                </motion.div>
+              )}
+
               {/* Royal Monogram Badge */}
               <div className="mb-4">
                 <RoyalMonogramSeal size={90} variant="ivory" showSubtext={true} subtext="RIHA" glow={true} />
@@ -565,8 +579,35 @@ export default function OpeningSplashScreen({ onComplete }) {
         </div>
 
         {/* ============================================================== */}
-        {/* SCENE 1 & 2: 3D THEATRICAL WEDDING STAGE CURTAINS               */}
+        {/* SCENE 1 & 2: MODERN ANIMATED WEDDING CURTAINS & HANGING BULB   */}
         {/* ============================================================== */}
+        
+        {/* Hanging Decorative Wedding Bulb (Swings from top center ceiling) */}
+        {!curtainsOpened && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              rotate: [-4.5, 4.5, -4.5],
+            }}
+            exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.6 } }}
+            transition={{
+              rotate: {
+                repeat: Infinity,
+                duration: 4.8,
+                ease: 'easeInOut',
+              },
+              opacity: { duration: 0.8 },
+              y: { duration: 0.8 },
+            }}
+            style={{ transformOrigin: 'top center' }}
+            className="absolute top-0 left-1/2 -translate-x-1/2 z-40 pointer-events-none"
+          >
+            <HangingWeddingBulb />
+          </motion.div>
+        )}
+
         {/* High-Contrast Central Seal (Visible during Scene 1 and smoothly transitions) */}
         {!curtainsOpened && (
           <motion.div
@@ -607,12 +648,12 @@ export default function OpeningSplashScreen({ onComplete }) {
                   rotateY: -78,
                   scaleX: 0.08,
                   x: '-100%',
-                  y: [-4, 12, -18],
+                  y: [-3, 10, -15],
                 }
               : {
                   rotateY: [0, -2, 0, 1.5, 0],
-                  y: [0, -7, 0, 6, 0],
-                  x: [0, -3, 0, 2, 0],
+                  y: [0, -6, 0, 5, 0],
+                  x: [0, -2, 0, 2, 0],
                   scaleX: 1,
                 }
           }
@@ -628,7 +669,7 @@ export default function OpeningSplashScreen({ onComplete }) {
                   ease: 'easeInOut',
                 }
           }
-          className={`absolute top-0 left-0 w-1/2 h-full z-30 shadow-[35px_0_70px_rgba(0,0,0,0.98)] ${
+          className={`absolute top-0 left-0 w-1/2 h-full z-30 shadow-[35px_0_70px_rgba(0,0,0,0.95)] ${
             !curtainsOpened ? 'cursor-pointer' : 'pointer-events-none'
           }`}
           style={{
@@ -636,13 +677,13 @@ export default function OpeningSplashScreen({ onComplete }) {
             transformStyle: 'preserve-3d',
             background: `
               linear-gradient(to right,
-                #c5baa4 0%,
-                #ede5d4 15%,
-                #ded4c0 30%,
-                #f9f5ec 48%,
-                #d9cfba 65%,
-                #eee7d8 82%,
-                #bfb39d 100%
+                #c8bea8 0%,
+                #eee6d5 14%,
+                #dfd4be 28%,
+                #fcf9f2 44%,
+                #dcd1be 58%,
+                #f2ebdb 76%,
+                #c2b59f 100%
               )
             `,
           }}
@@ -654,18 +695,18 @@ export default function OpeningSplashScreen({ onComplete }) {
               backgroundImage: `
                 repeating-linear-gradient(
                   to right,
-                  rgba(90, 78, 62, 0.42) 0px,
-                  rgba(130, 118, 98, 0.18) 18px,
-                  rgba(255, 255, 255, 0.65) 36px,
-                  rgba(80, 68, 52, 0.45) 54px
+                  rgba(90, 78, 62, 0.38) 0px,
+                  rgba(130, 118, 98, 0.16) 18px,
+                  rgba(255, 255, 255, 0.6) 36px,
+                  rgba(80, 68, 52, 0.4) 54px
                 )
               `,
             }}
           />
 
           {/* Golden Velvet Trim */}
-          <div className="absolute top-0 right-0 bottom-0 w-4 bg-gradient-to-r from-gold-600 via-gold-300 to-gold-700 shadow-xl" />
-          <div className="absolute top-0 right-4 bottom-0 w-1.5 bg-gold-200/50" />
+          <div className="absolute top-0 right-0 bottom-0 w-4 bg-gradient-to-r from-[#B89047] via-[#F4E3B5] to-[#8C692B] shadow-xl" />
+          <div className="absolute top-0 right-4 bottom-0 w-1.5 bg-[#EAD7A5]/60" />
         </motion.div>
 
         {/* RIGHT CURTAIN WITH 3D ROTATION, FABRIC WAVE & REALISTIC GATHERING */}
@@ -678,12 +719,12 @@ export default function OpeningSplashScreen({ onComplete }) {
                   rotateY: 78,
                   scaleX: 0.08,
                   x: '100%',
-                  y: [4, -12, 18],
+                  y: [3, -10, 15],
                 }
               : {
                   rotateY: [0, 2, 0, -1.5, 0],
-                  y: [0, 7, 0, -6, 0],
-                  x: [0, 3, 0, -2, 0],
+                  y: [0, 6, 0, -5, 0],
+                  x: [0, 2, 0, -2, 0],
                   scaleX: 1,
                 }
           }
@@ -699,7 +740,7 @@ export default function OpeningSplashScreen({ onComplete }) {
                   ease: 'easeInOut',
                 }
           }
-          className={`absolute top-0 right-0 w-1/2 h-full z-30 shadow-[-35px_0_70px_rgba(0,0,0,0.98)] ${
+          className={`absolute top-0 right-0 w-1/2 h-full z-30 shadow-[-35px_0_70px_rgba(0,0,0,0.95)] ${
             !curtainsOpened ? 'cursor-pointer' : 'pointer-events-none'
           }`}
           style={{
@@ -707,13 +748,13 @@ export default function OpeningSplashScreen({ onComplete }) {
             transformStyle: 'preserve-3d',
             background: `
               linear-gradient(to left,
-                #c5baa4 0%,
-                #ede5d4 15%,
-                #ded4c0 30%,
-                #f9f5ec 48%,
-                #d9cfba 65%,
-                #eee7d8 82%,
-                #bfb39d 100%
+                #c8bea8 0%,
+                #eee6d5 14%,
+                #dfd4be 28%,
+                #fcf9f2 44%,
+                #dcd1be 58%,
+                #f2ebdb 76%,
+                #c2b59f 100%
               )
             `,
           }}
@@ -725,18 +766,18 @@ export default function OpeningSplashScreen({ onComplete }) {
               backgroundImage: `
                 repeating-linear-gradient(
                   to left,
-                  rgba(90, 78, 62, 0.42) 0px,
-                  rgba(130, 118, 98, 0.18) 18px,
-                  rgba(255, 255, 255, 0.65) 36px,
-                  rgba(80, 68, 52, 0.45) 54px
+                  rgba(90, 78, 62, 0.38) 0px,
+                  rgba(130, 118, 98, 0.16) 18px,
+                  rgba(255, 255, 255, 0.6) 36px,
+                  rgba(80, 68, 52, 0.4) 54px
                 )
               `,
             }}
           />
 
           {/* Golden Velvet Trim */}
-          <div className="absolute top-0 left-0 bottom-0 w-4 bg-gradient-to-l from-gold-600 via-gold-300 to-gold-700 shadow-xl" />
-          <div className="absolute top-0 left-4 bottom-0 w-1.5 bg-gold-200/50" />
+          <div className="absolute top-0 left-0 bottom-0 w-4 bg-gradient-to-l from-[#B89047] via-[#F4E3B5] to-[#8C692B] shadow-xl" />
+          <div className="absolute top-0 left-4 bottom-0 w-1.5 bg-[#EAD7A5]/60" />
         </motion.div>
       </motion.div>
     </AnimatePresence>

@@ -152,9 +152,9 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="my-4 sm:my-6"
+          className="my-3 sm:my-5"
         >
-          <h1 className="font-script text-5xl sm:text-7xl md:text-8xl text-[#1B382B] leading-none tracking-normal drop-shadow-sm select-none">
+          <h1 className="font-script text-5xl sm:text-6xl md:text-7xl text-[#1B382B] leading-none tracking-normal drop-shadow-sm select-none">
             Rida & Harish
           </h1>
         </motion.div>

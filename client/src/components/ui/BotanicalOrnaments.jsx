@@ -198,3 +198,191 @@ export function BotanicalFloralSprig({ size = 48, className = '' }) {
     </svg>
   );
 }
+
+/**
+ * Hanging Decorative Wedding Bulb
+ * Suspended by an elegant wire, gently swings from the top pivot with a warm golden glow.
+ */
+export function HangingWeddingBulb({ className = '', style = {} }) {
+  return (
+    <div
+      className={`absolute pointer-events-none select-none ${className}`}
+      style={{
+        transformOrigin: 'top center',
+        ...style,
+      }}
+    >
+      <div className="flex flex-col items-center">
+        {/* Hanging wire from top ceiling */}
+        <div className="w-[1.5px] h-24 sm:h-28 bg-gradient-to-b from-[#8C692B] via-[#C5A059] to-[#8C692B]" />
+
+        {/* Brass / Antique Gold Lamp Socket */}
+        <div className="relative -mt-0.5 flex flex-col items-center">
+          {/* Socket Cap */}
+          <div className="w-4 h-2 rounded-t-sm bg-gradient-to-r from-[#8C692B] via-[#EAD7A5] to-[#8C692B] border border-[#B89047]" />
+          {/* Threaded Ring */}
+          <div className="w-5 h-2.5 bg-gradient-to-r from-[#A07A30] via-[#F4E3B5] to-[#8C692B] border-t border-b border-[#73541E]" />
+
+          {/* Teardrop Glass Bulb with Filament & Golden Glow */}
+          <div className="relative mt-0.5 flex items-center justify-center">
+            {/* Ambient Radial Golden Aura */}
+            <div
+              className="absolute -inset-4 rounded-full pointer-events-none animate-pulse"
+              style={{
+                background:
+                  'radial-gradient(circle, rgba(255, 220, 130, 0.45) 0%, rgba(212, 175, 55, 0.18) 45%, transparent 75%)',
+                filter: 'blur(6px)',
+              }}
+            />
+
+            {/* Vintage Glass Teardrop SVG */}
+            <svg width="34" height="46" viewBox="0 0 34 46" fill="none" className="relative z-10 drop-shadow-md">
+              {/* Bulb Glass Body */}
+              <path
+                d="M10 2C8 2 7 6 7 10C7 16 2 20 2 28C2 37 8 44 17 44C26 44 32 37 32 28C32 20 27 16 27 10C27 6 26 2 24 2H10Z"
+                fill="url(#glassGrad)"
+                stroke="#C5A059"
+                strokeWidth="1.2"
+              />
+              {/* Warm Incandescent Filament */}
+              <path
+                d="M13 14L15 26L17 22L19 26L21 14"
+                stroke="#FFB347"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <circle cx="17" cy="24" r="2.5" fill="#FFE8A3" />
+
+              {/* Glass Reflection Highlight */}
+              <path
+                d="M6 24C6 20 9 16 10 13"
+                stroke="rgba(255, 255, 255, 0.75)"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+              />
+
+              <defs>
+                <radialGradient id="glassGrad" cx="0.5" cy="0.6" r="0.5" fx="0.5" fy="0.5">
+                  <stop offset="0%" stopColor="#FFFDF2" stopOpacity="0.85" />
+                  <stop offset="60%" stopColor="#FDEFCB" stopOpacity="0.5" />
+                  <stop offset="100%" stopColor="#E5C77A" stopOpacity="0.25" />
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Blooming Botanical Flower Ornament
+ * Elegantly unfurls its stem, leaves, and progressive rose/lotus petals
+ * after the scratch interaction completes.
+ */
+export function BloomingFlowerOrnament({ onAnimationEnd, className = '' }) {
+  return (
+    <div className={`relative pointer-events-none select-none ${className}`}>
+      {/* Drifting Petals in Background */}
+      <div className="absolute inset-0 overflow-visible pointer-events-none">
+        {[
+          { x: -25, y: 35, rot: 45, delay: 0.8 },
+          { x: 30, y: 50, rot: -30, delay: 1.1 },
+          { x: -15, y: 75, rot: 25, delay: 1.4 },
+        ].map((p, i) => (
+          <div
+            key={i}
+            className="absolute top-1/2 left-1/2 w-3.5 h-2.5 rounded-full bg-gradient-to-br from-[#F5D8DB] to-[#EAD7A5] border border-[#C5A059]/40 opacity-70 animate-bounce"
+            style={{
+              transform: `translate(${p.x}px, ${p.y}px) rotate(${p.rot}deg)`,
+              animationDuration: '3.5s',
+              animationDelay: `${p.delay}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Handcrafted Botanical Rose SVG with Staggered Petal Expansion */}
+      <svg width="130" height="130" viewBox="0 0 130 130" fill="none" className="overflow-visible">
+        {/* Curved Vine & Olive Leaves */}
+        <g className="origin-bottom">
+          <path
+            d="M65 110C65 85 58 65 65 45"
+            stroke="#2D523E"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            className="transition-all duration-700"
+          />
+          {/* Leaves */}
+          <path
+            d="M63 80C52 75 48 85 52 92C58 98 64 90 63 80Z"
+            fill="#3E634F"
+            fillOpacity="0.35"
+            stroke="#2D523E"
+            strokeWidth="1"
+          />
+          <path
+            d="M66 68C76 62 82 70 78 78C72 85 66 76 66 68Z"
+            fill="#3E634F"
+            fillOpacity="0.35"
+            stroke="#2D523E"
+            strokeWidth="1"
+          />
+        </g>
+
+        {/* 1. OUTER PETALS (Smooth Bloom Opening) */}
+        <g className="origin-center animate-[spin_30s_linear_infinite]">
+          {[0, 72, 144, 216, 288].map((angle, idx) => (
+            <path
+              key={`outer-${idx}`}
+              d="M65 45C55 25 40 22 45 10C55 -2 75 -2 85 10C90 22 75 25 65 45Z"
+              fill="#FFFDF9"
+              fillOpacity="0.9"
+              stroke="#B89047"
+              strokeWidth="1"
+              transform={`rotate(${angle} 65 45)`}
+              className="drop-shadow-sm transition-transform duration-1000"
+              style={{
+                transformOrigin: '65px 45px',
+              }}
+            />
+          ))}
+        </g>
+
+        {/* 2. INNER PETALS (Blush & Champagne) */}
+        <g>
+          {[36, 108, 180, 252, 324].map((angle, idx) => (
+            <path
+              key={`inner-${idx}`}
+              d="M65 45C58 32 48 30 52 22C58 14 72 14 78 22C82 30 72 32 65 45Z"
+              fill="#FAF2E8"
+              fillOpacity="0.95"
+              stroke="#C5A059"
+              strokeWidth="0.9"
+              transform={`rotate(${angle} 65 45)`}
+              style={{
+                transformOrigin: '65px 45px',
+              }}
+            />
+          ))}
+        </g>
+
+        {/* 3. FLOWER HEART & GOLDEN STAMEN */}
+        <circle cx="65" cy="45" r="9" fill="#F5E4C4" stroke="#B89047" strokeWidth="1" />
+        <circle cx="65" cy="45" r="4.5" fill="#C5A059" />
+        {[0, 60, 120, 180, 240, 300].map((deg, i) => (
+          <circle
+            key={i}
+            cx={65 + 6.5 * Math.cos((deg * Math.PI) / 180)}
+            cy={45 + 6.5 * Math.sin((deg * Math.PI) / 180)}
+            r="1.2"
+            fill="#8C692B"
+          />
+        ))}
+      </svg>
+    </div>
+  );
+}
+

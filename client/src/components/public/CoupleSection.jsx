@@ -58,7 +58,7 @@ export default function CoupleSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="font-serif text-3xl sm:text-5xl lg:text-6xl text-[#1B382B] font-normal leading-tight mt-2"
+          className="font-serif text-2xl sm:text-4xl lg:text-5xl text-[#1B382B] font-normal leading-tight mt-2"
         >
           Two Destined Souls, One Sacred Journey
         </motion.h2>
@@ -69,9 +69,9 @@ export default function CoupleSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="mt-6 mb-8 max-w-2xl mx-auto"
+          className="mt-5 mb-7 max-w-2xl mx-auto"
         >
-          <p className="font-serif italic text-base sm:text-xl text-[#5D5347] leading-relaxed font-light">
+          <p className="font-serif italic text-sm sm:text-lg text-[#5D5347] leading-relaxed font-light">
             "With immense gratitude to Allah Almighty and the deepest blessings of our beloved parents, we warmly invite you to celebrate the joyous union of Rida & Harish. Your gracious presence and heartfelt prayers will illuminate our new beginning."
           </p>
           <div className="flex items-center justify-center gap-2 mt-4">

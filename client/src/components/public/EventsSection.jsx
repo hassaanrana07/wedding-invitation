@@ -94,7 +94,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="font-script text-5xl sm:text-7xl lg:text-8xl text-[#1B382B] leading-none my-2 drop-shadow-sm select-none"
+            className="font-script text-5xl sm:text-6xl lg:text-7xl text-[#1B382B] leading-none my-2 drop-shadow-sm select-none"
           >
             Program Timeline
           </motion.h2>

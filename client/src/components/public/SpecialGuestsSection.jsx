@@ -79,7 +79,7 @@ export default function SpecialGuestsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="font-serif text-3xl sm:text-5xl text-[#1B382B] font-normal leading-tight"
+            className="font-serif text-2xl sm:text-4xl text-[#1B382B] font-normal leading-tight"
           >
             Owner's Family & Honored Dignitaries
           </motion.h2>
@@ -121,36 +121,37 @@ export default function SpecialGuestsSection() {
           <motion.div
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.2}
+            dragElastic={0.25}
             onDragEnd={(_, { offset, velocity }) => {
-              if (offset.x > 40 || velocity.x > 0.4) {
+              if (offset.x > 35 || velocity.x > 0.3) {
                 handlePrev();
-              } else if (offset.x < -40 || velocity.x < -0.4) {
+              } else if (offset.x < -35 || velocity.x < -0.3) {
                 handleNext();
               }
             }}
             className="relative w-full h-[460px] sm:h-[500px] flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
+            style={{ perspective: 1200 }}
           >
-            {/* 1. LEFT CARD (Smaller / Background) */}
+            {/* 1. LEFT CARD (Adjacent - Subtly Scaled & Rotated) */}
             <motion.div
               key={`left-${leftItem.guest.id}`}
               onClick={handlePrev}
               initial={false}
               animate={{
-                x: '-62%',
-                scale: 0.82,
-                opacity: 0.55,
+                x: '-64%',
+                scale: 0.84,
+                opacity: 0.6,
                 zIndex: 10,
-                rotateY: 14,
+                rotateY: 18,
               }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute w-[270px] sm:w-[320px] rounded-3xl border border-[#E3D8C4] bg-[#FFFDF9]/90 backdrop-blur-md p-5 sm:p-6 text-center cursor-pointer hover:opacity-85 transition-opacity hidden md:flex flex-col items-center justify-between shadow-lg overflow-hidden"
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+              className="absolute w-[270px] sm:w-[320px] rounded-3xl border border-[#E3D8C4] bg-[#FFFDF9]/95 backdrop-blur-md p-5 sm:p-6 text-center cursor-pointer hover:opacity-90 hover:scale-[0.87] transition-all hidden md:flex flex-col items-center justify-between shadow-lg overflow-hidden"
               style={{ transformStyle: 'preserve-3d' }}
             >
               <FamilyCardContent guest={leftItem.guest} isCenter={false} />
             </motion.div>
 
-            {/* 2. CENTER CARD (Prominent Front & Active) */}
+            {/* 2. CENTER CARD (Active & Prominent Front) */}
             <motion.div
               key={`center-${centerItem.guest.id}`}
               initial={false}
@@ -161,8 +162,8 @@ export default function SpecialGuestsSection() {
                 zIndex: 30,
                 rotateY: 0,
               }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-[300px] sm:w-[360px] rounded-[32px] border-2 border-[#C5A059] bg-[#FFFDF9] backdrop-blur-xl p-6 sm:p-7 text-center shadow-[0_20px_50px_rgba(27,56,43,0.08),0_4px_16px_rgba(197,160,89,0.15)] flex flex-col items-center justify-between overflow-hidden"
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+              className="relative w-[300px] sm:w-[360px] rounded-[32px] border-2 border-[#C5A059] bg-[#FFFDF9] backdrop-blur-xl p-6 sm:p-7 text-center shadow-[0_22px_55px_rgba(27,56,43,0.09),0_6px_20px_rgba(197,160,89,0.18)] flex flex-col items-center justify-between overflow-hidden"
               style={{ transformStyle: 'preserve-3d' }}
             >
               {/* Corner Golden Accents */}
@@ -174,20 +175,20 @@ export default function SpecialGuestsSection() {
               <FamilyCardContent guest={centerItem.guest} isCenter={true} />
             </motion.div>
 
-            {/* 3. RIGHT CARD (Smaller / Background) */}
+            {/* 3. RIGHT CARD (Adjacent - Subtly Scaled & Rotated) */}
             <motion.div
               key={`right-${rightItem.guest.id}`}
               onClick={handleNext}
               initial={false}
               animate={{
-                x: '62%',
-                scale: 0.82,
-                opacity: 0.55,
+                x: '64%',
+                scale: 0.84,
+                opacity: 0.6,
                 zIndex: 10,
-                rotateY: -14,
+                rotateY: -18,
               }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute w-[270px] sm:w-[320px] rounded-3xl border border-[#E3D8C4] bg-[#FFFDF9]/90 backdrop-blur-md p-5 sm:p-6 text-center cursor-pointer hover:opacity-85 transition-opacity hidden md:flex flex-col items-center justify-between shadow-lg overflow-hidden"
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+              className="absolute w-[270px] sm:w-[320px] rounded-3xl border border-[#E3D8C4] bg-[#FFFDF9]/95 backdrop-blur-md p-5 sm:p-6 text-center cursor-pointer hover:opacity-90 hover:scale-[0.87] transition-all hidden md:flex flex-col items-center justify-between shadow-lg overflow-hidden"
               style={{ transformStyle: 'preserve-3d' }}
             >
               <FamilyCardContent guest={rightItem.guest} isCenter={false} />
