@@ -5,12 +5,14 @@ import confetti from 'canvas-confetti';
 import { useWedding } from '../../context/WeddingContext';
 import RoyalMonogramSeal from '../ui/RoyalMonogramSeal';
 import { HangingWeddingBulb, BloomingFlowerOrnament } from '../ui/BotanicalOrnaments';
+import ScratchCard from '../ui/ScratchCard';
+import CelebrationEffects from '../ui/CelebrationEffects';
 
 // Controlled State Sequence Phases:
 // 1. 'CLOSED_CURTAINS'    -> Regal velvet curtains with 3D depth, pleats & centered H&A logo medallion
 // 2. 'CURTAIN_OPENING'    -> Curtains glide outward with 3D perspective fold for 1.4s (1400ms); music starts
 // 3. 'SCRATCH_INVITATION' -> Circular canvas scratch card appears dead-center; feathered wide brush scratching
-// 4. 'INVITATION_REVEALED'-> Scratched >= 38% (or instant reveal) -> Celebratory fireworks, blooming flower & Pakistani card
+// 4. 'INVITATION_REVEALED'-> Scratched >= 68% (or instant reveal) -> Celebratory fireworks, rose petals, bubbles & card
 // 5. 'HOMEPAGE'           -> Unmounts opening screen, smoothly landing at the top Hero section
 
 export default function OpeningSplashScreen({ onComplete }) {
@@ -20,371 +22,30 @@ export default function OpeningSplashScreen({ onComplete }) {
   const [curtainsOpened, setCurtainsOpened] = useState(false);
   const [isOpening, setIsOpening] = useState(false);
   const [scratchPercent, setScratchPercent] = useState(0);
-  const [isScratching, setIsScratching] = useState(false);
-  const [cardRevealed, setCardRevealed] = useState(false);
   const [hasInteractedScratch, setHasInteractedScratch] = useState(false);
   const [showFlowerBloom, setShowFlowerBloom] = useState(false);
-  const [sparkles, setSparkles] = useState([]);
+
+  const cardRevealedRef = useRef(false);
 
   // Guarantee that initial page entry or refresh stays at top (Hero section)
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, []);
 
-  // Canvas & Pointer Scratch Refs
-  const canvasRef = useRef(null);
-  const isPointerDownRef = useRef(false);
-  const lastPointRef = useRef(null);
-  const lastCheckTimeRef = useRef(0);
-  const lastSparkleTimeRef = useRef(0);
-  const cardRevealedRef = useRef(false);
-  const confettiFiredRef = useRef(false);
-  const flowerBloomedRef = useRef(false);
-
-  // Initialize Canvas Circular Scratch Layer with high-DPI crispness
-  const initCanvas = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const rect = canvas.getBoundingClientRect();
-    if (rect.width === 0 || rect.height === 0) return;
-
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
-    if (!ctx) return;
-
-    const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
-    canvas.width = Math.round(rect.width * dpr);
-    canvas.height = Math.round(rect.height * dpr);
-
-    const width = canvas.width;
-    const height = canvas.height;
-    const radius = Math.min(width, height) / 2;
-    const cx = width / 2;
-    const cy = height / 2;
-
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius - 2, 0, Math.PI * 2);
-    ctx.clip();
-
-    // 1. Rich Champagne & Antique Gold Radial Gradient
-    const grad = ctx.createRadialGradient(cx, cy, radius * 0.15, cx, cy, radius);
-    grad.addColorStop(0, '#FFF6E0');
-    grad.addColorStop(0.25, '#E5C77A');
-    grad.addColorStop(0.55, '#C5A059');
-    grad.addColorStop(0.85, '#D4B872');
-    grad.addColorStop(1, '#8C692B');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, width, height);
-
-    // 2. Luxury Golden Stardust Particles
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
-    for (let i = 0; i < 90; i++) {
-      const angle = (i * 137.5) * (Math.PI / 180);
-      const r = Math.sqrt(i / 90) * (radius - 18 * dpr);
-      const rx = cx + r * Math.cos(angle);
-      const ry = cy + r * Math.sin(angle);
-      const rSize = ((i % 3) + 1) * dpr * 0.8;
-      ctx.beginPath();
-      ctx.arc(rx, ry, rSize, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    // 3. Ornate Concentric Gold Filigree Rings
-    ctx.strokeStyle = 'rgba(140, 105, 43, 0.7)';
-    ctx.lineWidth = 2.5 * dpr;
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius - 8 * dpr, 0, Math.PI * 2);
-    ctx.stroke();
-
-    ctx.strokeStyle = 'rgba(255, 245, 220, 0.8)';
-    ctx.lineWidth = 1.2 * dpr;
-    ctx.setLineDash([4 * dpr, 4 * dpr]);
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius - 14 * dpr, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // 4. Center Scratch Prompt Typography
-    ctx.fillStyle = '#261706';
-    ctx.font = `700 ${11 * dpr}px Cinzel, serif`;
-    ctx.textAlign = 'center';
-    ctx.fillText('✦ ROYAL WEDDING ✦', cx, cy - 30 * dpr);
-
-    ctx.fillStyle = '#1A0E03';
-    ctx.font = `bold ${20 * dpr}px Cinzel, serif`;
-    ctx.fillText('SCRATCH TO REVEAL', cx, cy);
-
-    ctx.fillStyle = '#3E280C';
-    ctx.font = `italic ${12 * dpr}px Cormorant Garamond, serif`;
-    ctx.fillText('Touch or drag to reveal A & H', cx, cy + 26 * dpr);
-
-    ctx.restore();
-  }, []);
-
   // Trigger Complete Reveal of the Invitation Card
   const triggerCompleteReveal = useCallback(() => {
     if (cardRevealedRef.current) return;
     cardRevealedRef.current = true;
-    setCardRevealed(true);
     setScratchPercent(100);
 
     unlockAndPlayAudio();
-
-    // Trigger flower bloom animation
-    if (!flowerBloomedRef.current) {
-      flowerBloomedRef.current = true;
-      setShowFlowerBloom(true);
-    }
-
-    // Fire celebration golden fireworks & decorative sparkles
-    if (!confettiFiredRef.current) {
-      confettiFiredRef.current = true;
-      try {
-        confetti({
-          particleCount: 85,
-          angle: 60,
-          spread: 80,
-          origin: { x: 0.15, y: 0.65 },
-          colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2', '#E28495', '#F5A9B8'],
-          ticks: 240,
-        });
-        confetti({
-          particleCount: 85,
-          angle: 120,
-          spread: 80,
-          origin: { x: 0.85, y: 0.65 },
-          colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2', '#E28495', '#F5A9B8'],
-          ticks: 240,
-        });
-        setTimeout(() => {
-          confetti({
-            particleCount: 100,
-            spread: 110,
-            origin: { x: 0.5, y: 0.55 },
-            colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2'],
-            ticks: 250,
-          });
-        }, 300);
-      } catch (e) {}
-    }
+    setShowFlowerBloom(true);
 
     // Transition smoothly to revealed card state
     setTimeout(() => {
       setPhase('INVITATION_REVEALED');
-    }, 400);
+    }, 350);
   }, [unlockAndPlayAudio]);
-
-  // Calculate Scratched Area Percentage with high-performance sampling
-  const checkScratchPercentage = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || cardRevealedRef.current) return;
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
-    if (!ctx) return;
-
-    const width = canvas.width;
-    const height = canvas.height;
-    const cx = width / 2;
-    const cy = height / 2;
-    const radius = Math.min(width, height) / 2 - 4;
-    const rSquared = radius * radius;
-
-    try {
-      const imgData = ctx.getImageData(0, 0, width, height);
-      const data = imgData.data;
-      let clearPixels = 0;
-      let totalInCircle = 0;
-      const step = Math.max(6, Math.floor(width / 45)); // Sample ~45x45 grid for instant check
-
-      for (let y = 0; y < height; y += step) {
-        for (let x = 0; x < width; x += step) {
-          const dx = x - cx;
-          const dy = y - cy;
-          if (dx * dx + dy * dy <= rSquared) {
-            totalInCircle++;
-            const idx = (y * width + x) * 4 + 3;
-            // Clear threshold: alpha <= 30
-            if (data[idx] <= 30) {
-              clearPixels++;
-            }
-          }
-        }
-      }
-
-      if (totalInCircle > 0) {
-        const percentage = Math.round((clearPixels / totalInCircle) * 100);
-        setScratchPercent(percentage);
-
-        // Auto reveal at genuine 60% threshold (in requested 55%-65% range)
-        if (percentage >= 60) {
-          triggerCompleteReveal();
-        }
-      }
-    } catch (e) {}
-  }, [triggerCompleteReveal]);
-
-  // Vector stroke drawing helpers (eliminates all bubble / beaded artifacts)
-  const drawStrokeSegment = (ctx, p1, p2, brushWidth, dpr) => {
-    ctx.save();
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.lineWidth = brushWidth;
-    ctx.shadowBlur = Math.round(8 * dpr);
-    ctx.shadowColor = '#000000';
-    ctx.strokeStyle = '#000000';
-    ctx.beginPath();
-    ctx.moveTo(p1.x, p1.y);
-    ctx.lineTo(p2.x, p2.y);
-    ctx.stroke();
-    ctx.restore();
-  };
-
-  const drawInitialDot = (ctx, pt, brushWidth, dpr) => {
-    ctx.save();
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.shadowBlur = Math.round(8 * dpr);
-    ctx.shadowColor = '#000000';
-    ctx.fillStyle = '#000000';
-    ctx.beginPath();
-    ctx.arc(pt.x, pt.y, brushWidth / 2, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  };
-
-  // Throttled sparkle feedback (max 3 particles, at most once per 250ms)
-  const maybeSpawnSparkle = (clientX, clientY) => {
-    const now = Date.now();
-    if (now - lastSparkleTimeRef.current < 250) return;
-    lastSparkleTimeRef.current = now;
-
-    const id = now + Math.random();
-    setSparkles((prev) => [
-      ...prev.slice(-3),
-      { id, x: clientX, y: clientY },
-    ]);
-    setTimeout(() => {
-      setSparkles((prev) => prev.filter((s) => s.id !== id));
-    }, 450);
-  };
-
-  // Handle Resize for Canvas
-  useEffect(() => {
-    const handleResize = () => {
-      if (phase === 'SCRATCH_INVITATION' && !cardRevealedRef.current) {
-        initCanvas();
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [phase, initCanvas]);
-
-  // Native DOM pointer event listeners directly on canvas (zero React state drag stutter)
-  useEffect(() => {
-    if (phase !== 'SCRATCH_INVITATION') return;
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const initTimer = setTimeout(() => {
-      initCanvas();
-    }, 40);
-
-    const getCanvasPoint = (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width;
-      const scaleY = canvas.height / rect.height;
-      return {
-        x: (e.clientX - rect.left) * scaleX,
-        y: (e.clientY - rect.top) * scaleY,
-      };
-    };
-
-    const getDpr = () => Math.min(window.devicePixelRatio || 1, 2.5);
-
-    const onPointerDown = (e) => {
-      if (cardRevealedRef.current) return;
-      if (e.button !== undefined && e.button !== 0) return;
-      e.preventDefault();
-
-      try {
-        canvas.setPointerCapture(e.pointerId);
-      } catch (err) {}
-
-      isPointerDownRef.current = true;
-      setIsScratching(true);
-      setHasInteractedScratch(true);
-
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      const dpr = getDpr();
-      const rect = canvas.getBoundingClientRect();
-      const brushWidth = Math.round(Math.max(40, rect.width * 0.12) * dpr);
-      const pt = getCanvasPoint(e);
-
-      drawInitialDot(ctx, pt, brushWidth, dpr);
-      lastPointRef.current = pt;
-      maybeSpawnSparkle(e.clientX, e.clientY);
-    };
-
-    const onPointerMove = (e) => {
-      if (!isPointerDownRef.current || cardRevealedRef.current) return;
-      e.preventDefault();
-
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      const dpr = getDpr();
-      const rect = canvas.getBoundingClientRect();
-      const brushWidth = Math.round(Math.max(40, rect.width * 0.12) * dpr);
-      const currentPt = getCanvasPoint(e);
-
-      if (lastPointRef.current) {
-        drawStrokeSegment(ctx, lastPointRef.current, currentPt, brushWidth, dpr);
-      } else {
-        drawInitialDot(ctx, currentPt, brushWidth, dpr);
-      }
-      lastPointRef.current = currentPt;
-
-      maybeSpawnSparkle(e.clientX, e.clientY);
-
-      const now = Date.now();
-      if (now - lastCheckTimeRef.current > 200) {
-        lastCheckTimeRef.current = now;
-        checkScratchPercentage();
-      }
-    };
-
-    const onPointerUp = (e) => {
-      if (canvas && e?.pointerId !== undefined) {
-        try {
-          if (canvas.hasPointerCapture(e.pointerId)) {
-            canvas.releasePointerCapture(e.pointerId);
-          }
-        } catch (err) {}
-      }
-      isPointerDownRef.current = false;
-      lastPointRef.current = null;
-      setIsScratching(false);
-      if (!cardRevealedRef.current) {
-        checkScratchPercentage();
-      }
-    };
-
-    canvas.addEventListener('pointerdown', onPointerDown, { passive: false });
-    canvas.addEventListener('pointermove', onPointerMove, { passive: false });
-    canvas.addEventListener('pointerup', onPointerUp, { passive: false });
-    canvas.addEventListener('pointercancel', onPointerUp, { passive: false });
-    canvas.addEventListener('lostpointercapture', onPointerUp, { passive: false });
-
-    return () => {
-      clearTimeout(initTimer);
-      canvas.removeEventListener('pointerdown', onPointerDown);
-      canvas.removeEventListener('pointermove', onPointerMove);
-      canvas.removeEventListener('pointerup', onPointerUp);
-      canvas.removeEventListener('pointercancel', onPointerUp);
-      canvas.removeEventListener('lostpointercapture', onPointerUp);
-    };
-  }, [phase, initCanvas, checkScratchPercentage]);
 
   // Phase 1 -> 2: Curtain Opening Trigger (Cinematic 1.4s 3D opening)
   const handleOpenCurtains = () => {
@@ -455,24 +116,11 @@ export default function OpeningSplashScreen({ onComplete }) {
           <div className="absolute w-[600px] h-[600px] bg-[#C5A059]/12 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[130px] pointer-events-none" />
           <div className="absolute w-96 h-96 bg-[#2E5A45]/10 bottom-10 right-10 blur-[100px] pointer-events-none" />
 
-          {/* Floating Gold Sparkle Feedback while Scratching */}
-          {sparkles.map((sp) => (
-            <div
-              key={sp.id}
-              className="fixed pointer-events-none z-50 w-2.5 h-2.5 rounded-full bg-gradient-to-tr from-[#FFF2D6] to-[#C5A059] shadow-[0_0_12px_#E5C77A] animate-ping"
-              style={{
-                left: sp.x - 5,
-                top: sp.y - 5,
-                animationDuration: '600ms',
-              }}
-            />
-          ))}
-
           {/* ============================================================== */}
           {/* SCENE 3 & 4: INNER STAGE (Dead-Center Viewport Card Container) */}
           {/* ============================================================== */}
           {(phase === 'SCRATCH_INVITATION' || phase === 'INVITATION_REVEALED') && (
-            <div className="fixed inset-0 z-20 flex items-center justify-center p-4 pointer-events-auto overflow-y-auto overscroll-none select-none">
+            <div className="fixed inset-0 z-40 flex items-center justify-center p-4 pointer-events-auto overflow-y-auto overscroll-none select-none">
               {/* Phase 3: Interactive Circular Scratch Card */}
               {phase === 'SCRATCH_INVITATION' && (
                 <motion.div
@@ -493,48 +141,49 @@ export default function OpeningSplashScreen({ onComplete }) {
                     <Sparkles className="w-3.5 h-3.5 text-[#B89047] animate-pulse" />
                   </motion.div>
 
-                  {/* Circular Scratch Card */}
-                  <div className="relative w-[320px] h-[320px] sm:w-[380px] sm:h-[380px] md:w-[410px] md:h-[410px] max-w-[85vw] max-h-[85vw] aspect-square rounded-full border-4 border-[#C5A059] p-2 bg-[#FAF8F5] shadow-[0_15px_50px_rgba(27,56,43,0.14)] overflow-hidden touch-none select-none">
-                    {/* UNDERNEATH LAYER (The Hidden Ahmed & Ayesha Card) */}
-                    <div className="absolute inset-2 rounded-full bg-[#FFFDF9] flex flex-col items-center justify-center p-6 text-center border-2 border-[#C5A059]/40 overflow-hidden pointer-events-none select-none">
-                      <div className="absolute inset-0 botanical-dots opacity-30 pointer-events-none" />
+                  {/* Circular Persistent Scratch Card */}
+                  <div className="relative">
+                    <ScratchCard
+                      onComplete={triggerCompleteReveal}
+                      onProgress={(percent) => setScratchPercent(percent)}
+                      onFirstInteraction={() => {
+                        setHasInteractedScratch(true);
+                        unlockAndPlayAudio();
+                      }}
+                      threshold={68}
+                      underneathContent={
+                        <>
+                          <div className="absolute inset-0 botanical-dots opacity-30 pointer-events-none" />
 
-                      <span className="font-cinzel text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[#756A5E] block mb-1">
-                        Together With Their Families
-                      </span>
+                          <span className="font-cinzel text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[#756A5E] block mb-1">
+                            Together With Their Families
+                          </span>
 
-                      {/* Centered Vector Royal Monogram (A & H / AH) */}
-                      <RoyalMonogramSeal size={110} variant="ivory" showSubtext={true} subtext="AH" glow={true} />
+                          {/* Centered Vector Royal Monogram (A & H / AH) */}
+                          <RoyalMonogramSeal size={110} variant="ivory" showSubtext={true} subtext="AH" glow={true} />
 
-                      <h3 className="font-script text-3xl sm:text-4xl text-[#1B382B] mt-2">
-                        Ahmed & Ayesha
-                      </h3>
-                      <p className="font-cinzel text-[10px] sm:text-xs text-[#756A5E] tracking-widest uppercase mt-1">
-                        27 March 2027 • Lahore, Pakistan
-                      </p>
-                    </div>
-
-                    {/* TOP LAYER (HTML5 Canvas Circular Scratch Surface) */}
-                    {!cardRevealed && (
-                      <canvas
-                        ref={canvasRef}
-                        className="absolute inset-2 rounded-full w-[calc(100%-16px)] h-[calc(100%-16px)] z-10 cursor-pointer touch-none select-none"
-                        style={{ touchAction: 'none', WebkitTouchCallout: 'none' }}
-                      />
-                    )}
+                          <h3 className="font-script text-3xl sm:text-4xl text-[#1B382B] mt-2">
+                            Ahmed & Ayesha
+                          </h3>
+                          <p className="font-cinzel text-[10px] sm:text-xs text-[#756A5E] tracking-widest uppercase mt-1">
+                            27 March 2027 • Lahore, Pakistan
+                          </p>
+                        </>
+                      }
+                    />
 
                     {/* Animated Circular Guiding Hand Prompt */}
-                    {!hasInteractedScratch && !cardRevealed && (
+                    {!hasInteractedScratch && (
                       <motion.div
                         animate={{
                           x: [-24, 24, -24],
                           y: [-10, 10, -10],
                         }}
                         transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none flex flex-col items-center"
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none flex flex-col items-center"
                       >
-                        <div className="p-3.5 rounded-full bg-gold-400 text-black shadow-2xl shadow-gold-500/60">
-                          <Hand className="w-6 h-6 animate-pulse" />
+                        <div className="p-3.5 rounded-full bg-gold-400 text-black shadow-2xl shadow-gold-500/60 pointer-events-none">
+                          <Hand className="w-6 h-6 animate-pulse pointer-events-none" />
                         </div>
                       </motion.div>
                     )}
@@ -558,91 +207,94 @@ export default function OpeningSplashScreen({ onComplete }) {
 
               {/* Phase 4: Sacred Bismillah & Full Invitation Entrance Reveal */}
               {phase === 'INVITATION_REVEALED' && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.92, y: 15 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: 'easeOut' }}
-                  className="flex flex-col items-center max-w-lg w-full p-7 sm:p-9 rounded-[36px] bg-[#FFFDF9] border-2 border-[#C5A059] shadow-[0_20px_60px_rgba(27,56,43,0.14)] text-center relative overflow-visible my-auto"
-                >
-                  {/* Decorative Flower Blooming Animation (Side-Mounted Frame) */}
-                  {showFlowerBloom && (
-                    <motion.div
-                      initial={{ scale: 0, opacity: 0, rotate: -25 }}
-                      animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                      transition={{ duration: 1.2, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute -top-10 -right-6 sm:-top-12 sm:-right-8 z-20 pointer-events-none"
-                    >
-                      <BloomingFlowerOrnament />
-                    </motion.div>
-                  )}
-
-                  {/* Royal Monogram Badge */}
-                  <div className="mb-3">
-                    <RoyalMonogramSeal size={80} variant="ivory" showSubtext={true} subtext="AH" glow={true} />
-                  </div>
-
-                  {/* Bismillah Screen in Sacred Calligraphy */}
+                <>
+                  <CelebrationEffects />
                   <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="mb-2"
+                    initial={{ opacity: 0, scale: 0.92, y: 15 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: 'easeOut' }}
+                    className="flex flex-col items-center max-w-lg w-full p-7 sm:p-9 rounded-[36px] bg-[#FFFDF9] border-2 border-[#C5A059] shadow-[0_20px_60px_rgba(27,56,43,0.14)] text-center relative overflow-visible my-auto z-50"
                   >
-                    <p
-                      dir="rtl"
-                      lang="ar"
-                      className="font-serif text-2xl sm:text-3xl text-[#1B382B] tracking-wide font-normal leading-relaxed"
-                    >
-                      بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-                    </p>
-                    <p className="font-serif italic text-xs sm:text-sm text-[#756A5E] mt-0.5">
-                      "Bismillah-ir-Rahman-ir-Raheem"
-                    </p>
-                  </motion.div>
+                    {/* Decorative Flower Blooming Animation (Side-Mounted Frame) */}
+                    {showFlowerBloom && (
+                      <motion.div
+                        initial={{ scale: 0, opacity: 0, rotate: -25 }}
+                        animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                        transition={{ duration: 1.2, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                        className="absolute -top-10 -right-6 sm:-top-12 sm:-right-8 z-20 pointer-events-none"
+                      >
+                        <BloomingFlowerOrnament />
+                      </motion.div>
+                    )}
 
-                  {/* Decorative Filigree Divider */}
-                  <div className="flex items-center justify-center gap-3 my-2 w-48 sm:w-64">
-                    <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#C5A059]/60 to-[#C5A059]" />
-                    <span className="text-[#B89047] text-xs">❖</span>
-                    <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#C5A059]/60 to-[#C5A059]" />
-                  </div>
-
-                  {/* The Wedding of Ahmed & Ayesha */}
-                  <div className="mb-4">
-                    <span className="font-cinzel text-xs tracking-[0.35em] uppercase text-[#756A5E] block mb-1">
-                      The Wedding of
-                    </span>
-                    <h1 className="font-script text-5xl sm:text-6xl text-[#1B382B] leading-none my-1">
-                      Ahmed & Ayesha
-                    </h1>
-
-                    <div className="my-3 text-xs sm:text-sm text-[#5D5347] font-serif leading-relaxed max-w-sm mx-auto">
-                      <p><strong className="text-[#1B382B] font-semibold">Bride:</strong> Ayesha Fatima <span className="text-[#756A5E]">(D/o Muhammad Imran & Shazia Imran)</span></p>
-                      <p className="mt-1"><strong className="text-[#1B382B] font-semibold">Groom:</strong> Ahmed Hassan <span className="text-[#756A5E]">(S/o Muhammad Asif & Naila Asif)</span></p>
+                    {/* Royal Monogram Badge */}
+                    <div className="mb-3">
+                      <RoyalMonogramSeal size={80} variant="ivory" showSubtext={true} subtext="AH" glow={true} />
                     </div>
 
-                    <p className="font-cinzel text-xs text-[#B89047] tracking-widest uppercase mt-2 font-semibold">
-                      Saturday, 27 March 2027 • Lahore, Pakistan
+                    {/* Bismillah Screen in Sacred Calligraphy */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      className="mb-2"
+                    >
+                      <p
+                        dir="rtl"
+                        lang="ar"
+                        className="font-serif text-2xl sm:text-3xl text-[#1B382B] tracking-wide font-normal leading-relaxed"
+                      >
+                        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                      </p>
+                      <p className="font-serif italic text-xs sm:text-sm text-[#756A5E] mt-0.5">
+                        "Bismillah-ir-Rahman-ir-Raheem"
+                      </p>
+                    </motion.div>
+
+                    {/* Decorative Filigree Divider */}
+                    <div className="flex items-center justify-center gap-3 my-2 w-48 sm:w-64">
+                      <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#C5A059]/60 to-[#C5A059]" />
+                      <span className="text-[#B89047] text-xs">❖</span>
+                      <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#C5A059]/60 to-[#C5A059]" />
+                    </div>
+
+                    {/* The Wedding of Ahmed & Ayesha */}
+                    <div className="mb-4">
+                      <span className="font-cinzel text-xs tracking-[0.35em] uppercase text-[#756A5E] block mb-1">
+                        The Wedding of
+                      </span>
+                      <h1 className="font-script text-5xl sm:text-6xl text-[#1B382B] leading-none my-1">
+                        Ahmed & Ayesha
+                      </h1>
+
+                      <div className="my-3 text-xs sm:text-sm text-[#5D5347] font-serif leading-relaxed max-w-sm mx-auto">
+                        <p><strong className="text-[#1B382B] font-semibold">Bride:</strong> Ayesha Fatima <span className="text-[#756A5E]">(D/o Muhammad Imran & Shazia Imran)</span></p>
+                        <p className="mt-1"><strong className="text-[#1B382B] font-semibold">Groom:</strong> Ahmed Hassan <span className="text-[#756A5E]">(S/o Muhammad Asif & Naila Asif)</span></p>
+                      </div>
+
+                      <p className="font-cinzel text-xs text-[#B89047] tracking-widest uppercase mt-2 font-semibold">
+                        Saturday, 27 March 2027 • Lahore, Pakistan
+                      </p>
+                    </div>
+
+                    {/* Enter Button */}
+                    <motion.button
+                      whileHover={{ scale: 1.04, boxShadow: '0 10px 30px rgba(27, 56, 43, 0.2)' }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={handleEnterWebsite}
+                      className="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] font-cinzel font-bold text-xs sm:text-sm tracking-wider uppercase shadow-lg cursor-pointer overflow-hidden"
+                    >
+                      <Sparkles className="w-4 h-4 text-[#EAD7A5] group-hover:rotate-45 transition-transform" />
+                      <span>Enter Wedding Celebration</span>
+                      <ChevronRight className="w-4 h-4 text-[#EAD7A5] group-hover:translate-x-1 transition-transform" />
+                    </motion.button>
+
+                    <p className="text-xs text-[#756A5E] font-serif italic flex items-center gap-1.5 mt-3">
+                      <Music className="w-3.5 h-3.5 text-[#B89047]" />
+                      <span>Plays romantic wedding harp & piano melody</span>
                     </p>
-                  </div>
-
-                  {/* Enter Button */}
-                  <motion.button
-                    whileHover={{ scale: 1.04, boxShadow: '0 10px 30px rgba(27, 56, 43, 0.2)' }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={handleEnterWebsite}
-                    className="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] font-cinzel font-bold text-xs sm:text-sm tracking-wider uppercase shadow-lg cursor-pointer overflow-hidden"
-                  >
-                    <Sparkles className="w-4 h-4 text-[#EAD7A5] group-hover:rotate-45 transition-transform" />
-                    <span>Enter Wedding Celebration</span>
-                    <ChevronRight className="w-4 h-4 text-[#EAD7A5] group-hover:translate-x-1 transition-transform" />
-                  </motion.button>
-
-                  <p className="text-xs text-[#756A5E] font-serif italic flex items-center gap-1.5 mt-3">
-                    <Music className="w-3.5 h-3.5 text-[#B89047]" />
-                    <span>Plays romantic wedding harp & piano melody</span>
-                  </p>
-                </motion.div>
+                  </motion.div>
+                </>
               )}
             </div>
           )}
@@ -680,62 +332,64 @@ export default function OpeningSplashScreen({ onComplete }) {
           {/* ============================================================== */}
           {/* CENTERED H&A LOGO & MEDALLION BUTTON (STRICT VIEWPORT CENTER)  */}
           {/* ============================================================== */}
-          <div className="fixed inset-0 z-50 flex flex-col items-center justify-center pointer-events-none p-4">
-            <motion.button
-              type="button"
-              onClick={handleOpenCurtains}
-              disabled={isOpening || curtainsOpened}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{
-                opacity: curtainsOpened ? 0 : 1,
-                scale: curtainsOpened ? 1.05 : 1,
-              }}
-              transition={{
-                duration: curtainsOpened ? 1.2 : 0.6,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className={`pointer-events-auto flex flex-col items-center justify-center cursor-pointer group focus:outline-none select-none ${
-                curtainsOpened ? 'pointer-events-none' : ''
-              }`}
-              aria-label="Open wedding curtains to reveal invitation"
-            >
-              {/* Illuminated Medallion Plate in Ivory & Gold with 122px Monogram */}
-              <div
-                className="relative p-3.5 sm:p-4 rounded-full border-2 sm:border-[3px] border-[#C5A059] bg-[#FFFDF9] shadow-[0_0_60px_rgba(197,160,89,0.5),0_15px_35px_rgba(27,56,43,0.18)] group-hover:shadow-[0_0_80px_rgba(197,160,89,0.7)] group-hover:border-[#E5C77A] transition-all duration-500 overflow-hidden"
-                style={{ borderRadius: '50%' }}
-              >
-                <RoyalMonogramSeal size={122} variant="ivory" showSubtext={true} subtext="AH" glow={true} />
-                
-                {/* Concentric Golden Pulse Rings */}
-                {!curtainsOpened && (
-                  <>
-                    <div
-                      className="absolute -inset-2 rounded-full border-2 border-[#C5A059]/40 animate-ping pointer-events-none opacity-50"
-                      style={{ borderRadius: '50%', animationDuration: '3s' }}
-                    />
-                    <div
-                      className="absolute -inset-1 rounded-full border border-[#E5C77A]/70 pointer-events-none"
-                      style={{ borderRadius: '50%' }}
-                    />
-                  </>
-                )}
-              </div>
-
-              {/* Click / Tap Prompt Pill */}
-              <motion.div
+          {!curtainsOpened && (
+            <div className="fixed inset-0 z-50 flex flex-col items-center justify-center pointer-events-none p-4">
+              <motion.button
+                type="button"
+                onClick={handleOpenCurtains}
+                disabled={isOpening || curtainsOpened}
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={{
                   opacity: curtainsOpened ? 0 : 1,
-                  y: curtainsOpened ? 8 : 0,
+                  scale: curtainsOpened ? 1.05 : 1,
                 }}
-                transition={{ duration: 0.35 }}
-                className="mt-5 px-7 py-3 rounded-full bg-[#FFFDF9] border border-[#C5A059] shadow-xl flex items-center gap-2.5 text-xs sm:text-sm font-cinzel tracking-widest uppercase text-[#1B382B] group-hover:bg-[#1B382B] group-hover:text-[#FAF8F5] group-hover:border-[#1B382B] transition-all duration-300"
+                transition={{
+                  duration: curtainsOpened ? 1.2 : 0.6,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className={`pointer-events-auto flex flex-col items-center justify-center cursor-pointer group focus:outline-none select-none ${
+                  curtainsOpened ? 'pointer-events-none' : ''
+                }`}
+                aria-label="Open wedding curtains to reveal invitation"
               >
-                <Sparkles className="w-4 h-4 text-[#B89047] group-hover:text-[#EAD7A5] animate-spin-slow" />
-                <span className="font-bold">Tap to Open Curtains</span>
-                <Sparkles className="w-4 h-4 text-[#B89047] group-hover:text-[#EAD7A5] animate-spin-slow" />
-              </motion.div>
-            </motion.button>
-          </div>
+                {/* Illuminated Medallion Plate in Ivory & Gold with 122px Monogram */}
+                <div
+                  className="relative p-3.5 sm:p-4 rounded-full border-2 sm:border-[3px] border-[#C5A059] bg-[#FFFDF9] shadow-[0_0_60px_rgba(197,160,89,0.5),0_15px_35px_rgba(27,56,43,0.18)] group-hover:shadow-[0_0_80px_rgba(197,160,89,0.7)] group-hover:border-[#E5C77A] transition-all duration-500 overflow-hidden"
+                  style={{ borderRadius: '50%' }}
+                >
+                  <RoyalMonogramSeal size={122} variant="ivory" showSubtext={true} subtext="AH" glow={true} />
+                  
+                  {/* Concentric Golden Pulse Rings */}
+                  {!curtainsOpened && (
+                    <>
+                      <div
+                        className="absolute -inset-2 rounded-full border-2 border-[#C5A059]/40 animate-ping pointer-events-none opacity-50"
+                        style={{ borderRadius: '50%', animationDuration: '3s' }}
+                      />
+                      <div
+                        className="absolute -inset-1 rounded-full border border-[#E5C77A]/70 pointer-events-none"
+                        style={{ borderRadius: '50%' }}
+                      />
+                    </>
+                  )}
+                </div>
+
+                {/* Click / Tap Prompt Pill */}
+                <motion.div
+                  animate={{
+                    opacity: curtainsOpened ? 0 : 1,
+                    y: curtainsOpened ? 8 : 0,
+                  }}
+                  transition={{ duration: 0.35 }}
+                  className="mt-5 px-7 py-3 rounded-full bg-[#FFFDF9] border border-[#C5A059] shadow-xl flex items-center gap-2.5 text-xs sm:text-sm font-cinzel tracking-widest uppercase text-[#1B382B] group-hover:bg-[#1B382B] group-hover:text-[#FAF8F5] group-hover:border-[#1B382B] transition-all duration-300"
+                >
+                  <Sparkles className="w-4 h-4 text-[#B89047] group-hover:text-[#EAD7A5] animate-spin-slow" />
+                  <span className="font-bold">Tap to Open Curtains</span>
+                  <Sparkles className="w-4 h-4 text-[#B89047] group-hover:text-[#EAD7A5] animate-spin-slow" />
+                </motion.div>
+              </motion.button>
+            </div>
+          )}
 
           {/* ============================================================== */}
           {/* 3D THEATRICAL VELVET CURTAINS WITH REALISTIC FOLDS & DEPTH     */}
@@ -744,8 +398,8 @@ export default function OpeningSplashScreen({ onComplete }) {
           {/* LEFT CURTAIN PANEL */}
           <div
             onClick={handleOpenCurtains}
-            className={`absolute top-0 left-0 w-1/2 h-full z-30 shadow-[35px_0_75px_rgba(0,0,0,0.85)] ${
-              !curtainsOpened ? 'cursor-pointer' : 'pointer-events-none'
+            className={`absolute top-0 left-0 w-1/2 h-full shadow-[35px_0_75px_rgba(0,0,0,0.85)] ${
+              curtainsOpened ? 'pointer-events-none z-0' : 'cursor-pointer z-30'
             }`}
             style={{
               transformOrigin: 'top left',
@@ -799,8 +453,8 @@ export default function OpeningSplashScreen({ onComplete }) {
           {/* RIGHT CURTAIN PANEL */}
           <div
             onClick={handleOpenCurtains}
-            className={`absolute top-0 right-0 w-1/2 h-full z-30 shadow-[-35px_0_75px_rgba(0,0,0,0.85)] ${
-              !curtainsOpened ? 'cursor-pointer' : 'pointer-events-none'
+            className={`absolute top-0 right-0 w-1/2 h-full shadow-[-35px_0_75px_rgba(0,0,0,0.85)] ${
+              curtainsOpened ? 'pointer-events-none z-0' : 'cursor-pointer z-30'
             }`}
             style={{
               transformOrigin: 'top right',

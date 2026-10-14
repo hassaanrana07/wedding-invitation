@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
 import { weddingData } from '../data/weddingData';
 
 const WeddingContext = createContext(null);
@@ -29,6 +29,13 @@ export function WeddingProvider({ children }) {
 
   const audioRef = useRef(null);
   const currentUrlRef = useRef('');
+  const isMutedRef = useRef(isMuted);
+  const volumeRef = useRef(volume);
+  const musicTrackRef = useRef(musicTrack);
+
+  useEffect(() => { isMutedRef.current = isMuted; }, [isMuted]);
+  useEffect(() => { volumeRef.current = volume; }, [volume]);
+  useEffect(() => { musicTrackRef.current = musicTrack; }, [musicTrack]);
 
   // Audio lifecycle - initialize single audio instance
   useEffect(() => {
@@ -50,7 +57,7 @@ export function WeddingProvider({ children }) {
     }
   }, [musicTrack?.file_url]);
 
-  const setVolume = (val) => {
+  const setVolume = useCallback((val) => {
     const clamped = Math.max(0, Math.min(1, val));
     setVolumeState(clamped);
     if (audioRef.current) {
@@ -59,31 +66,30 @@ export function WeddingProvider({ children }) {
         audioRef.current.muted = true;
         setIsMuted(true);
         try { localStorage.setItem('riha_music_muted', 'true'); } catch (e) {}
-      } else if (isMuted) {
+      } else if (isMutedRef.current) {
         audioRef.current.muted = false;
         setIsMuted(false);
         try { localStorage.setItem('riha_music_muted', 'false'); } catch (e) {}
       }
     }
-  };
+  }, []);
 
-  const togglePlay = () => {
-    if (!audioRef.current && musicTrack?.file_url) {
-      const audio = new Audio(musicTrack.file_url);
+  const togglePlay = useCallback(() => {
+    const track = musicTrackRef.current;
+    if (!audioRef.current && track?.file_url) {
+      const audio = new Audio(track.file_url);
       audio.loop = true;
-      audio.volume = isMuted ? 0 : volume;
-      audio.muted = isMuted;
+      audio.volume = isMutedRef.current ? 0 : volumeRef.current;
+      audio.muted = isMutedRef.current;
       audio.onplay = () => setIsPlaying(true);
       audio.onpause = () => setIsPlaying(false);
       audioRef.current = audio;
-      currentUrlRef.current = musicTrack.file_url;
+      currentUrlRef.current = track.file_url;
     }
 
     if (!audioRef.current) return;
 
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
+    if (audioRef.current.paused) {
       audioRef.current.muted = false;
       setIsMuted(false);
       try { localStorage.setItem('riha_music_muted', 'false'); } catch (e) {}
@@ -93,35 +99,38 @@ export function WeddingProvider({ children }) {
           .then(() => setIsPlaying(true))
           .catch((e) => console.log('Audio play interrupted or waiting for gesture:', e));
       }
+    } else {
+      audioRef.current.pause();
     }
-  };
+  }, []);
 
-  const toggleMute = () => {
+  const toggleMute = useCallback(() => {
     if (!audioRef.current) return;
-    const nextMuted = !isMuted;
+    const nextMuted = !isMutedRef.current;
     setIsMuted(nextMuted);
     try { localStorage.setItem('riha_music_muted', String(nextMuted)); } catch (e) {}
     audioRef.current.muted = nextMuted;
-    if (!nextMuted && audioRef.current.paused && hasEnteredInvitation) {
+    if (!nextMuted && audioRef.current.paused) {
       audioRef.current.play().catch(() => {});
     }
-  };
+  }, []);
 
   // Called directly on user invitation clicks (open curtains, scratch, enter celebration)
-  const unlockAndPlayAudio = () => {
+  const unlockAndPlayAudio = useCallback(() => {
     setHasEnteredInvitation(true);
-    if (!audioRef.current && musicTrack?.file_url) {
-      const audio = new Audio(musicTrack.file_url);
+    const track = musicTrackRef.current;
+    if (!audioRef.current && track?.file_url) {
+      const audio = new Audio(track.file_url);
       audio.loop = true;
-      audio.volume = isMuted ? 0 : volume;
-      audio.muted = isMuted;
+      audio.volume = isMutedRef.current ? 0 : volumeRef.current;
+      audio.muted = isMutedRef.current;
       audio.onplay = () => setIsPlaying(true);
       audio.onpause = () => setIsPlaying(false);
       audioRef.current = audio;
-      currentUrlRef.current = musicTrack.file_url;
+      currentUrlRef.current = track.file_url;
     }
 
-    if (audioRef.current && musicTrack?.is_active && !isMuted) {
+    if (audioRef.current && track?.is_active && !isMutedRef.current) {
       if (audioRef.current.paused) {
         const playPromise = audioRef.current.play();
         if (playPromise !== undefined) {
@@ -133,7 +142,7 @@ export function WeddingProvider({ children }) {
         }
       }
     }
-  };
+  }, []);
 
   const playCustomTrack = (url, title = 'Event Theme') => {
     if (!url) return;
