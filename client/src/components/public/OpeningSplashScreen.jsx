@@ -4,7 +4,7 @@ import { Sparkles, Music, ChevronRight, Hand } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useWedding } from '../../context/WeddingContext';
 import RoyalMonogramSeal from '../ui/RoyalMonogramSeal';
-import { HangingWeddingBulb, BloomingFlowerOrnament } from '../ui/BotanicalOrnaments';
+import { BloomingFlowerOrnament } from '../ui/BotanicalOrnaments';
 import ScratchCard from '../ui/ScratchCard';
 import CelebrationEffects from '../ui/CelebrationEffects';
 
@@ -47,7 +47,7 @@ export default function OpeningSplashScreen({ onComplete }) {
     }, 350);
   }, [unlockAndPlayAudio]);
 
-  // Phase 1 -> 2: Curtain Opening Trigger (Cinematic 1.4s 3D opening)
+  // Phase 1 -> 2: Curtain Opening Trigger (Cinematic 1.5s 3D theatrical opening)
   const handleOpenCurtains = () => {
     if (phase !== 'CLOSED_CURTAINS' || isOpening) return;
     setIsOpening(true);
@@ -55,11 +55,11 @@ export default function OpeningSplashScreen({ onComplete }) {
     setPhase('CURTAIN_OPENING');
     unlockAndPlayAudio();
 
-    // Curtains glide smoothly away with 3D depth for exactly 1.4s (1400ms)
+    // Curtains glide smoothly away with 3D depth for exactly 1.5s (1500ms)
     setTimeout(() => {
       setPhase('SCRATCH_INVITATION');
       setIsOpening(false);
-    }, 1400);
+    }, 1500);
   };
 
   // Phase 4 -> 5: Enter Website & Play Wedding Music
@@ -101,7 +101,7 @@ export default function OpeningSplashScreen({ onComplete }) {
           style={{ perspective: '1400px' }}
           role="dialog"
           aria-modal="true"
-          aria-label="Ahmed and Ayesha Wedding Invitation Opening Experience"
+          aria-label="Mirza Talal Baig and Laraib Ajmal Wedding Invitation Opening Experience"
         >
           {/* Persistent Skip Button (Top Right) */}
           <button
@@ -130,15 +130,23 @@ export default function OpeningSplashScreen({ onComplete }) {
                   transition={{ duration: 0.7, ease: 'easeOut' }}
                   className="flex flex-col items-center justify-center w-full max-w-md mx-auto my-auto text-center"
                 >
-                  {/* Scratch Hint Prompt */}
+                  {/* Elegant Script Heading & Divider Matching Reference */}
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-4 sm:mb-5 flex items-center gap-2 px-5 py-2 rounded-full bg-[#FFFDF9] border border-[#C5A059]/60 text-[#1B382B] text-xs font-cinzel tracking-wider uppercase shadow-md"
+                    className="mb-4 sm:mb-5 flex flex-col items-center select-none"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-[#B89047] animate-pulse" />
-                    <span>Swipe or drag finger to reveal</span>
-                    <Sparkles className="w-3.5 h-3.5 text-[#B89047] animate-pulse" />
+                    <span className="font-bodoni text-[10px] sm:text-xs tracking-[0.3em] uppercase text-[#74836F] font-semibold block mb-1">
+                      Royal Invitation
+                    </span>
+                    <h2 className="font-script text-4xl sm:text-5xl text-[#1B382B] leading-none mb-1.5">
+                      Scratch to Reveal
+                    </h2>
+                    <div className="flex items-center justify-center gap-3 w-40 sm:w-48 my-1">
+                      <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#C5A059]/40 to-[#C5A059]" />
+                      <span className="text-[#1B382B] text-xs">🖤</span>
+                      <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#C5A059]/40 to-[#C5A059]" />
+                    </div>
                   </motion.div>
 
                   {/* Circular Persistent Scratch Card */}
@@ -150,25 +158,25 @@ export default function OpeningSplashScreen({ onComplete }) {
                         setHasInteractedScratch(true);
                         unlockAndPlayAudio();
                       }}
-                      threshold={68}
+                      threshold={76}
                       underneathContent={
-                        <>
+                        <div className="flex flex-col items-center justify-center text-center mt-3 sm:mt-4">
                           <div className="absolute inset-0 botanical-dots opacity-30 pointer-events-none" />
 
-                          <span className="font-cinzel text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[#756A5E] block mb-1">
+                          <span className="font-bodoni text-[9px] sm:text-[10px] tracking-[0.25em] uppercase text-[#74836F] font-semibold block mb-1">
                             Together With Their Families
                           </span>
 
-                          {/* Centered Vector Royal Monogram (A & H / AH) */}
-                          <RoyalMonogramSeal size={110} variant="ivory" showSubtext={true} subtext="AH" glow={true} />
+                          {/* Centered Vector Royal Monogram (L & T / LT) */}
+                          <RoyalMonogramSeal size={74} variant="ivory" showSubtext={true} subtext="LT" glow={true} />
 
-                          <h3 className="font-script text-3xl sm:text-4xl text-[#1B382B] mt-2">
-                            Ahmed & Ayesha
+                          <h3 className="font-script text-2xl sm:text-3xl text-[#1B382B] mt-1.5 leading-none">
+                            Laraib & Talal
                           </h3>
-                          <p className="font-cinzel text-[10px] sm:text-xs text-[#756A5E] tracking-widest uppercase mt-1">
-                            27 March 2027 • Lahore, Pakistan
+                          <p className="font-bodoni text-[9px] sm:text-[10px] text-[#B89047] tracking-widest uppercase mt-1 font-semibold">
+                            12 & 13 December 2026 • Lahore
                           </p>
-                        </>
+                        </div>
                       }
                     />
 
@@ -229,7 +237,7 @@ export default function OpeningSplashScreen({ onComplete }) {
 
                     {/* Royal Monogram Badge */}
                     <div className="mb-3">
-                      <RoyalMonogramSeal size={80} variant="ivory" showSubtext={true} subtext="AH" glow={true} />
+                      <RoyalMonogramSeal size={80} variant="ivory" showSubtext={true} subtext="LT" glow={true} />
                     </div>
 
                     {/* Bismillah Screen in Sacred Calligraphy */}
@@ -258,22 +266,22 @@ export default function OpeningSplashScreen({ onComplete }) {
                       <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#C5A059]/60 to-[#C5A059]" />
                     </div>
 
-                    {/* The Wedding of Ahmed & Ayesha */}
+                    {/* The Wedding of Laraib Ajmal & Mirza Talal Baig */}
                     <div className="mb-4">
                       <span className="font-cinzel text-xs tracking-[0.35em] uppercase text-[#756A5E] block mb-1">
                         The Wedding of
                       </span>
                       <h1 className="font-script text-5xl sm:text-6xl text-[#1B382B] leading-none my-1">
-                        Ahmed & Ayesha
+                        Laraib & Talal
                       </h1>
 
                       <div className="my-3 text-xs sm:text-sm text-[#5D5347] font-serif leading-relaxed max-w-sm mx-auto">
-                        <p><strong className="text-[#1B382B] font-semibold">Bride:</strong> Ayesha Fatima <span className="text-[#756A5E]">(D/o Muhammad Imran & Shazia Imran)</span></p>
-                        <p className="mt-1"><strong className="text-[#1B382B] font-semibold">Groom:</strong> Ahmed Hassan <span className="text-[#756A5E]">(S/o Muhammad Asif & Naila Asif)</span></p>
+                        <p><strong className="text-[#1B382B] font-semibold">Bride:</strong> Laraib Ajmal <span className="text-[#756A5E]">(D/o Muhammad Ajmal)</span></p>
+                        <p className="mt-1"><strong className="text-[#1B382B] font-semibold">Groom:</strong> Mirza Talal Baig <span className="text-[#756A5E]">(S/o Mirza Shahzad Baig)</span></p>
                       </div>
 
-                      <p className="font-cinzel text-xs text-[#B89047] tracking-widest uppercase mt-2 font-semibold">
-                        Saturday, 27 March 2027 • Lahore, Pakistan
+                      <p className="font-bodoni text-xs text-[#B89047] tracking-widest uppercase mt-2 font-semibold">
+                        12 & 13 December 2026 • Topaz Marquee, Model Town, Lahore
                       </p>
                     </div>
 
@@ -300,34 +308,8 @@ export default function OpeningSplashScreen({ onComplete }) {
           )}
 
           {/* ============================================================== */}
-          {/* SCENE 1 & 2: MODERN ANIMATED WEDDING CURTAINS & HANGING BULB   */}
+          {/* SCENE 1 & 2: MODERN ANIMATED WEDDING CURTAINS & MONOGRAM MEDALLION */}
           {/* ============================================================== */}
-          
-          {/* Hanging Decorative Wedding Bulb (Swings from top center ceiling) */}
-          {!curtainsOpened && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                rotate: [-4, 4, -4],
-              }}
-              exit={{ opacity: 0, transition: { duration: 0.4 } }}
-              transition={{
-                rotate: {
-                  repeat: Infinity,
-                  duration: 4.8,
-                  ease: 'easeInOut',
-                },
-                opacity: { duration: 0.8 },
-                y: { duration: 0.8 },
-              }}
-              style={{ transformOrigin: 'top center' }}
-              className="absolute top-0 left-1/2 -translate-x-1/2 z-40 pointer-events-none"
-            >
-              <HangingWeddingBulb />
-            </motion.div>
-          )}
 
           {/* ============================================================== */}
           {/* CENTERED H&A LOGO & MEDALLION BUTTON (STRICT VIEWPORT CENTER)  */}
@@ -357,7 +339,7 @@ export default function OpeningSplashScreen({ onComplete }) {
                   className="relative p-3.5 sm:p-4 rounded-full border-2 sm:border-[3px] border-[#C5A059] bg-[#FFFDF9] shadow-[0_0_60px_rgba(197,160,89,0.5),0_15px_35px_rgba(27,56,43,0.18)] group-hover:shadow-[0_0_80px_rgba(197,160,89,0.7)] group-hover:border-[#E5C77A] transition-all duration-500 overflow-hidden"
                   style={{ borderRadius: '50%' }}
                 >
-                  <RoyalMonogramSeal size={122} variant="ivory" showSubtext={true} subtext="AH" glow={true} />
+                  <RoyalMonogramSeal size={122} variant="ivory" showSubtext={true} subtext="LT" glow={true} />
                   
                   {/* Concentric Golden Pulse Rings */}
                   {!curtainsOpened && (
@@ -392,118 +374,63 @@ export default function OpeningSplashScreen({ onComplete }) {
           )}
 
           {/* ============================================================== */}
-          {/* 3D THEATRICAL VELVET CURTAINS WITH REALISTIC FOLDS & DEPTH     */}
+          {/* THEATRICAL CURTAIN STAGE ENTRANCE (LEFT & RIGHT SYMMETRICAL DOORS) */}
           {/* ============================================================== */}
+          {(phase === 'CLOSED_CURTAINS' || phase === 'CURTAIN_OPENING') && (
+            <div className="fixed inset-0 z-30 pointer-events-none overflow-hidden flex">
+              {/* LEFT CURTAIN DOOR */}
+              <div
+                onClick={handleOpenCurtains}
+                className={`relative w-1/2 h-full overflow-hidden shadow-[20px_0_50px_rgba(0,0,0,0.6)] ${
+                  curtainsOpened ? 'pointer-events-none' : 'pointer-events-auto cursor-pointer'
+                }`}
+                style={{
+                  transformOrigin: 'left center',
+                  transform: curtainsOpened
+                    ? 'translate3d(-105%, 0, 0)'
+                    : 'translate3d(0, 0, 0)',
+                  opacity: curtainsOpened ? 0 : 1,
+                  transition: 'transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s ease-out',
+                  willChange: 'transform, opacity',
+                }}
+              >
+                <img
+                  src="/curtains/stage_door_left.jpg"
+                  alt="Left theatrical wedding curtain"
+                  className="w-full h-full object-cover object-top"
+                  loading="eager"
+                />
+                {/* Center Seam Gold Glow & Shadow */}
+                <div className="absolute top-0 right-0 bottom-0 w-1 bg-gradient-to-r from-transparent via-[#E5C77A] to-[#8C692B]" />
+              </div>
 
-          {/* LEFT CURTAIN PANEL */}
-          <div
-            onClick={handleOpenCurtains}
-            className={`absolute top-0 left-0 w-1/2 h-full shadow-[35px_0_75px_rgba(0,0,0,0.85)] ${
-              curtainsOpened ? 'pointer-events-none z-0' : 'cursor-pointer z-30'
-            }`}
-            style={{
-              transformOrigin: 'top left',
-              transform: curtainsOpened
-                ? 'translate3d(-108%, -15%, -100px) rotateY(-20deg) rotate(-3.5deg)'
-                : 'translate3d(0, 0, 0) rotateY(0deg) rotate(0deg)',
-              opacity: curtainsOpened ? 0 : 1,
-              transition: 'transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1)',
-              willChange: 'transform, opacity',
-              boxShadow: 'inset 0 -40px 90px rgba(0,0,0,0.22), inset 0 50px 80px rgba(0,0,0,0.25), 35px 0 75px rgba(0,0,0,0.85)',
-              background: `
-                linear-gradient(to right,
-                  #c2b79f 0%,
-                  #eae1cd 14%,
-                  #dbcfb7 28%,
-                  #faf6ec 44%,
-                  #d8cca7 58%,
-                  #eee5d3 76%,
-                  #bfae92 100%
-                )
-              `,
-            }}
-          >
-            {/* Multi-layered Velvet Folds with Cylindrical Shading */}
-            <div
-              className="absolute inset-0 opacity-65 pointer-events-none"
-              style={{
-                backgroundImage: `
-                  repeating-linear-gradient(
-                    to right,
-                    rgba(35, 26, 15, 0.45) 0px,
-                    rgba(75, 62, 42, 0.22) 13px,
-                    rgba(255, 255, 255, 0.65) 26px,
-                    rgba(246, 236, 218, 0.9) 34px,
-                    rgba(105, 90, 65, 0.28) 46px,
-                    rgba(35, 26, 15, 0.45) 58px
-                  )
-                `,
-              }}
-            />
-
-            {/* Stage Valance Top Shadow & Vignette */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/35 pointer-events-none" />
-
-            {/* Ornate Gold Velvet Trim & Inner Border */}
-            <div className="absolute top-0 right-0 bottom-0 w-4 bg-gradient-to-r from-[#B89047] via-[#FCE9B8] via-[#D4AF37] to-[#8C692B] shadow-2xl" />
-            <div className="absolute top-0 right-4 bottom-0 w-1.5 bg-[#EAD7A5]/70" />
-            <div className="absolute top-0 right-6 bottom-0 w-0.5 bg-black/20" />
-          </div>
-
-          {/* RIGHT CURTAIN PANEL */}
-          <div
-            onClick={handleOpenCurtains}
-            className={`absolute top-0 right-0 w-1/2 h-full shadow-[-35px_0_75px_rgba(0,0,0,0.85)] ${
-              curtainsOpened ? 'pointer-events-none z-0' : 'cursor-pointer z-30'
-            }`}
-            style={{
-              transformOrigin: 'top right',
-              transform: curtainsOpened
-                ? 'translate3d(108%, -15%, -100px) rotateY(20deg) rotate(3.5deg)'
-                : 'translate3d(0, 0, 0) rotateY(0deg) rotate(0deg)',
-              opacity: curtainsOpened ? 0 : 1,
-              transition: 'transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1)',
-              willChange: 'transform, opacity',
-              boxShadow: 'inset 0 -40px 90px rgba(0,0,0,0.22), inset 0 50px 80px rgba(0,0,0,0.25), -35px 0 75px rgba(0,0,0,0.85)',
-              background: `
-                linear-gradient(to left,
-                  #c2b79f 0%,
-                  #eae1cd 14%,
-                  #dbcfb7 28%,
-                  #faf6ec 44%,
-                  #d8cca7 58%,
-                  #eee5d3 76%,
-                  #bfae92 100%
-                )
-              `,
-            }}
-          >
-            {/* Multi-layered Velvet Folds with Cylindrical Shading */}
-            <div
-              className="absolute inset-0 opacity-65 pointer-events-none"
-              style={{
-                backgroundImage: `
-                  repeating-linear-gradient(
-                    to left,
-                    rgba(35, 26, 15, 0.45) 0px,
-                    rgba(75, 62, 42, 0.22) 13px,
-                    rgba(255, 255, 255, 0.65) 26px,
-                    rgba(246, 236, 218, 0.9) 34px,
-                    rgba(105, 90, 65, 0.28) 46px,
-                    rgba(35, 26, 15, 0.45) 58px
-                  )
-                `,
-              }}
-            />
-
-            {/* Stage Valance Top Shadow & Vignette */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/35 pointer-events-none" />
-
-            {/* Ornate Gold Velvet Trim & Inner Border */}
-            <div className="absolute top-0 left-0 bottom-0 w-4 bg-gradient-to-l from-[#B89047] via-[#FCE9B8] via-[#D4AF37] to-[#8C692B] shadow-2xl" />
-            <div className="absolute top-0 left-4 bottom-0 w-1.5 bg-[#EAD7A5]/70" />
-            <div className="absolute top-0 left-6 bottom-0 w-0.5 bg-black/20" />
-          </div>
+              {/* RIGHT CURTAIN DOOR */}
+              <div
+                onClick={handleOpenCurtains}
+                className={`relative w-1/2 h-full overflow-hidden shadow-[-20px_0_50px_rgba(0,0,0,0.6)] ${
+                  curtainsOpened ? 'pointer-events-none' : 'pointer-events-auto cursor-pointer'
+                }`}
+                style={{
+                  transformOrigin: 'right center',
+                  transform: curtainsOpened
+                    ? 'translate3d(105%, 0, 0)'
+                    : 'translate3d(0, 0, 0)',
+                  opacity: curtainsOpened ? 0 : 1,
+                  transition: 'transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s ease-out',
+                  willChange: 'transform, opacity',
+                }}
+              >
+                <img
+                  src="/curtains/stage_door_right.jpg"
+                  alt="Right theatrical wedding curtain"
+                  className="w-full h-full object-cover object-top"
+                  loading="eager"
+                />
+                {/* Center Seam Gold Glow & Shadow */}
+                <div className="absolute top-0 left-0 bottom-0 w-1 bg-gradient-to-l from-transparent via-[#E5C77A] to-[#8C692B]" />
+              </div>
+            </div>
+          )}
         </motion.div>
       </AnimatePresence>
     </MotionConfig>

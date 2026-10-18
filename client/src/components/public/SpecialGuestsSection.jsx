@@ -237,24 +237,21 @@ function FamilyCardContent({ guest, isCenter }) {
         </span>
       </div>
 
-      {/* Portrait Photo Avatar */}
+      {/* Regal Family Crest Emblem (NO IMAGES) */}
       <div className="relative mb-4">
         <div
-          className={`rounded-full overflow-hidden border-2 p-1 bg-[#F5EFE6] shadow-md transition-all ${
+          className={`rounded-full flex items-center justify-center border-2 bg-gradient-to-br from-[#FFFDF9] via-[#FAF6EC] to-[#F3EAD8] shadow-md transition-all ${
             isCenter
               ? 'w-24 h-24 sm:w-28 sm:h-28 border-[#C5A059] ring-4 ring-[#C5A059]/20'
               : 'w-20 h-20 sm:w-22 sm:h-22 border-[#C5A059]/50'
           }`}
         >
-          <ImageWithFallback
-            src={
-              guest.photo_url ||
-              'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80'
-            }
-            alt={guest.name}
-            className="w-full h-full object-cover rounded-full"
-            loading="lazy"
-          />
+          <div className="flex flex-col items-center justify-center">
+            <Crown className={`${isCenter ? 'w-9 h-9 sm:w-10 sm:h-10' : 'w-7 h-7'} text-[#C5A059] drop-shadow-sm`} />
+            <span className="font-cinzel text-[10px] tracking-widest text-[#B89047] uppercase font-bold mt-1">
+              AJMAL
+            </span>
+          </div>
         </div>
         {isCenter && (
           <div className="absolute -bottom-1 -right-1 p-1.5 rounded-full bg-[#1B382B] text-[#FAF8F5] shadow-md">
@@ -293,14 +290,15 @@ function FamilyCardContent({ guest, isCenter }) {
         </div>
       )}
 
-      {/* Optional Contact Call Link */}
-      {guest.contact_phone && isCenter && (
+      {/* Clickable tel: Phone Link */}
+      {guest.contact_phone && (
         <div className="mt-3">
           <a
             href={`tel:${guest.contact_phone}`}
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF8F5] hover:bg-[#1B382B] hover:text-[#FAF8F5] border border-[#C5A059]/40 text-[#1B382B] text-[11px] font-mono transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-xs font-mono tracking-wider transition-all shadow-sm hover:scale-105 active:scale-95"
+            aria-label={`Call ${guest.name} at ${guest.contact_phone}`}
           >
-            <Phone className="w-3 h-3 text-[#B89047]" />
+            <Phone className="w-3.5 h-3.5 text-[#EAD7A5]" />
             <span>{guest.contact_phone}</span>
           </a>
         </div>

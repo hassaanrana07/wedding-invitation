@@ -43,7 +43,7 @@ export default function PersonalizedInviteHero({ invitation }) {
 
           <p className="text-sm sm:text-base text-[#5D5347] font-light max-w-xl mx-auto leading-relaxed">
             You are warmly and cordially invited to celebrate the joyous Pakistani wedding of{' '}
-            <strong className="text-[#1B382B] font-serif font-semibold">Ahmed & Ayesha</strong>.
+            <strong className="text-[#1B382B] font-serif font-semibold">Laraib Ajmal & Mirza Talal Baig</strong>.
           </p>
 
           {/* Invited Functions Checklist */}

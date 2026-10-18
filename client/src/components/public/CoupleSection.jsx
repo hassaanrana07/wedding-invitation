@@ -14,13 +14,13 @@ import {
 export default function CoupleSection() {
   const { wedding } = useWedding();
 
-  const brideName = wedding.bride_name || 'Ayesha Fatima';
+  const brideName = wedding.bride_name || 'Laraib Ajmal';
   const brideRelation = wedding.bride_relation || 'Daughter of';
-  const brideParents = wedding.bride_parents || 'Mr. Muhammad Imran & Mrs. Shazia Imran';
+  const brideParents = wedding.bride_parents || 'Muhammad Ajmal';
 
-  const groomName = wedding.groom_name || 'Ahmed Hassan';
+  const groomName = wedding.groom_name || 'Mirza Talal Baig';
   const groomRelation = wedding.groom_relation || 'Son of';
-  const groomParents = wedding.groom_parents || 'Mr. Muhammad Asif & Mrs. Naila Asif';
+  const groomParents = wedding.groom_parents || 'Mirza Shahzad Baig';
 
   return (
     <section
@@ -47,7 +47,7 @@ export default function CoupleSection() {
           className="mb-2"
         >
           <BotanicalHeaderArch className="mb-2" />
-          <span className="font-cinzel text-[11px] sm:text-xs tracking-[0.35em] uppercase text-[#B89047] font-semibold block">
+          <span className="font-bodoni text-[11px] sm:text-xs tracking-[0.35em] uppercase text-[#74836F] font-semibold block">
             Welcome To Our Celebration
           </span>
         </motion.div>
@@ -58,26 +58,45 @@ export default function CoupleSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="font-serif text-2xl sm:text-4xl lg:text-5xl text-[#1B382B] font-normal leading-tight mt-2"
+          className="font-script text-4xl sm:text-5xl lg:text-6xl text-[#1B382B] font-normal leading-tight mt-1 select-none"
         >
           Two Destined Souls, One Sacred Journey
         </motion.h2>
 
-        {/* Elegant Centered Welcome Message (Reference C) */}
+        {/* Elegant Centered Welcome Blessing Card (Reference 3) */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="mt-5 mb-7 max-w-2xl mx-auto"
+          className="relative p-6 sm:p-10 rounded-[32px] bg-[#FFFDF9] border border-[#C5A059]/35 shadow-[0_15px_40px_rgba(27,56,43,0.05)] max-w-2xl mx-auto my-6 overflow-hidden text-center"
         >
-          <p className="font-serif italic text-sm sm:text-lg text-[#5D5347] leading-relaxed font-light">
-            "With immense gratitude to Allah Almighty and the deepest blessings of our beloved parents, we warmly invite you to celebrate the joyous union of Ahmed & Ayesha. Your gracious presence and heartfelt prayers will illuminate our new beginning."
+          {/* Subtle Watermark Calligraphy in background */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-[0.035] pointer-events-none select-none">
+            <span className="font-script text-8xl sm:text-9xl text-[#1B382B] whitespace-nowrap">
+              Laraib & Talal
+            </span>
+          </div>
+
+          {/* Upper Thin Divider with Heart — 🖤 — */}
+          <div className="flex items-center justify-center gap-3 mb-4 max-w-[200px] mx-auto relative z-10">
+            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#C5A059]/40 to-[#C5A059]" />
+            <span className="text-[#1B382B] text-xs select-none">🖤</span>
+            <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#C5A059]/40 to-[#C5A059]" />
+          </div>
+
+          {/* Poetic Message from Reference 3 */}
+          <p className="font-cormorant text-base sm:text-xl text-[#1B382B] leading-relaxed max-w-lg mx-auto font-normal relative z-10">
+            We are honored to welcome you to the wedding celebrations of{' '}
+            <strong className="font-bodoni font-bold text-[#1B382B]">Laraib Ajmal & Mirza Talal Baig</strong>.
+            As they begin their journey together in faith and love, we thank you for being part of this blessed occasion 🖤
           </p>
-          <div className="flex items-center justify-center gap-2 mt-4">
-            <div className="w-12 h-[1px] bg-[#C5A059]/50" />
-            <DelicateHeart size={14} className="text-[#C5A059]" />
-            <div className="w-12 h-[1px] bg-[#C5A059]/50" />
+
+          {/* Lower Thin Divider with Heart — 🖤 — */}
+          <div className="flex items-center justify-center gap-3 mt-4 max-w-[200px] mx-auto relative z-10">
+            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#C5A059]/40 to-[#C5A059]" />
+            <span className="text-[#1B382B] text-xs select-none">🖤</span>
+            <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#C5A059]/40 to-[#C5A059]" />
           </div>
         </motion.div>
 
@@ -98,17 +117,17 @@ export default function CoupleSection() {
                     wedding.couple_image_url ||
                     'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=85'
                   }
-                  alt={wedding.couple_title || 'Ahmed & Ayesha'}
+                  alt={wedding.couple_title || 'Laraib Ajmal & Mirza Talal Baig'}
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1B382B]/60 via-transparent to-transparent pointer-events-none" />
 
                 <div className="absolute bottom-5 left-5 right-5 text-center pointer-events-none">
                   <span className="font-script text-3xl sm:text-4xl text-[#FFF9E6] block drop-shadow-sm">
-                    {wedding.couple_title || 'Ahmed & Ayesha'}
+                    {wedding.couple_title || 'Laraib Ajmal & Mirza Talal Baig'}
                   </span>
-                  <span className="font-cinzel text-[10px] sm:text-[11px] tracking-[0.25em] text-[#EAD7A5] uppercase mt-0.5 block">
-                    March 2027 • Lahore
+                  <span className="font-bodoni text-[10px] sm:text-[11px] tracking-[0.25em] text-[#EAD7A5] uppercase mt-0.5 block">
+                    December 2026 • Lahore
                   </span>
                 </div>
               </div>

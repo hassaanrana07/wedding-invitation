@@ -386,3 +386,367 @@ export function BloomingFlowerOrnament({ onAnimationEnd, className = '' }) {
   );
 }
 
+/**
+ * Ornamental Draped Curtain Border (Reference 1)
+ * Realistic fabric swags with soft scalloped folds, beaded pearl trim, and side draperies with tassels.
+ */
+export function OrnamentalDrapedCurtainBorder({ className = '' }) {
+  return (
+    <div className={`w-full overflow-hidden pointer-events-none select-none ${className}`}>
+      <svg
+        viewBox="0 0 700 170"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-auto drop-shadow-sm"
+      >
+        <defs>
+          <linearGradient id="valanceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#F5EFE6" />
+            <stop offset="35%" stopColor="#EAD8BE" />
+            <stop offset="70%" stopColor="#D9BF9E" />
+            <stop offset="100%" stopColor="#CBB08D" />
+          </linearGradient>
+          <linearGradient id="foldHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#D8C3A5" stopOpacity="0.4" />
+            <stop offset="50%" stopColor="#FFFDF9" stopOpacity="0.75" />
+            <stop offset="100%" stopColor="#C9AF8B" stopOpacity="0.5" />
+          </linearGradient>
+          <linearGradient id="goldBeadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FDFBF7" />
+            <stop offset="50%" stopColor="#C5A059" />
+            <stop offset="100%" stopColor="#8C692B" />
+          </linearGradient>
+        </defs>
+
+        {/* Top Trim Header Bar */}
+        <path d="M0 0 H700 V16 H0 Z" fill="#D9C2A3" />
+        <path d="M0 16 H700 V20 H0 Z" fill="#B89047" opacity="0.6" />
+        <line x1="0" y1="18" x2="700" y2="18" stroke="#FFFDF9" strokeWidth="1" strokeDasharray="4 4" />
+
+        {/* Top Center Scalloped Swag */}
+        <g>
+          {/* Back Shadow Fold */}
+          <path
+            d="M175 16 C 250 85, 450 85, 525 16 C 450 70, 250 70, 175 16 Z"
+            fill="#BFA583"
+            opacity="0.65"
+          />
+          {/* Main Swag Drape */}
+          <path
+            d="M175 16 C 240 102, 460 102, 525 16 C 440 85, 260 85, 175 16 Z"
+            fill="url(#valanceGrad)"
+            stroke="#B89047"
+            strokeWidth="0.8"
+          />
+          {/* Inner Swag Pleats */}
+          <path
+            d="M210 22 C 270 92, 430 92, 490 22 C 420 78, 280 78, 210 22 Z"
+            fill="url(#foldHighlight)"
+            opacity="0.6"
+          />
+          <path
+            d="M250 28 C 295 80, 405 80, 450 28 C 390 68, 310 68, 250 28 Z"
+            fill="url(#valanceGrad)"
+            opacity="0.8"
+          />
+
+          {/* Pearl & Bead Fringe along Center Swag */}
+          {[
+            { cx: 200, cy: 38 }, { cx: 225, cy: 56 }, { cx: 255, cy: 74 },
+            { cx: 290, cy: 89 }, { cx: 325, cy: 97 }, { cx: 350, cy: 99 },
+            { cx: 375, cy: 97 }, { cx: 410, cy: 89 }, { cx: 445, cy: 74 },
+            { cx: 475, cy: 56 }, { cx: 500, cy: 38 }
+          ].map((pt, i) => (
+            <g key={`bead-center-${i}`}>
+              <line x1={pt.cx} y1={pt.cy - 6} x2={pt.cx} y2={pt.cy} stroke="#B89047" strokeWidth="0.8" />
+              <circle cx={pt.cx} cy={pt.cy + 2} r="2.8" fill="url(#goldBeadGrad)" stroke="#8C692B" strokeWidth="0.4" />
+            </g>
+          ))}
+        </g>
+
+        {/* Left Scalloped Swag */}
+        <g>
+          <path
+            d="M-20 16 C 50 95, 130 90, 185 16 C 120 75, 40 75, -20 16 Z"
+            fill="url(#valanceGrad)"
+            stroke="#B89047"
+            strokeWidth="0.8"
+          />
+          <path
+            d="M10 22 C 60 85, 115 80, 160 22 C 110 70, 50 70, 10 22 Z"
+            fill="url(#foldHighlight)"
+            opacity="0.5"
+          />
+          {[
+            { cx: 30, cy: 50 }, { cx: 60, cy: 70 }, { cx: 95, cy: 83 },
+            { cx: 130, cy: 75 }, { cx: 160, cy: 45 }
+          ].map((pt, i) => (
+            <g key={`bead-l-${i}`}>
+              <line x1={pt.cx} y1={pt.cy - 6} x2={pt.cx} y2={pt.cy} stroke="#B89047" strokeWidth="0.8" />
+              <circle cx={pt.cx} cy={pt.cy + 2} r="2.8" fill="url(#goldBeadGrad)" stroke="#8C692B" strokeWidth="0.4" />
+            </g>
+          ))}
+        </g>
+
+        {/* Right Scalloped Swag */}
+        <g>
+          <path
+            d="M515 16 C 570 90, 650 95, 720 16 C 660 75, 580 75, 515 16 Z"
+            fill="url(#valanceGrad)"
+            stroke="#B89047"
+            strokeWidth="0.8"
+          />
+          <path
+            d="M540 22 C 585 80, 640 85, 690 22 C 650 70, 590 70, 540 22 Z"
+            fill="url(#foldHighlight)"
+            opacity="0.5"
+          />
+          {[
+            { cx: 540, cy: 45 }, { cx: 570, cy: 75 }, { cx: 605, cy: 83 },
+            { cx: 640, cy: 70 }, { cx: 670, cy: 50 }
+          ].map((pt, i) => (
+            <g key={`bead-r-${i}`}>
+              <line x1={pt.cx} y1={pt.cy - 6} x2={pt.cx} y2={pt.cy} stroke="#B89047" strokeWidth="0.8" />
+              <circle cx={pt.cx} cy={pt.cy + 2} r="2.8" fill="url(#goldBeadGrad)" stroke="#8C692B" strokeWidth="0.4" />
+            </g>
+          ))}
+        </g>
+
+        {/* Left Cascading Side Drape with Tassel */}
+        <g>
+          <path
+            d="M0 16 C 30 40, 45 90, 15 165 C 2 135, -5 60, 0 16 Z"
+            fill="url(#valanceGrad)"
+            stroke="#B89047"
+            strokeWidth="0.7"
+          />
+          <path
+            d="M10 25 C 38 65, 42 110, 22 155 C 15 120, 5 70, 10 25 Z"
+            fill="url(#foldHighlight)"
+            opacity="0.6"
+          />
+          {/* Left Tieback Rosette & Tassel */}
+          <circle cx="28" cy="95" r="6" fill="#B89047" stroke="#7A5B22" strokeWidth="0.8" />
+          <path d="M28 101 L25 125 L31 125 Z" fill="#C5A059" stroke="#8C692B" strokeWidth="0.5" />
+          <circle cx="28" cy="126" r="2.5" fill="#8C692B" />
+        </g>
+
+        {/* Right Cascading Side Drape with Tassel */}
+        <g>
+          <path
+            d="M700 16 C 670 40, 655 90, 685 165 C 698 135, 705 60, 700 16 Z"
+            fill="url(#valanceGrad)"
+            stroke="#B89047"
+            strokeWidth="0.7"
+          />
+          <path
+            d="M690 25 C 662 65, 658 110, 678 155 C 685 120, 695 70, 690 25 Z"
+            fill="url(#foldHighlight)"
+            opacity="0.6"
+          />
+          {/* Right Tieback Rosette & Tassel */}
+          <circle cx="672" cy="95" r="6" fill="#B89047" stroke="#7A5B22" strokeWidth="0.8" />
+          <path d="M672 101 L669 125 L675 125 Z" fill="#C5A059" stroke="#8C692B" strokeWidth="0.5" />
+          <circle cx="672" cy="126" r="2.5" fill="#8C692B" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+/**
+ * Garden Fountain & Botanical Balustrade Illustration (Reference 1)
+ * Classical tiered stone fountain with water ripples, Italian cypress trees, stone balustrade, and rose gardens.
+ */
+export function GardenFountainIllustration({ className = '' }) {
+  return (
+    <div className={`w-full overflow-hidden pointer-events-none select-none ${className}`}>
+      <svg
+        viewBox="0 0 600 240"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-auto"
+      >
+        <defs>
+          <linearGradient id="stoneBalustrade" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#FAF7F0" />
+            <stop offset="60%" stopColor="#E8DEC9" />
+            <stop offset="100%" stopColor="#D2C3A7" />
+          </linearGradient>
+          <linearGradient id="fountainWater" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#E6F2ED" />
+            <stop offset="50%" stopColor="#BBD8CB" />
+            <stop offset="100%" stopColor="#95BFAC" />
+          </linearGradient>
+          <linearGradient id="cypressTree" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#1B382B" />
+            <stop offset="50%" stopColor="#2E5A45" />
+            <stop offset="100%" stopColor="#13281E" />
+          </linearGradient>
+        </defs>
+
+        {/* 1. TALL ITALIAN CYPRESS TREES (Left & Right background) */}
+        {/* Left Cypress Pair */}
+        <path
+          d="M60 210 C 50 160, 48 90, 60 30 C 72 90, 70 160, 60 210 Z"
+          fill="url(#cypressTree)"
+          opacity="0.95"
+        />
+        <path
+          d="M85 210 C 77 170, 75 110, 85 60 C 95 110, 93 170, 85 210 Z"
+          fill="url(#cypressTree)"
+          opacity="0.85"
+        />
+        {/* Right Cypress Pair */}
+        <path
+          d="M540 210 C 530 160, 528 90, 540 30 C 552 90, 550 160, 540 210 Z"
+          fill="url(#cypressTree)"
+          opacity="0.95"
+        />
+        <path
+          d="M515 210 C 507 170, 505 110, 515 60 C 525 110, 523 170, 515 210 Z"
+          fill="url(#cypressTree)"
+          opacity="0.85"
+        />
+
+        {/* 2. STONE BALUSTRADE RAILING (Left & Right) */}
+        {/* Left Balustrade Wall */}
+        <path d="M40 185 H 210 V 215 H 40 Z" fill="url(#stoneBalustrade)" stroke="#C5A059" strokeWidth="0.8" />
+        <path d="M35 178 H 215 V 185 H 35 Z" fill="#FAF8F5" stroke="#B89047" strokeWidth="0.8" />
+        {/* Baluster Posts Left */}
+        {[60, 85, 110, 135, 160, 185].map((bx, i) => (
+          <path
+            key={`bal-l-${i}`}
+            d={`M${bx - 5} 185 Q${bx} 195 ${bx - 3} 205 L${bx + 3} 205 Q${bx} 195 ${bx + 5} 185 Z`}
+            fill="#D5C5A8"
+            stroke="#9E8D6F"
+            strokeWidth="0.5"
+          />
+        ))}
+
+        {/* Right Balustrade Wall */}
+        <path d="M390 185 H 560 V 215 H 390 Z" fill="url(#stoneBalustrade)" stroke="#C5A059" strokeWidth="0.8" />
+        <path d="M385 178 H 565 V 185 H 385 Z" fill="#FAF8F5" stroke="#B89047" strokeWidth="0.8" />
+        {/* Baluster Posts Right */}
+        {[415, 440, 465, 490, 515, 540].map((bx, i) => (
+          <path
+            key={`bal-r-${i}`}
+            d={`M${bx - 5} 185 Q${bx} 195 ${bx - 3} 205 L${bx + 3} 205 Q${bx} 195 ${bx + 5} 185 Z`}
+            fill="#D5C5A8"
+            stroke="#9E8D6F"
+            strokeWidth="0.5"
+          />
+        ))}
+
+        {/* Stone Urns with Blooming Roses atop Piers */}
+        {/* Left Urn */}
+        <g>
+          <path d="M205 160 H225 V178 H205 Z" fill="url(#stoneBalustrade)" stroke="#B89047" strokeWidth="0.8" />
+          <path d="M202 160 C202 145, 228 145, 228 160 Z" fill="url(#stoneBalustrade)" stroke="#B89047" strokeWidth="0.8" />
+          {/* Rose clusters */}
+          <circle cx="210" cy="144" r="7" fill="#F2D1D6" stroke="#C5A059" strokeWidth="0.6" />
+          <circle cx="220" cy="142" r="8" fill="#F7E2E5" stroke="#C5A059" strokeWidth="0.6" />
+          <circle cx="215" cy="136" r="6" fill="#FAF0F2" stroke="#B89047" strokeWidth="0.5" />
+          <path d="M202 145 Q195 140 198 135" stroke="#2D5A45" strokeWidth="1.2" strokeLinecap="round" />
+        </g>
+        {/* Right Urn */}
+        <g>
+          <path d="M375 160 H395 V178 H375 Z" fill="url(#stoneBalustrade)" stroke="#B89047" strokeWidth="0.8" />
+          <path d="M372 160 C372 145, 398 145, 398 160 Z" fill="url(#stoneBalustrade)" stroke="#B89047" strokeWidth="0.8" />
+          {/* Rose clusters */}
+          <circle cx="380" cy="142" r="8" fill="#F7E2E5" stroke="#C5A059" strokeWidth="0.6" />
+          <circle cx="390" cy="144" r="7" fill="#F2D1D6" stroke="#C5A059" strokeWidth="0.6" />
+          <circle cx="385" cy="136" r="6" fill="#FAF0F2" stroke="#B89047" strokeWidth="0.5" />
+          <path d="M398 145 Q405 140 402 135" stroke="#2D5A45" strokeWidth="1.2" strokeLinecap="round" />
+        </g>
+
+        {/* 3. CENTRAL LUXURY GARDEN FOUNTAIN (Reference 1 Feature) */}
+        {/* Grand Ground Basin (Oval Rim) */}
+        <ellipse cx="300" cy="200" rx="115" ry="32" fill="#D8C8AF" stroke="#C5A059" strokeWidth="1.2" />
+        <ellipse cx="300" cy="198" rx="108" ry="28" fill="url(#fountainWater)" stroke="#74836F" strokeWidth="0.7" />
+        {/* Water Ripple Rings */}
+        <ellipse cx="300" cy="198" rx="85" ry="20" fill="none" stroke="#FFFDF9" strokeWidth="0.8" opacity="0.85" />
+        <ellipse cx="300" cy="198" rx="60" ry="14" fill="none" stroke="#E6F2ED" strokeWidth="0.8" opacity="0.9" />
+
+        {/* Fountain Pedestal Stem */}
+        <path
+          d="M292 198 L288 152 H312 L308 198 Z"
+          fill="url(#stoneBalustrade)"
+          stroke="#B89047"
+          strokeWidth="0.8"
+        />
+
+        {/* Middle Tier Basin */}
+        <ellipse cx="300" cy="152" rx="46" ry="14" fill="#D8C8AF" stroke="#C5A059" strokeWidth="1" />
+        <ellipse cx="300" cy="151" rx="42" ry="11" fill="url(#fountainWater)" stroke="#74836F" strokeWidth="0.6" />
+
+        {/* Upper Tier Stem */}
+        <path
+          d="M296 151 L294 125 H306 L304 151 Z"
+          fill="url(#stoneBalustrade)"
+          stroke="#B89047"
+          strokeWidth="0.7"
+        />
+
+        {/* Upper Tier Small Basin */}
+        <ellipse cx="300" cy="125" rx="22" ry="7" fill="#D8C8AF" stroke="#C5A059" strokeWidth="0.8" />
+        <ellipse cx="300" cy="124" rx="19" ry="5.5" fill="url(#fountainWater)" />
+
+        {/* Spouting Water Finial & Arcing Water Jets */}
+        <circle cx="300" cy="116" r="3" fill="#C5A059" />
+        {/* Center Plume */}
+        <path
+          d="M300 114 C299 98, 301 98, 300 90 C299 98, 301 98, 300 114"
+          stroke="#FFFDF9"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        {/* Gentle Arcs Left & Right */}
+        <path
+          d="M300 96 C290 98, 275 110, 276 126"
+          stroke="#E6F2ED"
+          strokeWidth="1"
+          strokeLinecap="round"
+          opacity="0.85"
+        />
+        <path
+          d="M300 96 C310 98, 325 110, 324 126"
+          stroke="#E6F2ED"
+          strokeWidth="1"
+          strokeLinecap="round"
+          opacity="0.85"
+        />
+        <path
+          d="M280 126 C265 132, 252 145, 255 160"
+          stroke="#FFFDF9"
+          strokeWidth="0.9"
+          strokeLinecap="round"
+          opacity="0.75"
+        />
+        <path
+          d="M320 126 C335 132, 348 145, 345 160"
+          stroke="#FFFDF9"
+          strokeWidth="0.9"
+          strokeLinecap="round"
+          opacity="0.75"
+        />
+
+        {/* 4. BASE FLOWER BED BORDER (Sage foliage, delicate white & blush roses) */}
+        {[
+          { x: 170, y: 220, r: 8, fill: '#E8D2D5' },
+          { x: 195, y: 224, r: 10, fill: '#FAF3EB' },
+          { x: 220, y: 228, r: 9, fill: '#E8D2D5' },
+          { x: 380, y: 228, r: 9, fill: '#E8D2D5' },
+          { x: 405, y: 224, r: 10, fill: '#FAF3EB' },
+          { x: 430, y: 220, r: 8, fill: '#E8D2D5' },
+        ].map((rose, i) => (
+          <g key={`bed-rose-${i}`}>
+            <circle cx={rose.x} cy={rose.y} r={rose.r} fill={rose.fill} stroke="#C5A059" strokeWidth="0.6" />
+            <circle cx={rose.x} cy={rose.y} r={rose.r * 0.4} fill="#C5A059" opacity="0.6" />
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
+

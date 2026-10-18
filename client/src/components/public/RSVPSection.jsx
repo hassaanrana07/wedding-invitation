@@ -281,7 +281,7 @@ export default function RSVPSection({ invitation, onRsvpUpdated }) {
                     required
                     value={guestName}
                     onChange={(e) => setGuestName(e.target.value)}
-                    placeholder="e.g. Ahmed Khan & Family"
+                    placeholder="e.g. Honored Guest & Family"
                     className="w-full rounded-xl border border-gold-500/30 bg-black/50 px-4 py-2.5 text-cream-100 placeholder:text-cream-600/50 focus:border-gold-400 focus:outline-none focus:ring-1 focus:ring-gold-400 text-sm"
                   />
                 </div>

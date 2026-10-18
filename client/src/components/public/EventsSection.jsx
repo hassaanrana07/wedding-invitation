@@ -82,29 +82,36 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Section Header */}
+        {/* Section Header (Reference 2: Program Timeline with Clock & Heart) */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center max-w-2xl mx-auto mb-14 sm:mb-20"
+          className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
         >
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <BotanicalHeaderArch className="scale-90" />
+          {/* Clock Icon in Soft Circle (Reference 2) */}
+          <div className="w-10 h-10 rounded-full border border-[#C5A059]/50 bg-[#FFFDF9] flex items-center justify-center mx-auto mb-2 text-[#1B382B] shadow-sm">
+            <Clock className="w-4 h-4 text-[#B89047]" />
           </div>
 
-          <span className="font-cinzel text-xs tracking-[0.35em] uppercase text-[#756A5E] block mb-2 font-medium">
-            Wedding Itinerary
-          </span>
-
-          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#1B382B] tracking-tight">
-            Schedule & Celebrations
+          {/* Program Timeline in Great Vibes Calligraphy */}
+          <h2 className="font-script text-4xl sm:text-5xl md:text-6xl text-[#1B382B] leading-tight select-none">
+            Program Timeline
           </h2>
 
-          <FloralDivider className="my-3" />
+          <p className="font-bodoni text-xs sm:text-sm tracking-[0.25em] uppercase text-[#74836F] font-semibold mt-1">
+            Order of Celebrations
+          </p>
 
-          <p className="font-serif italic text-base sm:text-lg text-[#5D5347] max-w-lg mx-auto leading-relaxed">
+          {/* Centered Thin Divider with Heart — 🖤 — */}
+          <div className="flex items-center justify-center gap-3 my-3 max-w-[200px] mx-auto">
+            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#C5A059]/40 to-[#C5A059]" />
+            <span className="text-[#1B382B] text-xs select-none">🖤</span>
+            <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#C5A059]/40 to-[#C5A059]" />
+          </div>
+
+          <p className="font-cormorant italic text-base text-[#5D5347] max-w-lg mx-auto leading-relaxed">
             "Join our families in celebrating two blessed occasions of prayers, dinner, and togetherness."
           </p>
         </motion.div>
@@ -376,7 +383,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
 
                   <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
                     <p className="text-xs sm:text-sm text-[#5D5347] leading-relaxed">
-                      {selectedEvent.additional_notes || 'Ahmed & Ayesha warmly invite you to join them in heartfelt prayers and joyous celebrations.'}
+                      {selectedEvent.additional_notes || 'Laraib Ajmal & Mirza Talal Baig warmly invite you to join them in heartfelt prayers and joyous celebrations.'}
                     </p>
                   </div>
                 </div>
@@ -402,7 +409,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                       const startIso = new Date(`${dateStr}T19:00:00+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
                       const endIso = new Date(`${dateStr}T23:30:00+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
                       const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-                        `Ahmed & Ayesha: ${selectedEvent.name}`
+                        `Laraib & Talal: ${selectedEvent.name}`
                       )}&dates=${startIso}/${endIso}&details=${encodeURIComponent(
                         `${selectedEvent.description || ''}\n\nDress Code: ${selectedEvent.dress_code || 'Formal'}\nVenue: ${selectedEvent.venue_name}`
                       )}&location=${encodeURIComponent(`${selectedEvent.venue_name}, ${selectedEvent.venue_address || selectedEvent.city}`)}`;

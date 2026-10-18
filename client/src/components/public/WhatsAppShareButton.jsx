@@ -11,8 +11,8 @@ export default function WhatsAppShareButton({ invitationToken = '', guestName = 
     : window.location.origin;
 
   const shareText = guestName
-    ? `Dear ${guestName},\nYou are warmly invited to celebrate the Pakistani wedding ceremonies of ${wedding.couple_title || 'Ahmed & Ayesha'} ❤️\n\nView your personalized invitation card & RSVP here:\n${inviteUrl}`
-    : `You are warmly invited to celebrate the wedding ceremonies of ${wedding.couple_title || 'Ahmed & Ayesha'} ❤️\n\nView the wedding invitation:\n${inviteUrl}`;
+    ? `Dear ${guestName},\nYou are warmly invited to celebrate the Pakistani wedding ceremonies of ${wedding.couple_title || 'Laraib Ajmal & Mirza Talal Baig'} ❤️\n\nView your personalized invitation card & RSVP here:\n${inviteUrl}`
+    : `You are warmly invited to celebrate the wedding ceremonies of ${wedding.couple_title || 'Laraib Ajmal & Mirza Talal Baig'} ❤️\n\nView the wedding invitation:\n${inviteUrl}`;
 
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
 

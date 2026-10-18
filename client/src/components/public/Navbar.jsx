@@ -38,9 +38,8 @@ export default function Navbar() {
 
   // Three Links Right
   const rightNavLinks = [
-    { label: 'Timeline', href: '#timeline' },
+    { label: 'Timeline', href: '#events' },
     { label: 'Family', href: '#honored-family' },
-    { label: 'Ceremonies', href: '#events' },
   ];
 
   const allNavLinks = [...leftNavLinks, ...rightNavLinks];
@@ -100,16 +99,16 @@ export default function Navbar() {
               />
               <div className="flex flex-col text-left">
                 <span className="font-cinzel text-sm font-bold text-[#1B382B] tracking-[0.25em] group-hover:text-[#B89047] transition-colors">
-                  {wedding.app_title || 'AHMED & AYESHA'}
+                  {wedding.app_title || 'LARAIB & TALAL'}
                 </span>
                 <span className="font-serif italic text-[11px] text-[#756A5E] -mt-0.5">
-                  {wedding.couple_title || 'Ahmed & Ayesha'}
+                  {wedding.couple_title || 'Laraib Ajmal & Mirza Talal Baig'}
                 </span>
               </div>
             </a>
           </div>
 
-          {/* 3. RIGHT SIDE: Remaining Three Existing Navigation Links with Consistent Spacing */}
+          {/* 3. RIGHT SIDE: Remaining Navigation Links with Consistent Spacing */}
           <div className="flex items-center justify-end gap-8 xl:gap-10">
             {rightNavLinks.map((link) => (
               <a
@@ -137,10 +136,10 @@ export default function Navbar() {
             <RoyalMonogramSeal size={34} variant="ivory" glow={true} />
             <div className="flex flex-col text-left">
               <span className="font-cinzel text-xs font-bold text-[#1B382B] tracking-widest">
-                {wedding.app_title || 'AHMED & AYESHA'}
+                {wedding.app_title || 'LARAIB & TALAL'}
               </span>
               <span className="font-serif italic text-[10px] text-[#756A5E] -mt-0.5">
-                {wedding.couple_title || 'Ahmed & Ayesha'}
+                {wedding.couple_title || 'Laraib Ajmal & Mirza Talal Baig'}
               </span>
             </div>
           </a>

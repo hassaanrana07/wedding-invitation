@@ -35,7 +35,7 @@ export default function EventCard({ event, index, onSelectEvent }) {
     const endIso = new Date(`${dateStr}T23:30:00+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
 
     const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-      `Ahmed & Ayesha: ${event.name}`
+      `Laraib & Talal: ${event.name}`
     )}&dates=${startIso}/${endIso}&details=${encodeURIComponent(
       `${event.description || ''}\n\nVenue: ${event.venue_name}\nAddress: ${event.venue_address || event.city}`
     )}&location=${encodeURIComponent(`${event.venue_name}, ${event.venue_address || event.city}`)}`;
@@ -82,24 +82,29 @@ export default function EventCard({ event, index, onSelectEvent }) {
       {/* Compact Main Card Content */}
       <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between">
         <div>
-          {/* Prominent Title: e.g. Shanti The Grand */}
+          {/* Prominent Title: e.g. Shehndi Celebrations (Bodoni Moda) */}
           <div className="flex items-start justify-between gap-2">
             <div>
-              <h3 className="font-serif text-2xl sm:text-[26px] font-bold text-[#1B382B] leading-tight group-hover:text-[#2E5A45] transition-colors">
+              <h3 className="font-bodoni text-xl sm:text-2xl font-bold text-[#1B382B] leading-tight group-hover:text-[#2E5A45] transition-colors">
                 {event.name}
               </h3>
-              {/* Prominent Subtitle: e.g. Wedding Celebration & Baraat */}
+              {/* Prominent Subtitle */}
               {event.tagline && (
-                <p className="font-serif italic text-sm text-[#B89047] font-medium mt-0.5">
+                <p className="font-cormorant italic text-sm text-[#B89047] font-medium mt-0.5">
                   {event.tagline}
                 </p>
               )}
             </div>
-            <DelicateHeart size={16} className="text-[#C5A059]/40 group-hover:text-[#C5A059] transition-colors shrink-0 mt-1" />
+            <span className="text-[#1B382B] text-xs select-none shrink-0 mt-1">🖤</span>
+          </div>
+
+          {/* Welcoming note from Reference 2 */}
+          <div className="flex items-center gap-1.5 mt-2 text-xs text-[#74836F] font-cormorant italic">
+            <span>We welcome you & your family.. 🖤</span>
           </div>
 
           {/* Essential Information Chips in Warm Compact Box */}
-          <div className="mt-3.5 space-y-2 text-xs text-[#1B382B] border border-[#EAE0D2] bg-[#FAF8F5] p-3 sm:p-3.5 rounded-xl">
+          <div className="mt-3 space-y-2 text-xs text-[#1B382B] border border-[#EAE0D2] bg-[#FAF8F5] p-3 sm:p-3.5 rounded-xl">
             {/* 1. Function Date */}
             <div className="flex items-center gap-2">
               <Calendar className="w-3.5 h-3.5 text-[#B89047] shrink-0" />
@@ -125,7 +130,7 @@ export default function EventCard({ event, index, onSelectEvent }) {
 
           {/* Short, Elegant Description */}
           {event.description && (
-            <p className="text-[#5D5347] text-xs leading-relaxed mt-3 font-light line-clamp-2">
+            <p className="text-[#5D5347] font-cormorant text-xs leading-relaxed mt-2.5 line-clamp-2">
               {event.description}
             </p>
           )}

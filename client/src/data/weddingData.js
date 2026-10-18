@@ -1,5 +1,5 @@
 /**
- * Wedding of Ahmed Hassan & Ayesha Fatima
+ * Wedding of Laraib Ajmal & Mirza Talal Baig
  * Centralized Wedding Data & Configuration (100% Frontend-Only)
  * 
  * All wedding details, venues, timings, gallery images, story milestones,
@@ -8,29 +8,29 @@
 
 export const weddingData = {
   settings: {
-    app_title: 'AHMED & AYESHA',
-    couple_title: 'Ahmed & Ayesha',
-    bride_name: 'Ayesha Fatima',
+    app_title: 'LARAIB & TALAL',
+    couple_title: 'Laraib Ajmal & Mirza Talal Baig',
+    bride_name: 'Laraib Ajmal',
     bride_relation: 'Daughter of',
-    bride_parents: 'Mr. Muhammad Imran & Mrs. Shazia Imran',
-    groom_name: 'Ahmed Hassan',
+    bride_parents: 'Muhammad Ajmal',
+    groom_name: 'Mirza Talal Baig',
     groom_relation: 'Son of',
-    groom_parents: 'Mr. Muhammad Asif & Mrs. Naila Asif',
-    couple_monogram: 'A & H',
-    wedding_date: '2027-03-27T19:00:00+05:00',
+    groom_parents: 'Mirza Shahzad Baig',
+    couple_monogram: 'L & T',
+    wedding_date: '2026-12-12T19:00:00+05:00',
     wedding_city: 'Lahore, Pakistan',
     timezone: 'Asia/Karachi',
     hero_headline: 'Together with their families',
-    hero_subheadline: 'warmly invite you to celebrate the wedding union of Ahmed Hassan & Ayesha Fatima',
-    invitation_message: 'With immense gratitude to Allah Almighty and the blessings of our parents, we cordially invite you to celebrate the joyous union of Ahmed & Ayesha. Your gracious presence and prayers will make our celebrations truly unforgettable.',
+    hero_subheadline: 'warmly invite you to celebrate the wedding union of Laraib Ajmal & Mirza Talal Baig',
+    invitation_message: 'With immense gratitude to Allah Almighty and the blessings of our parents, we cordially invite you to celebrate the joyous union of Laraib Ajmal & Mirza Talal Baig. Your gracious presence and prayers will make our celebrations truly unforgettable.',
     intro_story: 'Two souls destined to meet, two hearts destined to beat as one. A celebration of true companionship, shared dreams, family blessings, and endless prayers.',
     hero_image_url: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=85',
     couple_image_url: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=85',
-    contact_email: 'rsvp@ahmed-ayesha.pk',
-    contact_phone: '+92 300 0000000',
-    footer_text: 'Thank you for being an indispensable part of our story and celebrations. Warmly invited by Muhammad Imran, Shazia Imran, Muhammad Asif, and Naila Asif.',
-    hashtag: '#AhmedWedsAyesha',
-    custom_slug: 'ahmed-ayesha'
+    contact_email: 'rsvp@laraib-talal.pk',
+    contact_phone: '03218464040',
+    footer_text: 'Thank you for being an indispensable part of our story and celebrations. Warmly invited by Muhammad Ajmal and Mirza Shahzad Baig.',
+    hashtag: '#LaraibWedsTalal',
+    custom_slug: 'laraib-talal'
   },
 
   theme: {
@@ -40,6 +40,7 @@ export const weddingData = {
     accent_color: '#B89047',
     background_color: '#FAF8F5', // Warm ivory
     surface_color: '#FFFDF9',
+    font_display: 'Bodoni Moda',
     font_heading: 'Cormorant Garamond',
     font_script: 'Great Vibes',
     font_body: 'Lora',
@@ -57,30 +58,30 @@ export const weddingData = {
     autoplay_prompt: 1
   },
 
-  // Exactly TWO Wedding Functions: Shanti The Grand & Walima
+  // Exactly TWO Wedding Functions: Shehndi & Walima
   events: [
     {
-      id: 'event-shandi',
-      slug: 'shandi',
-      name: 'Shanti The Grand',
+      id: 'event-shehndi',
+      slug: 'shehndi',
+      name: 'Shehndi Celebrations',
       event_day: 'Saturday',
-      event_date: '2027-03-27',
-      formatted_date: 'Saturday, 27 March 2027',
-      start_time: '08:00 PM',
-      end_time: '11:30 PM',
-      tagline: 'Wedding Celebration & Baraat',
-      description: 'The auspicious centerpiece of our celebrations. Under divine blessings, the sacred marriage ceremony will be recited, followed by the grand royal dinner reception welcoming Ahmed, Ayesha, and honored guests.',
-      venue_name: 'The Nishat Grand Ballroom (Emporium)',
-      venue_address: 'Abdul Haque Road, Commercial Area Phase 2, Johar Town, Lahore, Pakistan',
+      event_date: '2026-12-12',
+      formatted_date: '12 December 2026',
+      start_time: '07:00 PM',
+      end_time: '11:00 PM',
+      tagline: 'Baraat Arrival, Dinner & Ruksati',
+      description: 'The auspicious centerpiece of our celebrations. Under divine blessings, the sacred wedding rituals and celebrations will take place, followed by dinner and heartfelt prayers.',
+      venue_name: 'Topaz Marquee',
+      venue_address: 'Topaz Marquee, Model Town, Lahore, Pakistan',
       city: 'Lahore, Pakistan',
-      google_maps_url: 'https://maps.google.com/?q=The+Nishat+Hotel+Johar+Town+Lahore',
+      google_maps_url: 'https://maps.google.com/?q=Topaz+Marquee+Model+Town+Lahore',
       cover_image_url: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=1000&q=80',
-      dress_code: 'Royal Formal / Sherwani, Formal Dark Suits & Heavily Embellished Bridal Formals',
+      dress_code: 'Royal Formal / Traditional Embellished Formals & Sherwanis',
       color_palette: 'Emerald Green, Antique Gold, Deep Crimson & Regal Ivory',
-      menu_details: 'Royal Mughlai Banquet • Live Barbecue & Mutton Karahi, Roghani Naan, Traditional Kashmiri Chai & Lahori Kheer (Banquet served at 09:45 PM)',
-      hospitality_notes: 'Dedicated valet parking at Emporium East Ballroom Gate. Guests are requested to be seated by 08:30 PM.',
-      additional_notes: 'Ahmed & Ayesha warmly invite you to share this sacred milestone with prayers and joyous family portraits.',
-      program_highlights: 'Baraat Arrival at 8:00 PM • Sacred Ceremony at 8:45 PM • Royal Dinner Banquet at 9:45 PM • Rukhsati at 11:15 PM',
+      menu_details: 'Royal Mughlai Banquet • Live Barbecue & Traditional Delicacies (Banquet served at 09:00 PM)',
+      hospitality_notes: 'Valet parking available at Topaz Marquee entrance. Guests are requested to arrive by 07:00 PM.',
+      additional_notes: 'Laraib Ajmal & Mirza Talal Baig warmly invite you to share this sacred milestone with prayers.',
+      program_highlights: '07:00 PM Baraat Arrival • 09:00 PM Dinner • 11:00 PM Ruksati',
       display_order: 1,
       is_active: 1
     },
@@ -89,77 +90,62 @@ export const weddingData = {
       slug: 'walima',
       name: 'Walima Grand Reception',
       event_day: 'Sunday',
-      event_date: '2027-03-28',
-      formatted_date: 'Sunday, 28 March 2027',
-      start_time: '08:00 PM',
-      end_time: '11:30 PM',
+      event_date: '2026-12-13',
+      formatted_date: '13 December 2026',
+      start_time: '06:00 PM',
+      end_time: '10:00 PM',
       tagline: 'The Blessed Walima Reception',
-      description: 'Hosted with profound gratitude by the Groom’s family to celebrate our new beginning. An enchanting dinner evening filled with heartfelt blessings, exquisite culinary creations, and joyous family portraits.',
-      venue_name: 'Defence Raya Golf & Country Club',
-      venue_address: 'Phase 6, DHA, Lahore, Punjab, Pakistan',
+      description: 'Hosted with profound gratitude by the Groom’s family to celebrate our new beginning. An enchanting dinner evening filled with heartfelt blessings, culinary creations, and joyous family portraits.',
+      venue_name: 'Topaz Marquee',
+      venue_address: 'Topaz Marquee, Model Town, Lahore, Pakistan',
       city: 'Lahore, Pakistan',
-      google_maps_url: 'https://maps.google.com/?q=Defence+Raya+Golf+and+Country+Club+Lahore',
+      google_maps_url: 'https://maps.google.com/?q=Topaz+Marquee+Model+Town+Lahore',
       cover_image_url: 'https://images.unsplash.com/photo-1519225424982-f79a957a0752?auto=format&fit=crop&w=1000&q=80',
       dress_code: 'Formal Black Tie / Tuxedos, Dark Suits, Pastel Chiffons & Raw Silks',
       color_palette: 'Soft Champagne, Slate Blue, Blush Pink & Rose Gold',
-      menu_details: 'Continental & Oriental Fusion Buffet • Live Carving Stations, Artisanal Pastries & Starlit Terrace Refreshments (Banquet served at 09:45 PM)',
-      hospitality_notes: 'Valet parking available at Main Clubhouse entrance. Live acoustic sitar and shehnai melodies throughout dinner.',
+      menu_details: 'Continental & Oriental Fusion Buffet • Live Carving Stations, Artisanal Pastries',
+      hospitality_notes: 'Valet parking available at Topaz Marquee entrance.',
       additional_notes: 'Hosted with profound gratitude by the Groom’s family to celebrate our new beginning.',
-      program_highlights: 'Guest Reception at 8:00 PM • Couple Grand Entry at 8:45 PM • Family Felicitations at 9:15 PM • Gourmet Dinner at 9:45 PM',
+      program_highlights: 'Guest Reception at 06:00 PM • Couple Grand Entry at 07:30 PM • Gourmet Dinner at 08:30 PM',
       display_order: 2,
       is_active: 1
     }
   ],
 
-  // Special Honored Family Members & Dignitaries
+  // Owner's Family & Honored Dignitaries
   specialGuests: [
     {
       id: 'sp-1',
-      name: 'Muhammad Imran',
-      relationship: 'Father of the Bride',
+      name: 'Muhammad Ajmal',
+      relationship: 'Father',
       family_side: 'bride',
-      contact_phone: '+92 300 0000000',
-      secondary_contact: 'Lahore (Demo)',
-      photo_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+      contact_phone: '03218464040',
+      secondary_contact: 'Lahore',
       display_order: 1,
       is_visible: 1,
-      notes: 'Beloved father and guardian of the bride'
+      notes: 'Beloved father and guardian of the family'
     },
     {
       id: 'sp-2',
-      name: 'Shazia Imran',
-      relationship: 'Mother of the Bride',
+      name: 'Aayaan Ajmal',
+      relationship: 'Brother',
       family_side: 'bride',
-      contact_phone: '+92 300 0000000',
-      secondary_contact: 'Lahore (Demo)',
-      photo_url: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
+      contact_phone: '03164632798',
+      secondary_contact: 'Lahore',
       display_order: 2,
       is_visible: 1,
-      notes: 'Cherished mother and matriarch of the bride’s family'
+      notes: 'Beloved brother extending warmest welcome'
     },
     {
       id: 'sp-3',
-      name: 'Muhammad Asif',
-      relationship: 'Father of the Groom',
-      family_side: 'groom',
-      contact_phone: '+92 300 0000001',
-      secondary_contact: 'Lahore (Demo)',
-      photo_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
+      name: 'Hassaan Ajmal',
+      relationship: 'Brother',
+      family_side: 'bride',
+      contact_phone: '03098853177',
+      secondary_contact: 'Lahore',
       display_order: 3,
       is_visible: 1,
-      notes: 'Respected father and head of the groom’s family'
-    },
-    {
-      id: 'sp-4',
-      name: 'Naila Asif',
-      relationship: 'Mother of the Groom',
-      family_side: 'groom',
-      contact_phone: '+92 300 0000001',
-      secondary_contact: 'Lahore (Demo)',
-      photo_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
-      display_order: 4,
-      is_visible: 1,
-      notes: 'Loving mother welcoming the bride with prayers and warmth'
+      notes: 'Beloved brother ensuring gracious hospitality'
     }
   ],
 
@@ -218,7 +204,7 @@ export const weddingData = {
     {
       id: 'gal-6',
       title: 'Walima Elegance',
-      caption: 'Under the starlit chandeliers at Defence Raya Golf & Country Club.',
+      caption: 'Under the starlit chandeliers at Topaz Marquee, Model Town, Lahore.',
       category: 'Walima',
       collection_type: 'Walima',
       image_url: 'https://images.unsplash.com/photo-1519225424982-f79a957a0752?auto=format&fit=crop&w=1200&q=85',
@@ -301,13 +287,13 @@ export const weddingData = {
       id: 'story-2',
       year: '2023',
       title: 'The Proposal in Hunza',
-      description: 'Under the golden autumn peaks of Rakaposhi and a canopy of a million stars, Ahmed asked the question that made two hearts beat forever in unison, promising a lifetime of shared adventures.',
+      description: 'Under the golden autumn peaks of Rakaposhi and a canopy of a million stars, Talal asked the question that made two hearts beat forever in unison, promising a lifetime of shared adventures.',
       image_url: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80',
       display_order: 2
     },
     {
       id: 'story-3',
-      year: '2027',
+      year: '2026',
       title: 'The Beginning of Forever',
       description: 'Surrounded by our beloved parents, cherished families, and prayers of elders, we pledge our vows and embark on our lifelong voyage as husband and wife under Allah’s boundless mercy.',
       image_url: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
@@ -315,80 +301,88 @@ export const weddingData = {
     }
   ],
 
-  // Verified Venue & Location Directory (Shandi & Walima)
+  // Verified Venue & Location Directory (Shehndi & Walima)
   venues: [
     {
-      name: 'The Nishat Grand Ballroom (Emporium)',
-      event: 'Shandi',
-      date: 'Saturday, March 27, 2027',
-      time: '08:00 PM',
-      address: 'Abdul Haque Road, Commercial Area Phase 2, Johar Town, Lahore, Pakistan',
+      name: 'Topaz Marquee, Model Town, Lahore',
+      event: 'Shehndi',
+      date: 'Saturday, 12 December 2026',
+      time: '07:00 PM',
+      address: 'Topaz Marquee, Model Town, Lahore, Pakistan',
       city: 'Lahore',
-      google_maps_url: 'https://maps.google.com/?q=The+Nishat+Hotel+Johar+Town+Lahore'
+      google_maps_url: 'https://maps.google.com/?q=Topaz+Marquee+Model+Town+Lahore'
     },
     {
-      name: 'Defence Raya Golf & Country Club',
+      name: 'Topaz Marquee, Model Town, Lahore',
       event: 'Walima',
-      date: 'Sunday, March 28, 2027',
-      time: '08:00 PM',
-      address: 'Phase 6, DHA, Lahore, Punjab, Pakistan',
+      date: 'Sunday, 13 December 2026',
+      time: '06:00 PM',
+      address: 'Topaz Marquee, Model Town, Lahore, Pakistan',
       city: 'Lahore',
-      google_maps_url: 'https://maps.google.com/?q=Defence+Raya+Golf+and+Country+Club+Lahore'
+      google_maps_url: 'https://maps.google.com/?q=Topaz+Marquee+Model+Town+Lahore'
     }
   ],
 
-  // Exactly TWO Verified Family Contacts (Bride's & Groom's Leads - Demo Placeholders)
+  // Family Contacts (Father & Brothers)
   contacts: [
     {
-      role: "Bride's Family Representative",
-      relation: 'Father of the Bride',
-      name: 'Muhammad Imran',
-      phone: '+92 300 0000000',
-      formatted_phone: '+92 300 0000000',
-      whatsapp: '923000000000'
+      role: "Father of the Bride",
+      relation: 'Father',
+      name: 'Muhammad Ajmal',
+      phone: '03218464040',
+      formatted_phone: '03218464040',
+      whatsapp: '923218464040'
     },
     {
-      role: "Groom's Family Representative",
-      relation: 'Father of the Groom',
-      name: 'Muhammad Asif',
-      phone: '+92 300 0000001',
-      formatted_phone: '+92 300 0000001',
-      whatsapp: '923000000001'
+      role: "Brother of the Bride",
+      relation: 'Brother',
+      name: 'Aayaan Ajmal',
+      phone: '03164632798',
+      formatted_phone: '03164632798',
+      whatsapp: '923164632798'
+    },
+    {
+      role: "Brother of the Bride",
+      relation: 'Brother',
+      name: 'Hassaan Ajmal',
+      phone: '03098853177',
+      formatted_phone: '03098853177',
+      whatsapp: '923098853177'
     }
   ],
 
   // Sample Personalized Invitations (Fully functional client-side)
   sampleInvitations: {
     '8f73kd92': {
-      id: 'inv-ahmed',
+      id: 'inv-ali',
       token: '8f73kd92',
-      guest_name: 'Ahmed Khan & Family',
-      greeting_title: 'Dear Ahmed & Family,',
+      guest_name: 'Ali Khan & Family',
+      greeting_title: 'Dear Ali & Family,',
       relationship: 'Family & Friends',
       allowed_guests: 4,
       phone: '+92 321 0000000',
-      email: 'ahmed.khan@example.com',
+      email: 'ali.khan@example.com',
       is_vip: 1,
       status: 'pending',
       assigned_events: [
         {
-          id: 'event-shandi',
-          slug: 'shandi',
-          name: 'Shandi',
-          event_date: '2027-03-27',
-          start_time: '08:00 PM',
-          venue_name: 'The Nishat Grand Ballroom (Emporium)',
-          venue_address: 'Abdul Haque Road, Commercial Area Phase 2, Johar Town, Lahore',
+          id: 'event-shehndi',
+          slug: 'shehndi',
+          name: 'Shehndi Celebrations',
+          event_date: '2026-12-12',
+          start_time: '07:00 PM',
+          venue_name: 'Topaz Marquee',
+          venue_address: 'Topaz Marquee, Model Town, Lahore',
           dress_code: 'Royal Formal / Sherwani'
         },
         {
           id: 'event-walima',
           slug: 'walima',
-          name: 'Walima',
-          event_date: '2027-03-28',
-          start_time: '08:00 PM',
-          venue_name: 'Defence Raya Golf & Country Club',
-          venue_address: 'Phase 6, DHA, Lahore',
+          name: 'Walima Grand Reception',
+          event_date: '2026-12-13',
+          start_time: '06:00 PM',
+          venue_name: 'Topaz Marquee',
+          venue_address: 'Topaz Marquee, Model Town, Lahore',
           dress_code: 'Formal Black Tie / Dark Suits'
         }
       ]
@@ -406,23 +400,23 @@ export const weddingData = {
       status: 'confirmed',
       assigned_events: [
         {
-          id: 'event-shandi',
-          slug: 'shandi',
-          name: 'Shandi',
-          event_date: '2027-03-27',
-          start_time: '08:00 PM',
-          venue_name: 'The Nishat Grand Ballroom (Emporium)',
-          venue_address: 'Johar Town, Lahore',
+          id: 'event-shehndi',
+          slug: 'shehndi',
+          name: 'Shehndi Celebrations',
+          event_date: '2026-12-12',
+          start_time: '07:00 PM',
+          venue_name: 'Topaz Marquee',
+          venue_address: 'Topaz Marquee, Model Town, Lahore',
           dress_code: 'Royal Formal / Bridals'
         },
         {
           id: 'event-walima',
           slug: 'walima',
-          name: 'Walima',
-          event_date: '2027-03-28',
-          start_time: '08:00 PM',
-          venue_name: 'Defence Raya Golf & Country Club',
-          venue_address: 'Phase 6, DHA, Lahore',
+          name: 'Walima Grand Reception',
+          event_date: '2026-12-13',
+          start_time: '06:00 PM',
+          venue_name: 'Topaz Marquee',
+          venue_address: 'Topaz Marquee, Model Town, Lahore',
           dress_code: 'Formal Black Tie'
         }
       ]
@@ -440,23 +434,23 @@ export const weddingData = {
       status: 'confirmed',
       assigned_events: [
         {
-          id: 'event-shandi',
-          slug: 'shandi',
-          name: 'Shandi',
-          event_date: '2027-03-27',
-          start_time: '08:00 PM',
-          venue_name: 'The Nishat Grand Ballroom (Emporium)',
-          venue_address: 'Johar Town, Lahore',
+          id: 'event-shehndi',
+          slug: 'shehndi',
+          name: 'Shehndi Celebrations',
+          event_date: '2026-12-12',
+          start_time: '07:00 PM',
+          venue_name: 'Topaz Marquee',
+          venue_address: 'Topaz Marquee, Model Town, Lahore',
           dress_code: 'Royal Formal'
         },
         {
           id: 'event-walima',
           slug: 'walima',
-          name: 'Walima',
-          event_date: '2027-03-28',
-          start_time: '08:00 PM',
-          venue_name: 'Defence Raya Golf & Country Club',
-          venue_address: 'Phase 6, DHA, Lahore',
+          name: 'Walima Grand Reception',
+          event_date: '2026-12-13',
+          start_time: '06:00 PM',
+          venue_name: 'Topaz Marquee',
+          venue_address: 'Topaz Marquee, Model Town, Lahore',
           dress_code: 'Formal Black Tie'
         }
       ]

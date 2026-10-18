@@ -8,14 +8,20 @@ import React from 'react';
 export default function RoyalMonogramSeal({
   size = 40,
   className = '',
-  monogram = 'A & H',
+  monogram = 'L & T',
   showSubtext = false,
-  subtext = 'AH',
+  subtext = 'LT',
   glow = false,
   variant = 'ivory', // 'ivory' | 'dark' | 'gold'
 }) {
   const isIvory = variant === 'ivory';
   const isGold = variant === 'gold';
+
+  // Parse monogram letters (e.g. "L & T" -> "L" and "T")
+  const parts = monogram.split('&').map((s) => s.trim());
+  const letter1 = parts[0] || 'L';
+  const letter2 = parts[1] || 'T';
+  const displaySubtext = subtext || `${letter1}${letter2}`;
 
   return (
     <div
@@ -32,7 +38,7 @@ export default function RoyalMonogramSeal({
         viewBox="0 0 100 100"
         className="w-full h-full select-none rounded-full overflow-hidden"
         style={{ borderRadius: '50%' }}
-        aria-label="A & H Royal Wedding Monogram"
+        aria-label={`${monogram} Royal Wedding Monogram`}
       >
         <defs>
           <linearGradient id="monogramGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -123,7 +129,7 @@ export default function RoyalMonogramSeal({
               fontWeight="700"
               opacity="0.95"
             >
-              {subtext}
+              {displaySubtext}
             </text>
 
             <text
@@ -137,9 +143,9 @@ export default function RoyalMonogramSeal({
               filter="url(#monogramSubtleShadow)"
               letterSpacing="0.8"
             >
-              <tspan fontSize="23">A</tspan>
+              <tspan fontSize="23">{letter1}</tspan>
               <tspan fontSize="14" fontStyle="italic" dy="-2"> &amp; </tspan>
-              <tspan fontSize="23" dy="2">H</tspan>
+              <tspan fontSize="23" dy="2">{letter2}</tspan>
             </text>
           </>
         ) : (
@@ -154,9 +160,9 @@ export default function RoyalMonogramSeal({
             filter="url(#monogramSubtleShadow)"
             letterSpacing="0.6"
           >
-            <tspan fontSize="25">A</tspan>
+            <tspan fontSize="25">{letter1}</tspan>
             <tspan fontSize="15" fontStyle="italic" dy="-2"> &amp; </tspan>
-            <tspan fontSize="25" dy="2">H</tspan>
+            <tspan fontSize="25" dy="2">{letter2}</tspan>
           </text>
         )}
       </svg>

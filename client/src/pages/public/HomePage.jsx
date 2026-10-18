@@ -55,25 +55,25 @@ export default function HomePage() {
       {/* 4. Reference A: Royal Wedding Invitation with Calligraphy Names & Botanical Arch Framing */}
       <HeroSection />
 
-      {/* 5. Reference C: Wedding Welcome Message, Couple & Parental Lineage */}
+      {/* 5. Reference 3: Wedding Welcome Message, Couple & Parental Lineage */}
       <CoupleSection />
 
-      {/* 6. Reference B: Auspicious Wedding Countdown with Minimal Sophisticated Cards */}
+      {/* 6. Reference 5: Auspicious Wedding Countdown with Champagne Cards */}
       <CountdownSection />
 
       {/* 7. Center Quranic Blessing: Surah An-Naba (78:8) - "And We created you in pairs" */}
       <QuranicVersePairs />
 
-      {/* 8. Reference B: Vertical Program Timeline with Connecting Line, Markers & Event Details */}
+      {/* 8. Reference 2: Vertical Program Timeline with Connecting Line, Markers & Event Details */}
       <EventsSection events={events} />
 
-      {/* 9. Owner's Family & Honored Dignitaries 3-Person 3D Rotating Carousel */}
+      {/* 10. Owner's Family & Honored Dignitaries 3-Person 3D Rotating Carousel */}
       <SpecialGuestsSection />
 
-      {/* 10. Bottom Quranic Du'a: Surah Al-Furqan (25:74) */}
+      {/* 11. Bottom Quranic Du'a: Surah Al-Furqan (25:74) */}
       <QuranicVerseBottom />
 
-      {/* 11. Wedding Footer with Exactly Two Family Contacts, Replay Button & Royal Monogram */}
+      {/* 12. Wedding Footer with Exactly Two Family Contacts, Replay Button & Royal Monogram */}
       <Footer />
     </div>
   );

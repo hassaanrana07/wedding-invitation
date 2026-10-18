@@ -6,8 +6,11 @@
   :root {
     --bg-ivory: #FAF8F5;
     --bg-champagne: #F5EFE6;
+    --bg-card-champagne: #EFE8DC;
     --text-forest: #1B382B;
     --text-muted: #5D5347;
+    --sage-muted: #74836F;
+    --sage-light: #EAF0E8;
     --primary-gold: #C5A059;
     --gold-antique: #B89047;
     --gold-light: #EAD7A5;
@@ -26,11 +29,15 @@
     letter-spacing: 0.02em;
   }
 
-  .font-script, .font-couple-names {
-    font-family: 'Great Vibes', 'Alex Brush', cursive;
+  .font-bodoni {
+    font-family: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
   }
 
-  .font-calligraphy {
+  .font-cormorant {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  .font-script, .font-couple-names, .font-calligraphy {
     font-family: 'Great Vibes', 'Alex Brush', cursive;
   }
 

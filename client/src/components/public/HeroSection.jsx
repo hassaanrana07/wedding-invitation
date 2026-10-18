@@ -10,7 +10,9 @@ import {
   FloralDivider,
   DelicateHeart,
   BotanicalFloralSprig,
+  GardenFountainIllustration,
 } from '../ui/BotanicalOrnaments';
+import CurtainStageFrame from '../ui/CurtainStageFrame';
 
 export default function HeroSection() {
   const { wedding } = useWedding();
@@ -18,10 +20,10 @@ export default function HeroSection() {
 
   // 3D Parallax with Scroll
   const { scrollY } = useScroll();
-  const yParallaxCard = useTransform(scrollY, [0, 600], [0, 75]);
+  const yParallaxCard = useTransform(scrollY, [0, 600], [0, 60]);
   const yParallaxFloralLeft = useTransform(scrollY, [0, 600], [0, -45]);
   const yParallaxFloralRight = useTransform(scrollY, [0, 600], [0, -70]);
-  const opacityFade = useTransform(scrollY, [0, 500], [1, 0.85]);
+  const opacityFade = useTransform(scrollY, [0, 500], [1, 0.9]);
 
   // Visitor's local date
   useEffect(() => {
@@ -35,35 +37,40 @@ export default function HeroSection() {
     setCurrentDateFormatted(formatted);
   }, []);
 
-  const formattedWeddingDate = 'Saturday, 27 March 2027';
-  const weddingCity = wedding.wedding_city || 'Lahore, Pakistan';
+  const formattedWeddingDate = '12 & 13 December 2026';
+  const weddingCity = 'Topaz Marquee, Model Town, Lahore, Pakistan';
 
   const handleSaveTheDate = () => {
-    const dateStr = wedding.wedding_date || '2027-03-27T19:00:00+05:00';
+    const dateStr = wedding.wedding_date || '2026-12-12T19:00:00+05:00';
     const startDate = new Date(dateStr).toISOString().replace(/-|:|\.\d\d\d/g, '');
     const endDate = new Date(new Date(dateStr).getTime() + 4 * 3600 * 1000).toISOString().replace(/-|:|\.\d\d\d/g, '');
 
     const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-      `Wedding of ${wedding.couple_title || 'Ahmed & Ayesha'}`
+      `Wedding of ${wedding.couple_title || 'Laraib Ajmal & Mirza Talal Baig'}`
     )}&dates=${startDate}/${endDate}&details=${encodeURIComponent(
       wedding.invitation_message || 'Wedding celebrations in Lahore, Pakistan'
-    )}&location=${encodeURIComponent('The Nishat Grand Ballroom, Lahore, Pakistan')}`;
+    )}&location=${encodeURIComponent('Topaz Marquee, Model Town, Lahore, Pakistan')}`;
 
     window.open(googleCalendarUrl, '_blank');
   };
 
   const scrollToTimeline = () => {
-    const el = document.getElementById('timeline') || document.getElementById('countdown-section');
+    const el = document.getElementById('events') || document.getElementById('timeline') || document.getElementById('countdown-section');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const brideName = wedding.bride_name || 'Laraib Ajmal';
+  const brideParents = wedding.bride_parents || 'Muhammad Ajmal';
+  const groomName = wedding.groom_name || 'Mirza Talal Baig';
+  const groomParents = wedding.groom_parents || 'Mirza Shahzad Baig';
 
   return (
     <section
       id="invitation"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#FAF8F5] pt-24 pb-16 px-4 sm:px-6 stage-3d"
+      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#FAF8F5] pt-20 sm:pt-28 pb-16 px-4 sm:px-6 stage-3d"
     >
       {/* Background Soft Champagne Gradients & Botanical Watermark */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#F5EFE6]/60 via-[#FAF8F5] to-[#F5EFE6]/70 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#F5EFE6]/70 via-[#FAF8F5] to-[#F5EFE6]/70 pointer-events-none" />
       <div className="absolute inset-0 botanical-dots opacity-40 pointer-events-none" />
 
       {/* Floating 3D Parallax Botanical Leaves on Left & Right */}
@@ -82,139 +89,141 @@ export default function HeroSection() {
       </motion.div>
 
       {/* ============================================================== */}
-      {/* REFERENCE A: THE WEDDING INVITATION CARD                         */}
+      {/* REFERENCE 1: LUXURY INVITATION CARD WITH DRAPED VALANCE BORDER  */}
       {/* ============================================================== */}
       <motion.div
         style={{ y: yParallaxCard, opacity: opacityFade }}
         initial={{ opacity: 0, scale: 0.95, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-20 w-full max-w-2xl mx-auto rounded-[36px] bg-[#FFFDF9] border-2 border-[#C5A059]/40 shadow-[0_25px_70px_rgba(27,56,43,0.08),0_4px_16px_rgba(197,160,89,0.12)] p-7 sm:p-12 text-center overflow-hidden"
+        className="relative z-20 w-full max-w-xl mx-auto"
       >
-        {/* Four Decorative Corner Botanical Flourishes */}
-        <BotanicalCornerFlourish position="top-left" />
-        <BotanicalCornerFlourish position="top-right" />
-        <BotanicalCornerFlourish position="bottom-left" />
-        <BotanicalCornerFlourish position="bottom-right" />
+        <CurtainStageFrame>
+          <div className="w-[58%] h-full pt-[16%] sm:pt-[17%] pb-[26%] flex flex-col justify-between items-center text-center select-text">
+            {/* TOP: Bismillah & "We're getting married" */}
+            <div className="w-full">
+              <motion.div
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="mt-1 sm:mt-2"
+              >
+                <p
+                  dir="rtl"
+                  lang="ar"
+                  className="font-serif text-sm sm:text-base md:text-lg lg:text-xl text-[#1B382B] leading-tight"
+                >
+                  بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                </p>
+              </motion.div>
 
-        {/* Inner Delicate Inset Gold Border */}
-        <div className="absolute inset-3 sm:inset-4 rounded-[28px] border border-[#C5A059]/25 pointer-events-none" />
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.25 }}
+                className="flex justify-center my-0.5 sm:my-1"
+              >
+                <span className="text-[#1B382B] text-[10px] sm:text-xs select-none" aria-hidden="true">
+                  🖤
+                </span>
+              </motion.div>
 
-        {/* Top Header Arch Accent */}
-        <BotanicalHeaderArch className="mb-2" />
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              >
+                <h2 className="font-bodoni text-[9px] sm:text-[11px] md:text-xs tracking-[0.24em] uppercase text-[#1B382B] font-medium leading-tight">
+                  We're getting married
+                </h2>
+              </motion.div>
 
-        {/* Bismillah Opening Calligraphy in Deep Forest Green / Antique Gold */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-4"
-        >
-          <p
-            dir="rtl"
-            lang="ar"
-            className="font-serif text-2xl sm:text-3xl text-[#1B382B] leading-relaxed tracking-wide font-normal"
-          >
-            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-          </p>
-          <p className="font-serif italic text-xs sm:text-sm text-[#756A5E] mt-0.5">
-            "In the name of Allah, the Most Gracious, the Most Merciful"
-          </p>
-        </motion.div>
+              <div className="flex items-center justify-center gap-1.5 my-1 sm:my-1.5 max-w-[120px] mx-auto">
+                <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#C5A059]/50 to-[#C5A059]" />
+                <span className="text-[#B89047] text-[7px]">⬥</span>
+                <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#C5A059]/50 to-[#C5A059]" />
+              </div>
+            </div>
 
-        {/* Royal Monogram Medallion */}
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="my-3 flex justify-center"
-        >
-          <RoyalMonogramSeal size={84} variant="ivory" glow={true} showSubtext={true} subtext="AH" />
-        </motion.div>
+            {/* CENTER: Couple's Calligraphic Names */}
+            <div className="w-full my-auto py-0.5 sm:py-1">
+              {/* Bride: Laraib Ajmal */}
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.35 }}
+              >
+                <h3 className="font-script text-3xl sm:text-4xl md:text-5xl text-[#1B382B] leading-[0.95] select-none">
+                  {brideName}
+                </h3>
+                <p className="font-cormorant italic text-[9px] sm:text-[11px] md:text-xs text-[#5D5347] mt-0.5">
+                  Daughter of {brideParents}
+                </p>
+              </motion.div>
 
-        {/* "Together with their families" */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-3"
-        >
-          <span className="font-cinzel text-[11px] sm:text-xs tracking-[0.35em] uppercase text-[#756A5E] font-medium block">
-            Together With Their Families
-          </span>
-          <span className="font-serif italic text-sm text-[#B89047] block mt-0.5">
-            cordially invite you to celebrate the wedding of
-          </span>
-        </motion.div>
+              {/* Ampersand in Cursive / Bodoni */}
+              <div className="my-0.5 sm:my-1">
+                <span className="font-script text-2xl sm:text-3xl text-[#B89047] select-none leading-none inline-block">
+                  &
+                </span>
+              </div>
 
-        {/* WEDDING NAMES IN CALLIGRAPHY TYPOGRAPHY (Reference A Focal Point) */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="my-3 sm:my-5"
-        >
-          <h1 className="font-script text-5xl sm:text-6xl md:text-7xl text-[#1B382B] leading-none tracking-normal drop-shadow-sm select-none">
-            {wedding.couple_title || 'Ahmed & Ayesha'}
-          </h1>
-        </motion.div>
+              {/* Groom: Mirza Talal Baig */}
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                <h3 className="font-script text-3xl sm:text-4xl md:text-5xl text-[#1B382B] leading-[0.95] select-none">
+                  {groomName}
+                </h3>
+                <p className="font-cormorant italic text-[9px] sm:text-[11px] md:text-xs text-[#5D5347] mt-0.5">
+                  Son of {groomParents}
+                </p>
+              </motion.div>
+            </div>
 
-        {/* Delicate Heart & Botanical Filigree Divider */}
-        <div className="flex items-center justify-center gap-2.5 my-3">
-          <div className="w-16 sm:w-24 h-[1px] bg-gradient-to-r from-transparent via-[#C5A059]/40 to-[#C5A059]" />
-          <DelicateHeart size={16} className="text-[#C5A059]" />
-          <div className="w-16 sm:w-24 h-[1px] bg-gradient-to-l from-transparent via-[#C5A059]/40 to-[#C5A059]" />
-        </div>
-
-        {/* Wedding Date & Venue Line */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="space-y-1.5 my-4"
-        >
-          <p className="font-cinzel text-xs sm:text-sm text-[#1B382B] font-semibold tracking-[0.2em] uppercase">
-            {formattedWeddingDate}
-          </p>
-          <div className="flex items-center justify-center gap-1.5 text-xs sm:text-sm text-[#756A5E] font-serif italic">
-            <MapPin className="w-3.5 h-3.5 text-[#B89047]" />
-            <span>{weddingCity}</span>
+            {/* BOTTOM: Wedding Date & Venue Line */}
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.45 }}
+              className="w-full pt-1 sm:pt-1.5 border-t border-[#C5A059]/30"
+            >
+              <p className="font-bodoni text-[9px] sm:text-[11px] md:text-xs text-[#1B382B] font-semibold tracking-[0.2em] uppercase">
+                {formattedWeddingDate}
+              </p>
+              <div className="flex items-center justify-center gap-1 text-[8px] sm:text-[10px] md:text-xs text-[#74836F] font-cormorant italic mt-0.5">
+                <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#B89047] shrink-0" />
+                <span className="truncate">{weddingCity}</span>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
+        </CurtainStageFrame>
+      </motion.div>
 
-        {/* Action CTAs: Save The Date & Scroll Down */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-6 sm:mt-8 pt-4 border-t border-[#F0E6D8] flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+      {/* Action CTAs: Save The Date & View Timeline (Positioned neatly underneath main image) */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        className="relative z-20 mt-10 sm:mt-14 mb-4 sm:mb-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+      >
+        <button
+          onClick={handleSaveTheDate}
+          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-xs font-cinzel font-semibold tracking-wider uppercase shadow-md transition-all cursor-pointer hover:scale-105 active:scale-95"
         >
-          <button
-            onClick={handleSaveTheDate}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-xs font-cinzel font-semibold tracking-wider uppercase shadow-md transition-all cursor-pointer hover:scale-105 active:scale-95"
-          >
-            <Calendar className="w-3.5 h-3.5 text-[#EAD7A5]" />
-            <span>Save The Date</span>
-          </button>
+          <Calendar className="w-3.5 h-3.5 text-[#EAD7A5]" />
+          <span>Save The Date</span>
+        </button>
 
-          <button
-            onClick={scrollToTimeline}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#FFFDF9] hover:bg-[#F5EFE6] text-[#1B382B] border border-[#C5A059]/60 text-xs font-cinzel font-semibold tracking-wider uppercase transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
-          >
-            <span>View Timeline</span>
-            <ChevronDown className="w-3.5 h-3.5 text-[#B89047]" />
-          </button>
-        </motion.div>
-
-        {/* Top Quranic Verse Ar-Rum at Bottom of Invitation Card */}
-        <div className="mt-6 pt-3 text-center border-t border-[#F5EFE6]">
-          <p className="font-serif italic text-xs text-[#756A5E] max-w-lg mx-auto leading-relaxed">
-            "And among His signs is that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between your hearts."
-          </p>
-          <span className="font-cinzel text-[10px] tracking-widest text-[#B89047] uppercase block mt-1">
-            Surah Ar-Rum • 30:21
-          </span>
-        </div>
+        <button
+          onClick={scrollToTimeline}
+          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#FFFDF9] hover:bg-[#F5EFE6] text-[#1B382B] border border-[#C5A059]/60 text-xs font-cinzel font-semibold tracking-wider uppercase transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
+        >
+          <span>View Program Timeline</span>
+          <ChevronDown className="w-3.5 h-3.5 text-[#B89047]" />
+        </button>
       </motion.div>
     </section>
   );
