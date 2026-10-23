@@ -67,12 +67,15 @@ export default function OpeningSplashScreen({ onComplete }) {
     unlockAndPlayAudio();
 
     try {
-      confetti({
-        particleCount: 85,
-        spread: 90,
-        origin: { y: 0.6 },
-        colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#E28495'],
-      });
+      if (typeof window !== 'undefined') {
+        confetti({
+          particleCount: 50,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#E28495'],
+          disableForReducedMotion: true,
+        });
+      }
     } catch (e) {}
 
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -160,21 +163,26 @@ export default function OpeningSplashScreen({ onComplete }) {
                       }}
                       threshold={76}
                       underneathContent={
-                        <div className="flex flex-col items-center justify-center text-center mt-3 sm:mt-4">
+                        <div className="flex flex-col items-center justify-center text-center max-w-[200px] sm:max-w-[230px] mx-auto -translate-y-2 sm:-translate-y-2.5">
                           <div className="absolute inset-0 botanical-dots opacity-30 pointer-events-none" />
 
-                          <span className="font-bodoni text-xs sm:text-xs tracking-[0.2em] uppercase text-[#74836F] font-semibold block mb-1">
+                          <span className="font-bodoni text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-[#74836F] font-semibold block mb-1">
                             Together With Their Families
                           </span>
 
                           {/* Centered Vector Royal Monogram (L & T / LT) */}
-                          <RoyalMonogramSeal size={74} variant="ivory" showSubtext={true} subtext="LT" glow={true} />
+                          <div className="my-0.5 scale-90 sm:scale-100">
+                            <RoyalMonogramSeal size={58} variant="ivory" showSubtext={true} subtext="LT" glow={true} />
+                          </div>
 
-                          <h3 className="font-script text-2xl sm:text-3xl text-[#1B382B] mt-1.5 leading-none">
+                          <h3 className="font-script text-2xl sm:text-[28px] text-[#1B382B] mt-0.5 leading-none">
                             Laraib & Talal
                           </h3>
-                          <p className="font-bodoni text-xs sm:text-xs text-[#B89047] tracking-widest uppercase mt-1 font-semibold">
-                            12 & 13 December 2026 • Lahore
+                          <p className="font-bodoni text-[11px] sm:text-xs text-[#B89047] tracking-[0.14em] uppercase font-bold mt-1 leading-tight whitespace-nowrap">
+                            12 & 13 December 2026
+                          </p>
+                          <p className="font-cormorant italic text-[10px] sm:text-[11px] text-[#5D5347] font-semibold tracking-wider mt-0.5">
+                            Lahore, Pakistan
                           </p>
                         </div>
                       }
@@ -281,7 +289,7 @@ export default function OpeningSplashScreen({ onComplete }) {
                       </div>
 
                       <p className="font-bodoni text-xs sm:text-sm text-[#B89047] tracking-widest uppercase mt-2 font-semibold">
-                        12 & 13 December 2026 • Topaz Marquee, Model Town, Lahore
+                        12 & 13 December 2026 • Lahore, Pakistan
                       </p>
                     </div>
 

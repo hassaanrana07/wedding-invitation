@@ -16,12 +16,17 @@ export default function EnvelopeModal({ guestName }) {
     setIsOpen(true);
     
     // Trigger celebratory antique gold and champagne confetti
-    confetti({
-      particleCount: 90,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ['#C5A059', '#EAD7A5', '#FFFDF9', '#1B382B', '#2D523E'],
-    });
+    try {
+      if (typeof window !== 'undefined') {
+        confetti({
+          particleCount: 60,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#C5A059', '#EAD7A5', '#FFFDF9', '#1B382B', '#2D523E'],
+          disableForReducedMotion: true,
+        });
+      }
+    } catch (_) {}
 
     setTimeout(() => {
       unlockAndPlayAudio();

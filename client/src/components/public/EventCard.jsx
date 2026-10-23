@@ -31,14 +31,35 @@ export default function EventCard({ event, index, onSelectEvent }) {
   const handleAddToCalendar = (e) => {
     e.stopPropagation();
     const dateStr = event.event_date;
-    const startIso = new Date(`${dateStr}T19:00:00+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
-    const endIso = new Date(`${dateStr}T23:30:00+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
+    
+    // Parse start_time and end_time (e.g., "07:00 PM" -> "19:00:00", "06:00 PM" -> "18:00:00")
+    const parseTime = (timeStr, defaultHour) => {
+      if (!timeStr) return `${defaultHour}:00:00`;
+      const match = timeStr.match(/(\d+):(\d+)\s*(AM|PM)?/i);
+      if (!match) return `${defaultHour}:00:00`;
+      let hours = parseInt(match[1], 10);
+      const minutes = match[2];
+      const meridiem = match[3]?.toUpperCase();
+      if (meridiem === 'PM' && hours < 12) hours += 12;
+      if (meridiem === 'AM' && hours === 12) hours = 0;
+      return `${String(hours).padStart(2, '0')}:${minutes}:00`;
+    };
+
+    const startTimeStr = parseTime(event.start_time, '19');
+    const endTimeStr = parseTime(event.end_time, '23');
+
+    const startIso = new Date(`${dateStr}T${startTimeStr}+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
+    const endIso = new Date(`${dateStr}T${endTimeStr}+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
+
+    const venue = event.venue_name || '';
+    const address = event.venue_address || event.city || '';
+    const fullLocation = address ? (venue ? `${venue}, ${address}` : address) : venue;
 
     const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
       `Laraib & Talal: ${event.name}`
     )}&dates=${startIso}/${endIso}&details=${encodeURIComponent(
-      `${event.description || ''}\n\nVenue: ${event.venue_name}\nAddress: ${event.venue_address || event.city}`
-    )}&location=${encodeURIComponent(`${event.venue_name}, ${event.venue_address || event.city}`)}`;
+      `${event.description || ''}\n\nVenue: ${venue}\nAddress: ${address}`
+    )}&location=${encodeURIComponent(fullLocation)}`;
 
     window.open(url, '_blank');
   };
@@ -111,20 +132,27 @@ export default function EventCard({ event, index, onSelectEvent }) {
               <span className="font-medium text-[#1B382B]">{formattedDate}</span>
             </div>
 
-            {/* 2. Starting Time */}
+            {/* 2. Starting & Ending Time */}
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-[#B89047] shrink-0" />
               <span>
-                <strong className="text-[#1B382B] font-semibold">Time:</strong> {event.start_time}
+                <strong className="text-[#1B382B] font-semibold">Time:</strong> {event.start_time} {event.end_time ? `— ${event.end_time}` : ''}
               </span>
             </div>
 
-            {/* 3. Venue */}
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-[#B89047] shrink-0" />
-              <span className="truncate font-medium text-[#1B382B]" title={event.venue_name}>
-                {event.venue_name}
-              </span>
+            {/* 3. Venue & Complete Address */}
+            <div className="flex items-start gap-2">
+              <MapPin className="w-4 h-4 text-[#B89047] shrink-0 mt-0.5" />
+              <div className="min-w-0">
+                <span className="block font-medium text-[#1B382B] truncate" title={event.venue_name}>
+                  {event.venue_name}
+                </span>
+                {event.venue_address && (
+                  <span className="block text-xs text-[#756A5E] mt-0.5 leading-snug truncate" title={event.venue_address}>
+                    {event.venue_address}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
 

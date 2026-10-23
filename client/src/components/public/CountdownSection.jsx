@@ -73,7 +73,7 @@ export default function CountdownSection() {
       `Wedding of ${wedding.couple_title || 'Laraib Ajmal & Mirza Talal Baig'}`
     )}&dates=${startDate}/${endDate}&details=${encodeURIComponent(
       wedding.invitation_message || 'Wedding celebrations in Lahore, Pakistan'
-    )}&location=${encodeURIComponent('Topaz Marquee, Model Town, Lahore, Pakistan')}`;
+    )}&location=${encodeURIComponent(wedding.wedding_city || 'Lahore, Pakistan')}`;
 
     window.open(googleCalendarUrl, '_blank');
   };

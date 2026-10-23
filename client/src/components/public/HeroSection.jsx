@@ -38,7 +38,7 @@ export default function HeroSection() {
   }, []);
 
   const formattedWeddingDate = '12 & 13 December 2026';
-  const weddingCity = 'Topaz Marquee, Model Town, Lahore, Pakistan';
+  const weddingCity = wedding.wedding_city || 'Lahore, Pakistan';
 
   const handleSaveTheDate = () => {
     const dateStr = wedding.wedding_date || '2026-12-12T19:00:00+05:00';
@@ -49,7 +49,7 @@ export default function HeroSection() {
       `Wedding of ${wedding.couple_title || 'Laraib Ajmal & Mirza Talal Baig'}`
     )}&dates=${startDate}/${endDate}&details=${encodeURIComponent(
       wedding.invitation_message || 'Wedding celebrations in Lahore, Pakistan'
-    )}&location=${encodeURIComponent('Topaz Marquee, Model Town, Lahore, Pakistan')}`;
+    )}&location=${encodeURIComponent(weddingCity)}`;
 
     window.open(googleCalendarUrl, '_blank');
   };
@@ -99,7 +99,7 @@ export default function HeroSection() {
         className="relative z-20 w-full max-w-xl mx-auto"
       >
         <CurtainStageFrame>
-          <div className="w-[62%] sm:w-[58%] h-full pt-[15%] sm:pt-[17%] pb-[28%] sm:pb-[26%] flex flex-col justify-between items-center text-center select-text">
+          <div className="w-[62%] sm:w-[58%] h-full pt-[18%] sm:pt-[17%] pb-[35%] sm:pb-[26%] flex flex-col justify-between items-center text-center select-text">
             {/* TOP: Bismillah & "We're getting married" */}
             <div className="w-full">
               <motion.div
@@ -188,7 +188,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.45 }}
-              className="w-full pt-1 sm:pt-1.5 border-t border-[#C5A059]/30"
+              className="w-full pt-1 sm:pt-1.5 border-t border-[#C5A059]/30 relative z-10 shrink-0 mb-0.5 sm:mb-0"
             >
               <p className="font-bodoni text-[11.5px] sm:text-xs md:text-xs text-[#1B382B] font-bold tracking-[0.14em] uppercase whitespace-nowrap">
                 {formattedWeddingDate}

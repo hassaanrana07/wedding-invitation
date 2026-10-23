@@ -142,12 +142,17 @@ export default function RSVPSection({ invitation, onRsvpUpdated }) {
       setSubmitted(true);
 
       if (attending === 'attending') {
-        confetti({
-          particleCount: 100,
-          spread: 80,
-          origin: { y: 0.6 },
-          colors: ['#C5A059', '#EAD7A5', '#FFF', '#0F2E23'],
-        });
+        try {
+          if (typeof window !== 'undefined') {
+            confetti({
+              particleCount: 70,
+              spread: 80,
+              origin: { y: 0.6 },
+              colors: ['#C5A059', '#EAD7A5', '#FFF', '#0F2E23'],
+              disableForReducedMotion: true,
+            });
+          }
+        } catch (_) {}
       }
 
       if (onRsvpUpdated) {

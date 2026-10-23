@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import confetti from 'canvas-confetti';
 
 /**
@@ -7,63 +7,97 @@ import confetti from 'canvas-confetti';
  * 1. Romantic falling & fluttering rose petals and floral particles (3D tumbling rotation).
  * 2. Iridescent floating bubbles rising smoothly with glass highlights.
  * 3. Soft glowing stardust fireworks and celebratory confetti around the borders.
+ * 
+ * Bulletproof FX:
+ * - Dedicated canvas ref to prevent global window collisions.
+ * - useWorker: false ensures compatibility on Android browsers and sandboxed WebViews.
+ * - Complete teardown and memory cleanup on unmount.
  */
 export default function CelebrationEffects() {
+  const canvasRef = useRef(null);
+  const confettiInstanceRef = useRef(null);
+
   // Fire high-end celebratory fireworks & confetti around the edges and background
   useEffect(() => {
+    let timer1 = null;
+    let timer2 = null;
+
     try {
-      // Stage 1: Left & Right romantic fireworks bursts
-      confetti({
-        particleCount: 75,
-        angle: 60,
-        spread: 75,
-        origin: { x: 0.12, y: 0.65 },
-        colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2', '#E28495', '#F5A9B8'],
-        ticks: 240,
-        zIndex: 45,
-      });
+      if (canvasRef.current) {
+        // Create an isolated confetti instance bound strictly to this canvas
+        confettiInstanceRef.current = confetti.create(canvasRef.current, {
+          resize: true,
+          useWorker: false, // Ensures zero worker crashes on Android/WebView
+        });
 
-      confetti({
-        particleCount: 75,
-        angle: 120,
-        spread: 75,
-        origin: { x: 0.88, y: 0.65 },
-        colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2', '#E28495', '#F5A9B8'],
-        ticks: 240,
-        zIndex: 45,
-      });
+        const fire = confettiInstanceRef.current;
 
-      // Stage 2: Center golden stardust shower
-      const timer1 = setTimeout(() => {
-        confetti({
-          particleCount: 90,
-          spread: 100,
-          origin: { x: 0.5, y: 0.45 },
-          colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2'],
-          ticks: 260,
+        // Stage 1: Left & Right romantic fireworks bursts
+        fire({
+          particleCount: 55,
+          angle: 60,
+          spread: 70,
+          origin: { x: 0.12, y: 0.65 },
+          colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2', '#E28495', '#F5A9B8'],
+          ticks: 200,
           zIndex: 45,
         });
-      }, 350);
 
-      // Stage 3: Gentle pastel petal burst
-      const timer2 = setTimeout(() => {
-        confetti({
-          particleCount: 60,
-          spread: 85,
-          origin: { x: 0.5, y: 0.75 },
-          colors: ['#F7D6D9', '#E8AEB7', '#FFF4D2', '#EAD7A5'],
-          ticks: 220,
+        fire({
+          particleCount: 55,
+          angle: 120,
+          spread: 70,
+          origin: { x: 0.88, y: 0.65 },
+          colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2', '#E28495', '#F5A9B8'],
+          ticks: 200,
           zIndex: 45,
         });
-      }, 750);
 
-      return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-      };
+        // Stage 2: Center golden stardust shower
+        timer1 = setTimeout(() => {
+          try {
+            if (confettiInstanceRef.current) {
+              confettiInstanceRef.current({
+                particleCount: 70,
+                spread: 90,
+                origin: { x: 0.5, y: 0.45 },
+                colors: ['#C5A059', '#EAD7A5', '#FFF4D2', '#D4AF37', '#FAF7F2'],
+                ticks: 220,
+                zIndex: 45,
+              });
+            }
+          } catch (_) {}
+        }, 350);
+
+        // Stage 3: Gentle pastel petal burst
+        timer2 = setTimeout(() => {
+          try {
+            if (confettiInstanceRef.current) {
+              confettiInstanceRef.current({
+                particleCount: 45,
+                spread: 75,
+                origin: { x: 0.5, y: 0.75 },
+                colors: ['#F7D6D9', '#E8AEB7', '#FFF4D2', '#EAD7A5'],
+                ticks: 200,
+                zIndex: 45,
+              });
+            }
+          } catch (_) {}
+        }, 750);
+      }
     } catch (e) {
-      console.warn('Confetti burst note:', e);
+      console.warn('CelebrationEffects notice:', e);
     }
+
+    return () => {
+      if (timer1) clearTimeout(timer1);
+      if (timer2) clearTimeout(timer2);
+      if (confettiInstanceRef.current) {
+        try {
+          confettiInstanceRef.current.reset();
+        } catch (_) {}
+      }
+    };
   }, []);
 
   // Generate deterministic parameters for falling rose petals
@@ -94,6 +128,9 @@ export default function CelebrationEffects() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden select-none">
+      {/* Dedicated isolated confetti canvas */}
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-30" />
+
       {/* Ambient Radial Golden Celebration Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-gradient-to-r from-[#C5A059]/15 via-[#FFF4D2]/20 to-transparent blur-[140px] pointer-events-none" />
 

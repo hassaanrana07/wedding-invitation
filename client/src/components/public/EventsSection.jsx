@@ -406,13 +406,33 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                   <button
                     onClick={() => {
                       const dateStr = selectedEvent.event_date;
-                      const startIso = new Date(`${dateStr}T19:00:00+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
-                      const endIso = new Date(`${dateStr}T23:30:00+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
+                      const parseTime = (timeStr, defaultHour) => {
+                        if (!timeStr) return `${defaultHour}:00:00`;
+                        const match = timeStr.match(/(\d+):(\d+)\s*(AM|PM)?/i);
+                        if (!match) return `${defaultHour}:00:00`;
+                        let hours = parseInt(match[1], 10);
+                        const minutes = match[2];
+                        const meridiem = match[3]?.toUpperCase();
+                        if (meridiem === 'PM' && hours < 12) hours += 12;
+                        if (meridiem === 'AM' && hours === 12) hours = 0;
+                        return `${String(hours).padStart(2, '0')}:${minutes}:00`;
+                      };
+
+                      const startTimeStr = parseTime(selectedEvent.start_time, '19');
+                      const endTimeStr = parseTime(selectedEvent.end_time, '23');
+
+                      const startIso = new Date(`${dateStr}T${startTimeStr}+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
+                      const endIso = new Date(`${dateStr}T${endTimeStr}+05:00`).toISOString().replace(/-|:|\.\d\d\d/g, '');
+
+                      const venue = selectedEvent.venue_name || '';
+                      const address = selectedEvent.venue_address || selectedEvent.city || '';
+                      const fullLocation = address ? (venue ? `${venue}, ${address}` : address) : venue;
+
                       const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
                         `Laraib & Talal: ${selectedEvent.name}`
                       )}&dates=${startIso}/${endIso}&details=${encodeURIComponent(
-                        `${selectedEvent.description || ''}\n\nDress Code: ${selectedEvent.dress_code || 'Formal'}\nVenue: ${selectedEvent.venue_name}`
-                      )}&location=${encodeURIComponent(`${selectedEvent.venue_name}, ${selectedEvent.venue_address || selectedEvent.city}`)}`;
+                        `${selectedEvent.description || ''}\n\nDress Code: ${selectedEvent.dress_code || 'Formal'}\nVenue: ${venue}\nAddress: ${address}`
+                      )}&location=${encodeURIComponent(fullLocation)}`;
                       window.open(url, '_blank');
                     }}
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FFFDF9] border border-[#E3D8C4] text-[#1B382B] hover:bg-[#F5EFE6] text-sm font-medium transition-all shadow-sm"
