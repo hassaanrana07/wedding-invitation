@@ -96,7 +96,7 @@ export default function SpecialGuestsSection() {
             className="flex items-center justify-center gap-2 mb-2"
           >
             <DelicateHeart size={14} className="text-[#B89047]" />
-            <p className="font-cinzel text-[11px] sm:text-xs tracking-[0.35em] uppercase text-[#B89047] font-semibold">
+            <p className="font-cinzel text-[13px] sm:text-sm tracking-[0.3em] uppercase text-[#B89047] font-semibold">
               With Love & Deepest Respect
             </p>
             <DelicateHeart size={14} className="text-[#B89047]" />
@@ -117,7 +117,7 @@ export default function SpecialGuestsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-xs sm:text-sm text-[#5D5347] max-w-xl mx-auto mt-2.5 font-serif italic"
+            className="text-sm sm:text-base text-[#5D5347] max-w-xl mx-auto mt-2.5 font-serif italic"
           >
             Our beloved elders, guardians, and dignitaries whose prayers and guidance illuminate our celebrations.
           </motion.p>
@@ -207,7 +207,7 @@ export default function SpecialGuestsSection() {
 
         {/* Counter Pill */}
         <div className="text-center mt-3">
-          <span className="font-mono text-xs text-[#756A5E] tracking-wider">
+          <span className="font-mono text-sm text-[#756A5E] tracking-wider">
             {currentIndex + 1} / {total}
           </span>
         </div>
@@ -223,7 +223,7 @@ function FamilyCardContent({ guest, isCenter }) {
       {/* Top Side Badge */}
       <div className="mb-4">
         <span
-          className={`inline-block px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-cinzel font-bold uppercase tracking-wider ${
+          className={`inline-block px-3 py-1 rounded-full text-[12px] sm:text-xs font-cinzel font-bold uppercase tracking-wider ${
             isCenter
               ? 'bg-[#1B382B] text-[#FAF8F5] shadow-sm'
               : 'bg-[#FAF8F5] border border-[#C5A059]/40 text-[#1B382B]'
@@ -248,7 +248,7 @@ function FamilyCardContent({ guest, isCenter }) {
         >
           <div className="flex flex-col items-center justify-center">
             <Crown className={`${isCenter ? 'w-9 h-9 sm:w-10 sm:h-10' : 'w-7 h-7'} text-[#C5A059] drop-shadow-sm`} />
-            <span className="font-cinzel text-[10px] tracking-widest text-[#B89047] uppercase font-bold mt-1">
+            <span className="font-cinzel text-xs tracking-widest text-[#B89047] uppercase font-bold mt-1">
               AJMAL
             </span>
           </div>
@@ -270,12 +270,12 @@ function FamilyCardContent({ guest, isCenter }) {
           {guest.name}
         </h3>
 
-        <p className="text-xs font-cinzel text-[#B89047] uppercase tracking-widest mt-1">
+        <p className="text-sm font-cinzel text-[#B89047] uppercase tracking-widest mt-1">
           {guest.relationship}
         </p>
 
         {guest.secondary_contact && (
-          <p className="text-[10px] text-[#756A5E] font-mono mt-0.5">
+          <p className="text-xs sm:text-[13px] text-[#756A5E] font-mono mt-0.5">
             {guest.secondary_contact}
           </p>
         )}
@@ -284,7 +284,7 @@ function FamilyCardContent({ guest, isCenter }) {
       {/* Notes / Warm Quote */}
       {guest.notes && (
         <div className="w-full my-2 px-3 py-2 rounded-xl bg-[#FAF8F5] border border-[#E3D8C4]">
-          <p className="text-xs text-[#5D5347] italic font-serif line-clamp-2">
+          <p className="text-sm text-[#5D5347] italic font-serif line-clamp-2">
             "{guest.notes}"
           </p>
         </div>
@@ -295,10 +295,10 @@ function FamilyCardContent({ guest, isCenter }) {
         <div className="mt-3">
           <a
             href={`tel:${guest.contact_phone}`}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-xs font-mono tracking-wider transition-all shadow-sm hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-sm font-mono tracking-wider transition-all shadow-sm hover:scale-105 active:scale-95"
             aria-label={`Call ${guest.name} at ${guest.contact_phone}`}
           >
-            <Phone className="w-3.5 h-3.5 text-[#EAD7A5]" />
+            <Phone className="w-4 h-4 text-[#EAD7A5]" />
             <span>{guest.contact_phone}</span>
           </a>
         </div>

@@ -66,7 +66,7 @@ export default function CurtainStageFrame({ children, className = '' }) {
         <img
           src="/curtains/theatrical_stage_background.jpg"
           alt="Theatrical wedding invitation drapery stage"
-          className="w-full h-auto block select-none pointer-events-none"
+          className="w-full h-auto aspect-[985/1106] sm:aspect-auto block select-none pointer-events-none object-cover sm:object-contain"
           loading="eager"
           decoding="async"
         />

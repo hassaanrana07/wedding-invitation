@@ -101,7 +101,7 @@ export default function Navbar() {
                 <span className="font-cinzel text-sm font-bold text-[#1B382B] tracking-[0.25em] group-hover:text-[#B89047] transition-colors">
                   {wedding.app_title || 'LARAIB & TALAL'}
                 </span>
-                <span className="font-serif italic text-[11px] text-[#756A5E] -mt-0.5">
+                <span className="font-serif italic text-xs text-[#756A5E] -mt-0.5">
                   {wedding.couple_title || 'Laraib Ajmal & Mirza Talal Baig'}
                 </span>
               </div>
@@ -135,10 +135,10 @@ export default function Navbar() {
           >
             <RoyalMonogramSeal size={34} variant="ivory" glow={true} />
             <div className="flex flex-col text-left">
-              <span className="font-cinzel text-xs font-bold text-[#1B382B] tracking-widest">
+              <span className="font-cinzel text-[13px] font-bold text-[#1B382B] tracking-widest">
                 {wedding.app_title || 'LARAIB & TALAL'}
               </span>
-              <span className="font-serif italic text-[10px] text-[#756A5E] -mt-0.5">
+              <span className="font-serif italic text-[12px] text-[#756A5E] -mt-0.5">
                 {wedding.couple_title || 'Laraib Ajmal & Mirza Talal Baig'}
               </span>
             </div>
@@ -170,7 +170,7 @@ export default function Navbar() {
                   key={link.label}
                   href={link.href}
                   onClick={(e) => handleLinkClick(e, link.href)}
-                  className="font-cinzel text-xs tracking-[0.2em] uppercase text-[#1B382B] hover:text-[#B89047] py-2 border-b border-[#F0E6D8] transition-colors flex items-center justify-between"
+                  className="font-cinzel text-sm tracking-[0.2em] uppercase text-[#1B382B] hover:text-[#B89047] py-2 border-b border-[#F0E6D8] transition-colors flex items-center justify-between"
                 >
                   <span>{link.label}</span>
                   <Sparkles className="w-3 h-3 text-[#B89047]" />

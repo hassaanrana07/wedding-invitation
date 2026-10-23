@@ -106,7 +106,7 @@ export default function OpeningSplashScreen({ onComplete }) {
           {/* Persistent Skip Button (Top Right) */}
           <button
             onClick={handleSkipIntro}
-            className="absolute top-5 right-5 z-50 px-4 py-2 rounded-full bg-[#FFFDF9]/95 hover:bg-[#1B382B] text-[#1B382B] hover:text-[#FAF8F5] text-[11px] font-cinzel tracking-widest uppercase border border-[#C5A059]/50 backdrop-blur-md transition-all shadow-md cursor-pointer"
+            className="absolute top-5 right-5 z-50 px-4 py-2 rounded-full bg-[#FFFDF9]/95 hover:bg-[#1B382B] text-[#1B382B] hover:text-[#FAF8F5] text-xs font-cinzel tracking-widest uppercase border border-[#C5A059]/50 backdrop-blur-md transition-all shadow-md cursor-pointer"
             aria-label="Skip to website"
           >
             Skip Intro
@@ -136,7 +136,7 @@ export default function OpeningSplashScreen({ onComplete }) {
                     animate={{ opacity: 1, y: 0 }}
                     className="mb-4 sm:mb-5 flex flex-col items-center select-none"
                   >
-                    <span className="font-bodoni text-[10px] sm:text-xs tracking-[0.3em] uppercase text-[#74836F] font-semibold block mb-1">
+                    <span className="font-bodoni text-xs sm:text-sm tracking-[0.25em] uppercase text-[#74836F] font-semibold block mb-1">
                       Royal Invitation
                     </span>
                     <h2 className="font-script text-4xl sm:text-5xl text-[#1B382B] leading-none mb-1.5">
@@ -163,7 +163,7 @@ export default function OpeningSplashScreen({ onComplete }) {
                         <div className="flex flex-col items-center justify-center text-center mt-3 sm:mt-4">
                           <div className="absolute inset-0 botanical-dots opacity-30 pointer-events-none" />
 
-                          <span className="font-bodoni text-[9px] sm:text-[10px] tracking-[0.25em] uppercase text-[#74836F] font-semibold block mb-1">
+                          <span className="font-bodoni text-xs sm:text-xs tracking-[0.2em] uppercase text-[#74836F] font-semibold block mb-1">
                             Together With Their Families
                           </span>
 
@@ -173,7 +173,7 @@ export default function OpeningSplashScreen({ onComplete }) {
                           <h3 className="font-script text-2xl sm:text-3xl text-[#1B382B] mt-1.5 leading-none">
                             Laraib & Talal
                           </h3>
-                          <p className="font-bodoni text-[9px] sm:text-[10px] text-[#B89047] tracking-widest uppercase mt-1 font-semibold">
+                          <p className="font-bodoni text-xs sm:text-xs text-[#B89047] tracking-widest uppercase mt-1 font-semibold">
                             12 & 13 December 2026 • Lahore
                           </p>
                         </div>
@@ -199,13 +199,13 @@ export default function OpeningSplashScreen({ onComplete }) {
 
                   {/* Scratch Progress & Instant Reveal Fallback */}
                   <div className="mt-5 flex items-center justify-between gap-4 w-full max-w-[380px] px-3">
-                    <span className="text-xs font-mono text-[#756A5E]">
+                    <span className="text-sm font-mono text-[#756A5E]">
                       {scratchPercent > 0 ? `${scratchPercent}% revealed` : 'Swipe finger or drag mouse'}
                     </span>
 
                     <button
                       onClick={triggerCompleteReveal}
-                      className="text-xs text-[#B89047] hover:text-[#1B382B] underline cursor-pointer font-cinzel tracking-wider uppercase font-semibold transition-colors"
+                      className="text-sm text-[#B89047] hover:text-[#1B382B] underline cursor-pointer font-cinzel tracking-wider uppercase font-semibold transition-colors"
                     >
                       Instant Reveal ✦
                     </button>
@@ -254,7 +254,7 @@ export default function OpeningSplashScreen({ onComplete }) {
                       >
                         بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
                       </p>
-                      <p className="font-serif italic text-xs sm:text-sm text-[#756A5E] mt-0.5">
+                      <p className="font-serif italic text-sm sm:text-base text-[#756A5E] mt-0.5">
                         "Bismillah-ir-Rahman-ir-Raheem"
                       </p>
                     </motion.div>
@@ -268,19 +268,19 @@ export default function OpeningSplashScreen({ onComplete }) {
 
                     {/* The Wedding of Laraib Ajmal & Mirza Talal Baig */}
                     <div className="mb-4">
-                      <span className="font-cinzel text-xs tracking-[0.35em] uppercase text-[#756A5E] block mb-1">
+                      <span className="font-cinzel text-xs sm:text-sm tracking-[0.3em] uppercase text-[#756A5E] block mb-1">
                         The Wedding of
                       </span>
                       <h1 className="font-script text-5xl sm:text-6xl text-[#1B382B] leading-none my-1">
                         Laraib & Talal
                       </h1>
 
-                      <div className="my-3 text-xs sm:text-sm text-[#5D5347] font-serif leading-relaxed max-w-sm mx-auto">
+                      <div className="my-3 text-sm sm:text-base text-[#5D5347] font-serif leading-relaxed max-w-sm mx-auto">
                         <p><strong className="text-[#1B382B] font-semibold">Bride:</strong> Laraib Ajmal <span className="text-[#756A5E]">(D/o Muhammad Ajmal)</span></p>
                         <p className="mt-1"><strong className="text-[#1B382B] font-semibold">Groom:</strong> Mirza Talal Baig <span className="text-[#756A5E]">(S/o Mirza Shahzad Baig)</span></p>
                       </div>
 
-                      <p className="font-bodoni text-xs text-[#B89047] tracking-widest uppercase mt-2 font-semibold">
+                      <p className="font-bodoni text-xs sm:text-sm text-[#B89047] tracking-widest uppercase mt-2 font-semibold">
                         12 & 13 December 2026 • Topaz Marquee, Model Town, Lahore
                       </p>
                     </div>
@@ -290,14 +290,14 @@ export default function OpeningSplashScreen({ onComplete }) {
                       whileHover={{ scale: 1.04, boxShadow: '0 10px 30px rgba(27, 56, 43, 0.2)' }}
                       whileTap={{ scale: 0.98 }}
                       onClick={handleEnterWebsite}
-                      className="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] font-cinzel font-bold text-xs sm:text-sm tracking-wider uppercase shadow-lg cursor-pointer overflow-hidden"
+                      className="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] font-cinzel font-bold text-sm sm:text-base tracking-wider uppercase shadow-lg cursor-pointer overflow-hidden"
                     >
                       <Sparkles className="w-4 h-4 text-[#EAD7A5] group-hover:rotate-45 transition-transform" />
                       <span>Enter Wedding Celebration</span>
                       <ChevronRight className="w-4 h-4 text-[#EAD7A5] group-hover:translate-x-1 transition-transform" />
                     </motion.button>
 
-                    <p className="text-xs text-[#756A5E] font-serif italic flex items-center gap-1.5 mt-3">
+                    <p className="text-xs sm:text-sm text-[#756A5E] font-serif italic flex items-center gap-1.5 mt-3">
                       <Music className="w-3.5 h-3.5 text-[#B89047]" />
                       <span>Plays romantic wedding harp & piano melody</span>
                     </p>
@@ -363,7 +363,7 @@ export default function OpeningSplashScreen({ onComplete }) {
                     y: curtainsOpened ? 8 : 0,
                   }}
                   transition={{ duration: 0.35 }}
-                  className="mt-5 px-7 py-3 rounded-full bg-[#FFFDF9] border border-[#C5A059] shadow-xl flex items-center gap-2.5 text-xs sm:text-sm font-cinzel tracking-widest uppercase text-[#1B382B] group-hover:bg-[#1B382B] group-hover:text-[#FAF8F5] group-hover:border-[#1B382B] transition-all duration-300"
+                  className="mt-5 px-7 py-3 rounded-full bg-[#FFFDF9] border border-[#C5A059] shadow-xl flex items-center gap-2.5 text-sm sm:text-base font-cinzel tracking-widest uppercase text-[#1B382B] group-hover:bg-[#1B382B] group-hover:text-[#FAF8F5] group-hover:border-[#1B382B] transition-all duration-300"
                 >
                   <Sparkles className="w-4 h-4 text-[#B89047] group-hover:text-[#EAD7A5] animate-spin-slow" />
                   <span className="font-bold">Tap to Open Curtains</span>

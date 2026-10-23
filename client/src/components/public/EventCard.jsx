@@ -72,7 +72,7 @@ export default function EventCard({ event, index, onSelectEvent }) {
         {/* Function Day & Category Badge */}
         <div className="absolute top-3.5 left-3.5 flex items-center gap-2">
           {eventDay && (
-            <span className="px-3 py-1 rounded-full bg-[#1B382B]/90 backdrop-blur-md text-[#FAF8F5] text-[11px] font-bold font-cinzel uppercase tracking-wider shadow-sm">
+            <span className="px-3 py-1 rounded-full bg-[#1B382B]/90 backdrop-blur-md text-[#FAF8F5] text-[13px] font-bold font-cinzel uppercase tracking-wider shadow-sm">
               {eventDay}
             </span>
           )}
@@ -90,7 +90,7 @@ export default function EventCard({ event, index, onSelectEvent }) {
               </h3>
               {/* Prominent Subtitle */}
               {event.tagline && (
-                <p className="font-cormorant italic text-sm text-[#B89047] font-medium mt-0.5">
+                <p className="font-cormorant italic text-base text-[#B89047] font-medium mt-0.5">
                   {event.tagline}
                 </p>
               )}
@@ -99,21 +99,21 @@ export default function EventCard({ event, index, onSelectEvent }) {
           </div>
 
           {/* Welcoming note from Reference 2 */}
-          <div className="flex items-center gap-1.5 mt-2 text-xs text-[#74836F] font-cormorant italic">
+          <div className="flex items-center gap-1.5 mt-2 text-sm text-[#74836F] font-cormorant italic">
             <span>We welcome you & your family.. 🖤</span>
           </div>
 
           {/* Essential Information Chips in Warm Compact Box */}
-          <div className="mt-3 space-y-2 text-xs text-[#1B382B] border border-[#EAE0D2] bg-[#FAF8F5] p-3 sm:p-3.5 rounded-xl">
+          <div className="mt-3 space-y-2 text-sm text-[#1B382B] border border-[#EAE0D2] bg-[#FAF8F5] p-3 sm:p-3.5 rounded-xl">
             {/* 1. Function Date */}
             <div className="flex items-center gap-2">
-              <Calendar className="w-3.5 h-3.5 text-[#B89047] shrink-0" />
+              <Calendar className="w-4 h-4 text-[#B89047] shrink-0" />
               <span className="font-medium text-[#1B382B]">{formattedDate}</span>
             </div>
 
             {/* 2. Starting Time */}
             <div className="flex items-center gap-2">
-              <Clock className="w-3.5 h-3.5 text-[#B89047] shrink-0" />
+              <Clock className="w-4 h-4 text-[#B89047] shrink-0" />
               <span>
                 <strong className="text-[#1B382B] font-semibold">Time:</strong> {event.start_time}
               </span>
@@ -121,7 +121,7 @@ export default function EventCard({ event, index, onSelectEvent }) {
 
             {/* 3. Venue */}
             <div className="flex items-center gap-2">
-              <MapPin className="w-3.5 h-3.5 text-[#B89047] shrink-0" />
+              <MapPin className="w-4 h-4 text-[#B89047] shrink-0" />
               <span className="truncate font-medium text-[#1B382B]" title={event.venue_name}>
                 {event.venue_name}
               </span>
@@ -130,7 +130,7 @@ export default function EventCard({ event, index, onSelectEvent }) {
 
           {/* Short, Elegant Description */}
           {event.description && (
-            <p className="text-[#5D5347] font-cormorant text-xs leading-relaxed mt-2.5 line-clamp-2">
+            <p className="text-[#5D5347] font-cormorant text-sm leading-relaxed mt-2.5 line-clamp-2">
               {event.description}
             </p>
           )}
@@ -141,11 +141,11 @@ export default function EventCard({ event, index, onSelectEvent }) {
           {/* Action 1: Full Details */}
           <button
             onClick={handleOpenDetails}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-xs font-cinzel font-semibold uppercase tracking-wider shadow-sm transition-all cursor-pointer group/btn"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-xs sm:text-sm font-cinzel font-semibold uppercase tracking-wider shadow-sm transition-all cursor-pointer group/btn"
           >
-            <Sparkles className="w-3 h-3 text-[#EAD7A5] group-hover/btn:rotate-45 transition-transform" />
+            <Sparkles className="w-3.5 h-3.5 text-[#EAD7A5] group-hover/btn:rotate-45 transition-transform" />
             <span>Full Details</span>
-            <ChevronRight className="w-3 h-3 text-[#EAD7A5] group-hover/btn:translate-x-0.5 transition-transform" />
+            <ChevronRight className="w-3.5 h-3.5 text-[#EAD7A5] group-hover/btn:translate-x-0.5 transition-transform" />
           </button>
 
           <div className="flex items-center gap-2">
@@ -153,10 +153,10 @@ export default function EventCard({ event, index, onSelectEvent }) {
             <button
               onClick={handleAddToCalendar}
               title="Add to Google Calendar"
-              className="inline-flex items-center gap-1 px-3 py-2 rounded-xl bg-[#FAF8F5] hover:bg-[#F5EFE6] text-[#1B382B] text-xs font-cinzel font-medium transition-colors border border-[#E3D8C4] shadow-xs cursor-pointer"
+              className="inline-flex items-center gap-1 px-3 py-2 rounded-xl bg-[#FAF8F5] hover:bg-[#F5EFE6] text-[#1B382B] text-xs sm:text-sm font-cinzel font-medium transition-colors border border-[#E3D8C4] shadow-xs cursor-pointer"
             >
-              <CalendarPlus className="w-3.5 h-3.5 text-[#B89047]" />
-              <span className="text-[11px]">Add to Cal</span>
+              <CalendarPlus className="w-4 h-4 text-[#B89047]" />
+              <span className="text-xs sm:text-[13px]">Add to Cal</span>
             </button>
 
             {/* Action 3: Get Directions */}
@@ -166,11 +166,11 @@ export default function EventCard({ event, index, onSelectEvent }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Get Directions on Google Maps"
-                className="inline-flex items-center gap-1 px-3 py-2 rounded-xl bg-[#FAF8F5] hover:bg-[#1B382B] hover:text-[#FAF8F5] text-[#1B382B] text-xs font-cinzel font-medium transition-all border border-[#C5A059]/40 shadow-xs cursor-pointer group/dir"
+                className="inline-flex items-center gap-1 px-3 py-2 rounded-xl bg-[#FAF8F5] hover:bg-[#1B382B] hover:text-[#FAF8F5] text-[#1B382B] text-xs sm:text-sm font-cinzel font-medium transition-all border border-[#C5A059]/40 shadow-xs cursor-pointer group/dir"
               >
-                <Navigation className="w-3.5 h-3.5 text-[#B89047] group-hover/dir:text-[#EAD7A5] transition-colors" />
-                <span className="text-[11px]">Directions</span>
-                <ExternalLink className="w-2.5 h-2.5 opacity-60 ml-0.5" />
+                <Navigation className="w-4 h-4 text-[#B89047] group-hover/dir:text-[#EAD7A5] transition-colors" />
+                <span className="text-xs sm:text-[13px]">Directions</span>
+                <ExternalLink className="w-3 h-3 opacity-60 ml-0.5" />
               </a>
             )}
           </div>

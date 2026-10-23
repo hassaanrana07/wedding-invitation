@@ -40,7 +40,7 @@ export default function QuranicVersePairs() {
           </p>
 
           {/* Canonical Reference */}
-          <p className="text-[11px] sm:text-xs font-cinzel tracking-[0.25em] text-[#B89047] mt-3 uppercase font-semibold">
+          <p className="text-[13px] sm:text-sm font-cinzel tracking-[0.25em] text-[#B89047] mt-3 uppercase font-semibold">
             Surah An-Naba — 78:8
           </p>
         </motion.div>

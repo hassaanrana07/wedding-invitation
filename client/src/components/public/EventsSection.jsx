@@ -100,7 +100,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
             Program Timeline
           </h2>
 
-          <p className="font-bodoni text-xs sm:text-sm tracking-[0.25em] uppercase text-[#74836F] font-semibold mt-1">
+          <p className="font-bodoni text-sm sm:text-base tracking-[0.22em] uppercase text-[#74836F] font-semibold mt-1">
             Order of Celebrations
           </p>
 
@@ -186,7 +186,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
               <div className="sticky top-0 z-30 flex items-center justify-between px-5 sm:px-7 py-3.5 bg-[#FAF8F5]/98 backdrop-blur-md border-b border-[#E3D8C4]">
                 <button
                   onClick={handleCloseModal}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-xs font-cinzel font-semibold uppercase tracking-wider transition-all cursor-pointer shadow-sm"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-sm font-cinzel font-semibold uppercase tracking-wider transition-all cursor-pointer shadow-sm"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   <span>Back to Timeline</span>
@@ -218,7 +218,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
 
                   {/* Title Overlay in Banner */}
                   <div className="absolute bottom-4 left-5 right-5 z-10">
-                    <span className="font-cinzel text-xs uppercase tracking-[0.3em] text-[#EAD7A5] block mb-1">
+                    <span className="font-cinzel text-xs sm:text-sm uppercase tracking-[0.3em] text-[#EAD7A5] block mb-1">
                       Wedding Celebration Details
                     </span>
                     <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white">
@@ -238,7 +238,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                 <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
                   <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
                     <Info className="w-4 h-4 text-[#B89047]" />
-                    <h3 className="font-cinzel text-xs uppercase tracking-widest font-bold text-[#1B382B]">
+                    <h3 className="font-cinzel text-xs sm:text-sm uppercase tracking-widest font-bold text-[#1B382B]">
                       1. Event Information
                     </h3>
                   </div>
@@ -246,31 +246,31 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                   {/* Details Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
                     <div className="p-3 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
-                      <span className="font-cinzel text-[10px] uppercase text-[#756A5E] block font-semibold">
+                      <span className="font-cinzel text-xs uppercase text-[#756A5E] block font-semibold">
                         Function Date
                       </span>
-                      <p className="font-serif text-sm font-bold text-[#1B382B] mt-1">
+                      <p className="font-serif text-sm sm:text-base font-bold text-[#1B382B] mt-1">
                         {selectedEvent.formatted_date || selectedEvent.event_date}
                       </p>
                     </div>
 
                     <div className="p-3 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
-                      <span className="font-cinzel text-[10px] uppercase text-[#756A5E] block font-semibold">
+                      <span className="font-cinzel text-xs uppercase text-[#756A5E] block font-semibold">
                         Timings
                       </span>
-                      <p className="font-serif text-sm font-bold text-[#1B382B] mt-1">
+                      <p className="font-serif text-sm sm:text-base font-bold text-[#1B382B] mt-1">
                         {selectedEvent.start_time} {selectedEvent.end_time ? `— ${selectedEvent.end_time}` : ''}
                       </p>
                     </div>
 
                     <div className="p-3 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
-                      <span className="font-cinzel text-[10px] uppercase text-[#756A5E] block font-semibold">
+                      <span className="font-cinzel text-xs uppercase text-[#756A5E] block font-semibold">
                         Venue
                       </span>
-                      <p className="font-serif text-sm font-bold text-[#1B382B] mt-1 truncate" title={selectedEvent.venue_name}>
+                      <p className="font-serif text-sm sm:text-base font-bold text-[#1B382B] mt-1 truncate" title={selectedEvent.venue_name}>
                         {selectedEvent.venue_name}
                       </p>
-                      <p className="text-[11px] text-[#756A5E] mt-0.5 truncate">
+                      <p className="text-xs sm:text-[13px] text-[#756A5E] mt-0.5 truncate">
                         {selectedEvent.venue_address || selectedEvent.city}
                       </p>
                     </div>
@@ -278,7 +278,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
 
                   {/* Description */}
                   {selectedEvent.description && (
-                    <p className="text-[#5D5347] text-xs sm:text-sm leading-relaxed mb-3 font-light">
+                    <p className="text-[#5D5347] text-sm sm:text-base leading-relaxed mb-3 font-light">
                       {selectedEvent.description}
                     </p>
                   )}
@@ -288,10 +288,10 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                     <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2] flex items-start gap-2.5">
                       <ListOrdered className="w-4 h-4 text-[#B89047] shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-cinzel text-[10px] uppercase text-[#756A5E] font-bold block mb-0.5">
+                        <span className="font-cinzel text-xs uppercase text-[#756A5E] font-bold block mb-0.5">
                           Schedule & Highlights
                         </span>
-                        <p className="text-xs text-[#1B382B] leading-relaxed">
+                        <p className="text-sm text-[#1B382B] leading-relaxed">
                           {selectedEvent.program_highlights}
                         </p>
                       </div>
@@ -305,17 +305,17 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                 <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
                   <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
                     <Shirt className="w-4 h-4 text-[#B89047]" />
-                    <h3 className="font-cinzel text-xs uppercase tracking-widest font-bold text-[#1B382B]">
+                    <h3 className="font-cinzel text-xs sm:text-sm uppercase tracking-widest font-bold text-[#1B382B]">
                       2. Dress Code & Color Palette
                     </h3>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
-                      <span className="font-cinzel text-[10px] uppercase text-[#756A5E] font-bold block mb-1">
+                      <span className="font-cinzel text-xs uppercase text-[#756A5E] font-bold block mb-1">
                         Dress Code
                       </span>
-                      <p className="text-xs sm:text-sm text-[#1B382B] font-medium leading-relaxed">
+                      <p className="text-sm sm:text-base text-[#1B382B] font-medium leading-relaxed">
                         {selectedEvent.dress_code || 'Royal Formal / Sherwani, Formal Suits & Heavily Embellished Formals'}
                       </p>
                     </div>
@@ -323,11 +323,11 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                     <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
                       <div className="flex items-center gap-1.5 mb-1">
                         <Palette className="w-3.5 h-3.5 text-[#B89047]" />
-                        <span className="font-cinzel text-[10px] uppercase text-[#756A5E] font-bold">
+                        <span className="font-cinzel text-xs uppercase text-[#756A5E] font-bold">
                           Recommended Color Palette
                         </span>
                       </div>
-                      <p className="text-xs sm:text-sm text-[#1B382B] font-medium leading-relaxed">
+                      <p className="text-sm sm:text-base text-[#1B382B] font-medium leading-relaxed">
                         {selectedEvent.color_palette || 'Emerald Green, Antique Gold, Deep Crimson & Regal Ivory'}
                       </p>
                     </div>
@@ -340,13 +340,13 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                 <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
                   <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
                     <UtensilsCrossed className="w-4 h-4 text-[#B89047]" />
-                    <h3 className="font-cinzel text-xs uppercase tracking-widest font-bold text-[#1B382B]">
+                    <h3 className="font-cinzel text-xs sm:text-sm uppercase tracking-widest font-bold text-[#1B382B]">
                       3. Menu & Dining Information
                     </h3>
                   </div>
 
                   <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
-                    <p className="text-xs sm:text-sm text-[#1B382B] leading-relaxed">
+                    <p className="text-sm sm:text-base text-[#1B382B] leading-relaxed">
                       {selectedEvent.menu_details || 'Royal Mughlai Banquet • Live Barbecue & Mutton Karahi, Roghani Naan, Traditional Kashmiri Chai & Lahori Desserts (Banquet service begins at 09:45 PM)'}
                     </p>
                   </div>
@@ -358,13 +358,13 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                 <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
                   <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
                     <CheckCircle2 className="w-4 h-4 text-[#B89047]" />
-                    <h3 className="font-cinzel text-xs uppercase tracking-widest font-bold text-[#1B382B]">
+                    <h3 className="font-cinzel text-xs sm:text-sm uppercase tracking-widest font-bold text-[#1B382B]">
                       4. Hospitality Notes
                     </h3>
                   </div>
 
                   <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
-                    <p className="text-xs sm:text-sm text-[#5D5347] leading-relaxed">
+                    <p className="text-sm sm:text-base text-[#5D5347] leading-relaxed">
                       {selectedEvent.hospitality_notes || selectedEvent.additional_notes || 'Dedicated valet parking available. Guests are warmly requested to arrive on time.'}
                     </p>
                   </div>
@@ -376,13 +376,13 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                 <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
                   <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
                     <FileText className="w-4 h-4 text-[#B89047]" />
-                    <h3 className="font-cinzel text-xs uppercase tracking-widest font-bold text-[#1B382B]">
+                    <h3 className="font-cinzel text-xs sm:text-sm uppercase tracking-widest font-bold text-[#1B382B]">
                       5. Additional Information
                     </h3>
                   </div>
 
                   <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
-                    <p className="text-xs sm:text-sm text-[#5D5347] leading-relaxed">
+                    <p className="text-sm sm:text-base text-[#5D5347] leading-relaxed">
                       {selectedEvent.additional_notes || 'Laraib Ajmal & Mirza Talal Baig warmly invite you to join them in heartfelt prayers and joyous celebrations.'}
                     </p>
                   </div>
@@ -395,7 +395,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                       href={selectedEvent.google_maps_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-xs font-semibold tracking-wider font-cinzel shadow-sm transition-all"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-sm font-semibold tracking-wider font-cinzel shadow-sm transition-all"
                     >
                       <Navigation className="w-4 h-4 text-[#EAD7A5]" />
                       <span>Get Driving Directions</span>
@@ -415,7 +415,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                       )}&location=${encodeURIComponent(`${selectedEvent.venue_name}, ${selectedEvent.venue_address || selectedEvent.city}`)}`;
                       window.open(url, '_blank');
                     }}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FFFDF9] border border-[#E3D8C4] text-[#1B382B] hover:bg-[#F5EFE6] text-xs font-medium transition-all shadow-sm"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FFFDF9] border border-[#E3D8C4] text-[#1B382B] hover:bg-[#F5EFE6] text-sm font-medium transition-all shadow-sm"
                   >
                     <CalendarPlus className="w-4 h-4 text-[#B89047]" />
                     <span>Add to Google Calendar</span>
@@ -426,7 +426,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                 <div className="pt-4 border-t border-[#E3D8C4] flex justify-center">
                   <button
                     onClick={handleCloseModal}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-xs font-cinzel font-semibold uppercase tracking-wider transition-all cursor-pointer shadow-md"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-sm font-cinzel font-semibold uppercase tracking-wider transition-all cursor-pointer shadow-md"
                   >
                     <ArrowLeft className="w-4 h-4" />
                     <span>Back to Program Timeline</span>

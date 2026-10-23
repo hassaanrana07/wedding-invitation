@@ -64,23 +64,23 @@ export default function EnvelopeModal({ guestName }) {
             </div>
 
             {/* Bismillah / Greeting */}
-            <p className="font-serif text-sm tracking-widest text-[#B89047] mb-1">
+            <p className="font-serif text-sm sm:text-base tracking-widest text-[#B89047] mb-1">
               بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
             </p>
-            <h3 className="font-cinzel text-xs tracking-[0.25em] text-[#1B382B]/75 uppercase mb-3 font-semibold">
+            <h3 className="font-cinzel text-xs sm:text-sm tracking-[0.25em] text-[#1B382B]/75 uppercase mb-3 font-semibold">
               Wedding Invitation
             </h3>
 
             {/* Personalized greeting or General */}
             {guestName ? (
               <div className="mb-3">
-                <p className="text-[#5D5347] text-xs uppercase tracking-widest font-sans font-medium">Warmly Welcoming</p>
+                <p className="text-[#5D5347] text-xs sm:text-sm uppercase tracking-widest font-sans font-medium">Warmly Welcoming</p>
                 <h4 className="font-serif text-2xl sm:text-3xl font-semibold text-[#1B382B] mt-1">
                   {guestName}
                 </h4>
               </div>
             ) : (
-              <p className="text-[#5D5347] text-xs uppercase tracking-widest font-sans font-medium mb-1">
+              <p className="text-[#5D5347] text-xs sm:text-sm uppercase tracking-widest font-sans font-medium mb-1">
                 Together with their families
               </p>
             )}
@@ -92,7 +92,7 @@ export default function EnvelopeModal({ guestName }) {
               {wedding.couple_title || 'Laraib Ajmal & Mirza Talal Baig'}
             </h1>
 
-            <p className="text-xs sm:text-sm font-light text-[#5D5347] max-w-sm mx-auto my-4 leading-relaxed font-sans">
+            <p className="text-sm sm:text-base font-light text-[#5D5347] max-w-sm mx-auto my-4 leading-relaxed font-sans">
               Cordially request the honor of your gracious presence and heartfelt prayers to celebrate their wedding ceremonies.
             </p>
 
@@ -104,13 +104,13 @@ export default function EnvelopeModal({ guestName }) {
               className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-[#1B382B] via-[#244A39] to-[#1B382B] text-[#FFFDF9] font-medium text-sm tracking-wide shadow-lg shadow-[#1B382B]/20 border border-[#C5A059]/40 transition-all overflow-hidden"
             >
               <MailOpen className="w-4 h-4 text-[#C5A059] transition-transform group-hover:rotate-12" />
-              <span className="font-serif tracking-wider uppercase text-xs">Open Invitation</span>
+              <span className="font-serif tracking-wider uppercase text-sm">Open Invitation</span>
               <Sparkles className="w-3.5 h-3.5 text-[#C5A059] animate-spin-slow" />
             </motion.button>
 
-            <div className="mt-4 flex items-center justify-center gap-1.5 text-xs text-[#5D5347]/80">
+            <div className="mt-4 flex items-center justify-center gap-1.5 text-xs sm:text-sm text-[#5D5347]/80">
               <Music className="w-3.5 h-3.5 text-[#B89047]" />
-              <span className="font-sans text-[11px]">Includes traditional wedding audio</span>
+              <span className="font-sans text-xs sm:text-[13px]">Includes traditional wedding audio</span>
             </div>
           </motion.div>
         </motion.div>

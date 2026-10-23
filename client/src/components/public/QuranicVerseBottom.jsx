@@ -29,7 +29,7 @@ export default function QuranicVerseBottom() {
             <div className="w-12 h-[1px] bg-[#C5A059]/40" />
           </div>
 
-          <span className="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] uppercase text-[#B89047] block mb-3 font-semibold">
+          <span className="font-cinzel text-[13px] sm:text-sm tracking-[0.25em] uppercase text-[#B89047] block mb-3 font-semibold">
             Sacred Du'a for Spouses & Family
           </span>
 
@@ -43,12 +43,12 @@ export default function QuranicVerseBottom() {
           </p>
 
           {/* English Translation */}
-          <p className="font-serif italic text-sm sm:text-base md:text-lg text-[#5D5347] max-w-2xl mx-auto leading-relaxed">
+          <p className="font-serif italic text-base sm:text-lg md:text-xl text-[#5D5347] max-w-2xl mx-auto leading-relaxed">
             "Our Lord, grant us from among our spouses and offspring comfort to our eyes, and make us an example for the righteous."
           </p>
 
           {/* Canonical Reference */}
-          <p className="text-xs font-cinzel tracking-widest text-[#B89047] mt-4 uppercase font-semibold">
+          <p className="text-sm font-cinzel tracking-widest text-[#B89047] mt-4 uppercase font-semibold">
             Surah Al-Furqan — 25:74
           </p>
         </motion.div>

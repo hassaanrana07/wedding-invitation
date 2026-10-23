@@ -104,7 +104,7 @@ export default function EventDetailPage() {
         {/* Back Link */}
         <Link
           to="/"
-          className="absolute top-8 left-6 sm:left-12 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFFDF9]/90 backdrop-blur-md border border-[#C5A059]/40 text-[#1B382B] hover:bg-[#1B382B] hover:text-[#FAF8F5] text-xs font-cinzel font-semibold transition-all z-20 shadow-sm"
+          className="absolute top-8 left-6 sm:left-12 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFFDF9]/90 backdrop-blur-md border border-[#C5A059]/40 text-[#1B382B] hover:bg-[#1B382B] hover:text-[#FAF8F5] text-sm font-cinzel font-semibold transition-all z-20 shadow-sm"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>All Functions</span>
@@ -112,7 +112,7 @@ export default function EventDetailPage() {
 
         {/* Hero Title Container */}
         <div className="relative z-10 max-w-4xl mx-auto px-6 pb-12 text-center text-white">
-          <span className="font-cinzel text-xs uppercase tracking-[0.3em] text-[#EAD7A5] block mb-2 font-semibold">
+          <span className="font-cinzel text-xs sm:text-sm uppercase tracking-[0.25em] text-[#EAD7A5] block mb-2 font-semibold">
             Ceremony Details
           </span>
           <h1 className="font-serif text-4xl sm:text-6xl font-bold text-white mb-2 drop-shadow-md">
@@ -134,7 +134,7 @@ export default function EventDetailPage() {
                 <Calendar className="w-5 h-5" />
               </div>
               <div>
-                <span className="font-cinzel text-[11px] uppercase tracking-wider text-[#756A5E] block font-semibold">
+                <span className="font-cinzel text-xs sm:text-[13px] uppercase tracking-wider text-[#756A5E] block font-semibold">
                   Date
                 </span>
                 <p className="font-serif text-lg font-bold text-[#1B382B]">{formattedDate}</p>
@@ -146,7 +146,7 @@ export default function EventDetailPage() {
                 <Clock className="w-5 h-5" />
               </div>
               <div>
-                <span className="font-cinzel text-[11px] uppercase tracking-wider text-[#756A5E] block font-semibold">
+                <span className="font-cinzel text-xs sm:text-[13px] uppercase tracking-wider text-[#756A5E] block font-semibold">
                   Timings
                 </span>
                 <p className="font-serif text-lg font-bold text-[#1B382B]">
@@ -160,11 +160,11 @@ export default function EventDetailPage() {
                 <MapPin className="w-5 h-5" />
               </div>
               <div>
-                <span className="font-cinzel text-[11px] uppercase tracking-wider text-[#756A5E] block font-semibold">
+                <span className="font-cinzel text-xs sm:text-[13px] uppercase tracking-wider text-[#756A5E] block font-semibold">
                   Venue & City
                 </span>
                 <p className="font-serif text-lg font-bold text-[#1B382B]">{event.venue_name}</p>
-                <p className="text-xs text-[#756A5E]">{event.venue_address || event.city}</p>
+                <p className="text-sm text-[#756A5E]">{event.venue_address || event.city}</p>
               </div>
             </div>
           </div>

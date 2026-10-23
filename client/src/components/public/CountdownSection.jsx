@@ -114,7 +114,7 @@ export default function CountdownSection() {
             <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#C5A059]/40 to-[#C5A059]" />
           </div>
 
-          <p className="font-cormorant italic text-sm sm:text-base text-[#5D5347] max-w-md mx-auto">
+          <p className="font-cormorant italic text-base sm:text-lg text-[#5D5347] max-w-md mx-auto">
             Until we gather under divine blessings to celebrate the wedding union of {wedding.couple_title || 'Laraib Ajmal & Mirza Talal Baig'}.
           </p>
         </motion.div>
@@ -137,7 +137,7 @@ export default function CountdownSection() {
               <span className="font-bodoni text-2xl sm:text-4xl md:text-5xl font-bold text-[#1B382B] block tabular-nums leading-none tracking-tight">
                 {String(item.value).padStart(2, '0')}
               </span>
-              <span className="font-bodoni text-[9px] sm:text-[11px] uppercase tracking-[0.22em] text-[#74836F] font-semibold mt-2 block">
+              <span className="font-bodoni text-[13px] sm:text-xs uppercase tracking-[0.2em] text-[#74836F] font-semibold mt-2 block">
                 {item.label}
               </span>
             </div>
@@ -154,9 +154,9 @@ export default function CountdownSection() {
         >
           <button
             onClick={handleSaveTheDate}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1B382B] hover:bg-[#254A39] text-[#FAF8F5] text-xs font-cinzel font-semibold tracking-wider uppercase transition-all shadow-md cursor-pointer hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1B382B] hover:bg-[#254A39] text-[#FAF8F5] text-sm font-cinzel font-semibold tracking-wider uppercase transition-all shadow-md cursor-pointer hover:scale-105 active:scale-95"
           >
-            <Calendar className="w-3.5 h-3.5 text-[#EAD7A5]" />
+            <Calendar className="w-4 h-4 text-[#EAD7A5]" />
             <span>Add Ceremony To Calendar</span>
           </button>
         </motion.div>

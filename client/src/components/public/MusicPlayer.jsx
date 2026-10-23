@@ -29,12 +29,12 @@ export default function MusicPlayer() {
               className="absolute bottom-14 left-0 flex flex-col rounded-2xl bg-[#FFFDF9]/98 backdrop-blur-md border border-[#C5A059]/40 p-3 text-xs shadow-2xl space-y-2.5 w-[240px] max-w-[calc(100vw-2rem)] z-50"
             >
               <div className="flex items-center justify-between gap-2 border-b border-[#EAE0D2] pb-1.5 min-w-0">
-                <span className="font-serif font-bold text-[#1B382B] flex items-center gap-1.5 truncate min-w-0">
-                  <Music className="w-3.5 h-3.5 text-[#B89047] shrink-0" />
+                <span className="font-serif font-bold text-[#1B382B] flex items-center gap-1.5 truncate min-w-0 text-sm">
+                  <Music className="w-4 h-4 text-[#B89047] shrink-0" />
                   <span className="truncate">{musicTrack.title || 'Wedding Melody'}</span>
                 </span>
                 {musicTrack.artist && (
-                  <span className="text-[10px] text-[#756A5E] truncate shrink-0 max-w-[95px]">{musicTrack.artist}</span>
+                  <span className="text-xs text-[#756A5E] truncate shrink-0 max-w-[110px]">{musicTrack.artist}</span>
                 )}
               </div>
 
@@ -66,7 +66,7 @@ export default function MusicPlayer() {
                   aria-label="Volume level"
                 />
 
-                <span className="text-[10px] font-mono text-[#756A5E] w-7 text-right shrink-0">
+                <span className="text-xs font-mono text-[#756A5E] w-8 text-right shrink-0">
                   {isMuted ? '0%' : `${Math.round(volume * 100)}%`}
                 </span>
               </div>
@@ -123,7 +123,7 @@ export default function MusicPlayer() {
           href="https://www.netlify.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#C5A059]/40 bg-[#FFFDF9]/95 backdrop-blur-md text-[10px] text-[#756A5E] hover:text-[#1B382B] transition-all shadow-[0_8px_25px_rgba(27,56,43,0.06)] shrink-0"
+          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#C5A059]/40 bg-[#FFFDF9]/95 backdrop-blur-md text-xs text-[#756A5E] hover:text-[#1B382B] transition-all shadow-[0_8px_25px_rgba(27,56,43,0.06)] shrink-0"
           title="Deployed with Netlify"
         >
           <span className="font-sans font-medium">Powered by</span>

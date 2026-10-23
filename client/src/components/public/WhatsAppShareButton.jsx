@@ -28,7 +28,7 @@ export default function WhatsAppShareButton({ invitationToken = '', guestName = 
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#25D366]/20 border border-[#25D366]/40 text-[#25D366] hover:bg-[#25D366] hover:text-black font-semibold text-xs transition-all shadow-md"
+        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#25D366]/20 border border-[#25D366]/40 text-[#25D366] hover:bg-[#25D366] hover:text-black font-semibold text-sm transition-all shadow-md"
       >
         <Share2 className="w-4 h-4" />
         <span>Share on WhatsApp</span>

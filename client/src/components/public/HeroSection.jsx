@@ -99,19 +99,19 @@ export default function HeroSection() {
         className="relative z-20 w-full max-w-xl mx-auto"
       >
         <CurtainStageFrame>
-          <div className="w-[58%] h-full pt-[16%] sm:pt-[17%] pb-[26%] flex flex-col justify-between items-center text-center select-text">
+          <div className="w-[62%] sm:w-[58%] h-full pt-[15%] sm:pt-[17%] pb-[28%] sm:pb-[26%] flex flex-col justify-between items-center text-center select-text">
             {/* TOP: Bismillah & "We're getting married" */}
             <div className="w-full">
               <motion.div
                 initial={{ opacity: 0, y: -4 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="mt-1 sm:mt-2"
+                className="mt-0.5 sm:mt-2"
               >
                 <p
                   dir="rtl"
                   lang="ar"
-                  className="font-serif text-sm sm:text-base md:text-lg lg:text-xl text-[#1B382B] leading-tight"
+                  className="font-serif text-[15px] sm:text-base md:text-lg lg:text-xl text-[#1B382B] leading-tight"
                 >
                   بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
                 </p>
@@ -123,7 +123,7 @@ export default function HeroSection() {
                 transition={{ duration: 0.6, delay: 0.25 }}
                 className="flex justify-center my-0.5 sm:my-1"
               >
-                <span className="text-[#1B382B] text-[10px] sm:text-xs select-none" aria-hidden="true">
+                <span className="text-[#1B382B] text-xs select-none" aria-hidden="true">
                   🖤
                 </span>
               </motion.div>
@@ -133,14 +133,14 @@ export default function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
-                <h2 className="font-bodoni text-[9px] sm:text-[11px] md:text-xs tracking-[0.24em] uppercase text-[#1B382B] font-medium leading-tight">
+                <h2 className="font-bodoni text-[11.5px] sm:text-xs md:text-xs tracking-[0.16em] uppercase text-[#1B382B] font-semibold leading-tight whitespace-nowrap">
                   We're getting married
                 </h2>
               </motion.div>
 
               <div className="flex items-center justify-center gap-1.5 my-1 sm:my-1.5 max-w-[120px] mx-auto">
                 <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#C5A059]/50 to-[#C5A059]" />
-                <span className="text-[#B89047] text-[7px]">⬥</span>
+                <span className="text-[#B89047] text-[7px] sm:text-[8px]">⬥</span>
                 <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#C5A059]/50 to-[#C5A059]" />
               </div>
             </div>
@@ -156,7 +156,7 @@ export default function HeroSection() {
                 <h3 className="font-script text-3xl sm:text-4xl md:text-5xl text-[#1B382B] leading-[0.95] select-none">
                   {brideName}
                 </h3>
-                <p className="font-cormorant italic text-[9px] sm:text-[11px] md:text-xs text-[#5D5347] mt-0.5">
+                <p className="font-cormorant italic text-[12px] sm:text-xs md:text-sm text-[#5D5347] mt-0.5 font-medium">
                   Daughter of {brideParents}
                 </p>
               </motion.div>
@@ -177,7 +177,7 @@ export default function HeroSection() {
                 <h3 className="font-script text-3xl sm:text-4xl md:text-5xl text-[#1B382B] leading-[0.95] select-none">
                   {groomName}
                 </h3>
-                <p className="font-cormorant italic text-[9px] sm:text-[11px] md:text-xs text-[#5D5347] mt-0.5">
+                <p className="font-cormorant italic text-[12px] sm:text-xs md:text-sm text-[#5D5347] mt-0.5 font-medium">
                   Son of {groomParents}
                 </p>
               </motion.div>
@@ -190,11 +190,11 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.45 }}
               className="w-full pt-1 sm:pt-1.5 border-t border-[#C5A059]/30"
             >
-              <p className="font-bodoni text-[9px] sm:text-[11px] md:text-xs text-[#1B382B] font-semibold tracking-[0.2em] uppercase">
+              <p className="font-bodoni text-[11.5px] sm:text-xs md:text-xs text-[#1B382B] font-bold tracking-[0.14em] uppercase whitespace-nowrap">
                 {formattedWeddingDate}
               </p>
-              <div className="flex items-center justify-center gap-1 text-[8px] sm:text-[10px] md:text-xs text-[#74836F] font-cormorant italic mt-0.5">
-                <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#B89047] shrink-0" />
+              <div className="flex items-center justify-center gap-1 text-[10.5px] sm:text-xs text-[#5D5347] font-cormorant italic mt-0.5 font-medium px-1">
+                <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#B89047] shrink-0" />
                 <span className="truncate">{weddingCity}</span>
               </div>
             </motion.div>
@@ -211,18 +211,18 @@ export default function HeroSection() {
       >
         <button
           onClick={handleSaveTheDate}
-          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-xs font-cinzel font-semibold tracking-wider uppercase shadow-md transition-all cursor-pointer hover:scale-105 active:scale-95"
+          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1B382B] hover:bg-[#264E3D] text-[#FAF8F5] text-sm font-cinzel font-semibold tracking-wider uppercase shadow-md transition-all cursor-pointer hover:scale-105 active:scale-95"
         >
-          <Calendar className="w-3.5 h-3.5 text-[#EAD7A5]" />
+          <Calendar className="w-4 h-4 text-[#EAD7A5]" />
           <span>Save The Date</span>
         </button>
 
         <button
           onClick={scrollToTimeline}
-          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#FFFDF9] hover:bg-[#F5EFE6] text-[#1B382B] border border-[#C5A059]/60 text-xs font-cinzel font-semibold tracking-wider uppercase transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
+          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#FFFDF9] hover:bg-[#F5EFE6] text-[#1B382B] border border-[#C5A059]/60 text-sm font-cinzel font-semibold tracking-wider uppercase transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
         >
           <span>View Program Timeline</span>
-          <ChevronDown className="w-3.5 h-3.5 text-[#B89047]" />
+          <ChevronDown className="w-4 h-4 text-[#B89047]" />
         </button>
       </motion.div>
     </section>

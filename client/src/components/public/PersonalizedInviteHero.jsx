@@ -22,19 +22,19 @@ export default function PersonalizedInviteHero({ invitation }) {
           {/* Top VIP / Personal Badge */}
           <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
             {invitation.is_vip ? (
-              <span className="inline-flex items-center gap-1 px-3.5 py-1 rounded-full bg-[#1B382B] text-[#FAF8F5] text-xs font-semibold uppercase tracking-wider font-cinzel">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#1B382B] text-[#FAF8F5] text-xs sm:text-sm font-semibold uppercase tracking-wider font-cinzel">
                 <Crown className="w-3.5 h-3.5 text-[#EAD7A5]" />
                 Honored VIP Guest
               </span>
             ) : null}
-            <span className="inline-flex items-center gap-1 px-3.5 py-1 rounded-full bg-[#FAF8F5] border border-[#E3D8C4] text-[#1B382B] text-xs font-medium">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#FAF8F5] border border-[#E3D8C4] text-[#1B382B] text-xs sm:text-sm font-medium">
               <Users className="w-3.5 h-3.5 text-[#B89047]" />
               Reserved for up to {invitation.allowed_guests || 2} Guests
             </span>
           </div>
 
           {/* Personal Greeting */}
-          <p className="font-cinzel text-xs tracking-[0.25em] text-[#B89047] uppercase mb-2 font-semibold">
+          <p className="font-cinzel text-xs sm:text-sm tracking-[0.25em] text-[#B89047] uppercase mb-2 font-semibold">
             Personal Invitation
           </p>
           <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1B382B] mb-3">
@@ -49,14 +49,14 @@ export default function PersonalizedInviteHero({ invitation }) {
           {/* Invited Functions Checklist */}
           {invitation.assigned_events && invitation.assigned_events.length > 0 && (
             <div className="my-6 p-4 rounded-2xl bg-[#FAF8F5] border border-[#E3D8C4] max-w-lg mx-auto">
-              <span className="text-xs uppercase tracking-wider font-cinzel text-[#756A5E] block mb-2 font-semibold">
+              <span className="text-xs sm:text-sm uppercase tracking-wider font-cinzel text-[#756A5E] block mb-2 font-semibold">
                 Functions Included in Your Invitation:
               </span>
               <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
                 {invitation.assigned_events.map((ev) => (
                   <span
                     key={ev.id || ev.name}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FFFDF9] border border-[#C5A059]/40 text-[#1B382B] text-xs font-medium"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FFFDF9] border border-[#C5A059]/40 text-[#1B382B] text-xs sm:text-sm font-medium"
                   >
                     <CheckCircle2 className="w-3.5 h-3.5 text-[#B89047]" />
                     <span>{ev.name}</span>
@@ -69,7 +69,7 @@ export default function PersonalizedInviteHero({ invitation }) {
           <div className="mt-6 flex justify-center">
             <button
               onClick={scrollToEvents}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1B382B] hover:bg-[#254A39] text-[#FAF8F5] font-cinzel font-semibold text-xs uppercase tracking-wider shadow-sm transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1B382B] hover:bg-[#254A39] text-[#FAF8F5] font-cinzel font-semibold text-xs sm:text-sm uppercase tracking-wider shadow-sm transition-all cursor-pointer"
             >
               <span>View Your Assigned Itinerary</span>
               <ChevronRight className="w-4 h-4 text-[#EAD7A5]" />
