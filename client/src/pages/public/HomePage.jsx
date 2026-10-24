@@ -43,7 +43,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-[#1B382B] selection:bg-[#C5A059] selection:text-white">
-      {/* 1. Theatrical Opening Experience: Ivory Curtains, Instant Scratch-to-Reveal & Bismillah */}
+      {/* 1. Theatrical Opening Experience: Ivory Curtains & Royal Invitation Reveal */}
       <OpeningSplashScreen />
 
       {/* 2. Floating Wedding Shehnai & Melody Controller */}

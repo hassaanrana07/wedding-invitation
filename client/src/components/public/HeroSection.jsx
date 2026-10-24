@@ -37,7 +37,7 @@ export default function HeroSection() {
     setCurrentDateFormatted(formatted);
   }, []);
 
-  const formattedWeddingDate = '12 & 13 December 2026';
+  const formattedWeddingDate = '12 December 2026';
   const weddingCity = wedding.wedding_city || 'Lahore, Pakistan';
 
   const handleSaveTheDate = () => {

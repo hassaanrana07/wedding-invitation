@@ -1,14 +1,12 @@
 # Wedding Invitation Website
 
-A luxury, interactive, frontend-only wedding invitation web application featuring a theatrical curtain entrance, an interactive heart scratch-to-reveal card, traditional background melodies, event timeline, countdown, and RSVP management.
+A luxury, interactive, frontend-only wedding invitation web application featuring a theatrical curtain entrance, traditional background melodies, event timeline, countdown, and RSVP management.
 
 ---
 
 ## ✨ Features
 
 - **Theatrical Curtain Opening**: Symmetrical silk curtain entrance with realistic fabric drape, gold valance, bullion tassels, and a central monogram medallion.
-- **Interactive Heart Scratch Reveal**: Custom scratchable canvas surface with dynamic reveal threshold and celebratory animation.
-- **Traditional Wedding Music Controller**: Ambient background melody player with interactive play, pause, volume, and mute controls complying with browser audio policies.
 - **Hero Invitation Stage**: Centered invitation card with Quranic blessing (*Bismillah*), event details, and venue information.
 - **Event Countdown**: Real-time countdown timer to the wedding celebrations.
 - **Celebration Timeline & Events**: Detailed cards for each ceremony with Google Calendar and Google Maps integration.

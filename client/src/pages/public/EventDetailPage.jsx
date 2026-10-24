@@ -4,7 +4,6 @@ import {
   Calendar,
   Clock,
   MapPin,
-  Shirt,
   Sparkles,
   Navigation,
   CalendarPlus,
@@ -178,21 +177,9 @@ export default function EventDetailPage() {
             </p>
           </div>
 
-          {/* Dress Code & Special Notes */}
-          {(event.dress_code || event.additional_notes || event.music_url) && (
+          {/* Special Notes & Theme Music */}
+          {(event.additional_notes || event.music_url) && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-[#E3D8C4]">
-              {event.dress_code && (
-                <div className="p-5 rounded-2xl bg-[#FAF8F5] border border-[#E3D8C4] flex items-start gap-3.5">
-                  <Shirt className="w-5 h-5 text-[#B89047] shrink-0 mt-0.5" />
-                  <div>
-                    <span className="font-cinzel text-[11px] uppercase text-[#756A5E] tracking-wider block font-semibold">
-                      Recommended Dress Code
-                    </span>
-                    <p className="text-sm text-[#1B382B] mt-0.5 font-medium">{event.dress_code}</p>
-                  </div>
-                </div>
-              )}
-
               {event.music_url && (
                 <div className="p-5 rounded-2xl bg-[#FAF8F5] border border-[#E3D8C4] flex items-start gap-3.5">
                   <Music className="w-5 h-5 text-[#B89047] shrink-0 mt-0.5" />

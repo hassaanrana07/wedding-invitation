@@ -5,7 +5,6 @@ import {
   Clock,
   MapPin,
   Sparkles,
-  Shirt,
   Navigation,
   CalendarPlus,
   ArrowLeft,
@@ -14,8 +13,6 @@ import {
   ListOrdered,
   Info,
   ExternalLink,
-  UtensilsCrossed,
-  Palette,
   FileText,
   CheckCircle2,
 } from 'lucide-react';
@@ -112,7 +109,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
           </div>
 
           <p className="font-cormorant italic text-base text-[#5D5347] max-w-lg mx-auto leading-relaxed">
-            "Join our families in celebrating two blessed occasions of prayers, dinner, and togetherness."
+            "Join our families in celebrating this blessed occasion of prayers and togetherness."
           </p>
         </motion.div>
 
@@ -300,66 +297,13 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                 </div>
 
                 {/* ========================================================== */}
-                {/* 2. DRESS CODE & COLOR PALETTE                              */}
-                {/* ========================================================== */}
-                <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
-                  <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
-                    <Shirt className="w-4 h-4 text-[#B89047]" />
-                    <h3 className="font-cinzel text-xs sm:text-sm uppercase tracking-widest font-bold text-[#1B382B]">
-                      2. Dress Code & Color Palette
-                    </h3>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
-                      <span className="font-cinzel text-xs uppercase text-[#756A5E] font-bold block mb-1">
-                        Dress Code
-                      </span>
-                      <p className="text-sm sm:text-base text-[#1B382B] font-medium leading-relaxed">
-                        {selectedEvent.dress_code || 'Royal Formal / Sherwani, Formal Suits & Heavily Embellished Formals'}
-                      </p>
-                    </div>
-
-                    <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <Palette className="w-3.5 h-3.5 text-[#B89047]" />
-                        <span className="font-cinzel text-xs uppercase text-[#756A5E] font-bold">
-                          Recommended Color Palette
-                        </span>
-                      </div>
-                      <p className="text-sm sm:text-base text-[#1B382B] font-medium leading-relaxed">
-                        {selectedEvent.color_palette || 'Emerald Green, Antique Gold, Deep Crimson & Regal Ivory'}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* ========================================================== */}
-                {/* 3. MENU & REFRESHMENTS                                     */}
-                {/* ========================================================== */}
-                <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
-                  <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
-                    <UtensilsCrossed className="w-4 h-4 text-[#B89047]" />
-                    <h3 className="font-cinzel text-xs sm:text-sm uppercase tracking-widest font-bold text-[#1B382B]">
-                      3. Menu & Dining Information
-                    </h3>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#EAE0D2]">
-                    <p className="text-sm sm:text-base text-[#1B382B] leading-relaxed">
-                      {selectedEvent.menu_details || 'Royal Mughlai Banquet • Live Barbecue & Mutton Karahi, Roghani Naan, Traditional Kashmiri Chai & Lahori Desserts (Banquet service begins at 09:45 PM)'}
-                    </p>
-                  </div>
-                </div>
-
-                {/* ========================================================== */}
-                {/* 4. HOSPITALITY NOTES                                       */}
+                {/* 2. HOSPITALITY NOTES                                       */}
                 {/* ========================================================== */}
                 <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
                   <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
                     <CheckCircle2 className="w-4 h-4 text-[#B89047]" />
                     <h3 className="font-cinzel text-xs sm:text-sm uppercase tracking-widest font-bold text-[#1B382B]">
-                      4. Hospitality Notes
+                      2. Hospitality Notes
                     </h3>
                   </div>
 
@@ -371,13 +315,13 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                 </div>
 
                 {/* ========================================================== */}
-                {/* 5. ADDITIONAL INFORMATION                                  */}
+                {/* 3. ADDITIONAL INFORMATION                                  */}
                 {/* ========================================================== */}
                 <div className="p-5 rounded-2xl bg-[#FFFDF9] border border-[#E3D8C4] shadow-xs">
                   <div className="flex items-center gap-2 mb-3.5 pb-2.5 border-b border-[#EAE0D2]">
                     <FileText className="w-4 h-4 text-[#B89047]" />
                     <h3 className="font-cinzel text-xs sm:text-sm uppercase tracking-widest font-bold text-[#1B382B]">
-                      5. Additional Information
+                      3. Additional Information
                     </h3>
                   </div>
 
@@ -431,7 +375,7 @@ export default function EventsSection({ events = [], isPersonalized = false }) {
                       const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
                         `Laraib & Talal: ${selectedEvent.name}`
                       )}&dates=${startIso}/${endIso}&details=${encodeURIComponent(
-                        `${selectedEvent.description || ''}\n\nDress Code: ${selectedEvent.dress_code || 'Formal'}\nVenue: ${venue}\nAddress: ${address}`
+                        `${selectedEvent.description || ''}\n\nVenue: ${venue}\nAddress: ${address}`
                       )}&location=${encodeURIComponent(fullLocation)}`;
                       window.open(url, '_blank');
                     }}

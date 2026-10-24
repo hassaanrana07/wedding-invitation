@@ -63,45 +63,8 @@ export default function CoupleSection() {
           Two Destined Souls, One Sacred Journey
         </motion.h2>
 
-        {/* Elegant Centered Welcome Blessing Card (Reference 3) */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="relative p-6 sm:p-10 rounded-[32px] bg-[#FFFDF9] border border-[#C5A059]/35 shadow-[0_15px_40px_rgba(27,56,43,0.05)] max-w-2xl mx-auto my-6 overflow-hidden text-center"
-        >
-          {/* Subtle Watermark Calligraphy in background */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-[0.035] pointer-events-none select-none">
-            <span className="font-script text-8xl sm:text-9xl text-[#1B382B] whitespace-nowrap">
-              Laraib & Talal
-            </span>
-          </div>
-
-          {/* Upper Thin Divider with Heart — 🖤 — */}
-          <div className="flex items-center justify-center gap-3 mb-4 max-w-[200px] mx-auto relative z-10">
-            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#C5A059]/40 to-[#C5A059]" />
-            <span className="text-[#1B382B] text-xs select-none">🖤</span>
-            <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#C5A059]/40 to-[#C5A059]" />
-          </div>
-
-          {/* Poetic Message from Reference 3 */}
-          <p className="font-cormorant text-base sm:text-xl text-[#1B382B] leading-relaxed max-w-lg mx-auto font-normal relative z-10">
-            We are honored to welcome you to the wedding celebrations of{' '}
-            <strong className="font-bodoni font-bold text-[#1B382B]">Laraib Ajmal & Mirza Talal Baig</strong>.
-            As they begin their journey together in faith and love, we thank you for being part of this blessed occasion 🖤
-          </p>
-
-          {/* Lower Thin Divider with Heart — 🖤 — */}
-          <div className="flex items-center justify-center gap-3 mt-4 max-w-[200px] mx-auto relative z-10">
-            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#C5A059]/40 to-[#C5A059]" />
-            <span className="text-[#1B382B] text-xs select-none">🖤</span>
-            <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#C5A059]/40 to-[#C5A059]" />
-          </div>
-        </motion.div>
-
         {/* The Couple Presentation Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 items-center mt-12 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 items-center mt-8 sm:mt-10 text-left">
           {/* Couple Portrait in Luxury Arch Frame */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}

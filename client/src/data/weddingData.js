@@ -58,7 +58,7 @@ export const weddingData = {
     autoplay_prompt: 1
   },
 
-  // Exactly TWO Wedding Functions: Shehndi & Walima
+  // Wedding Function: Shehndi Celebrations
   events: [
     {
       id: 'event-shehndi',
@@ -69,45 +69,17 @@ export const weddingData = {
       formatted_date: '12 December 2026',
       start_time: '07:00 PM',
       end_time: '11:00 PM',
-      tagline: 'Baraat Arrival, Dinner & Ruksati',
-      description: 'The auspicious centerpiece of our celebrations. Under divine blessings, the sacred wedding rituals and celebrations will take place, followed by dinner and heartfelt prayers.',
+      tagline: 'Baraat Arrival & Ruksati',
+      description: 'The auspicious centerpiece of our celebrations. Under divine blessings, the sacred wedding rituals and celebrations will take place, followed by heartfelt prayers.',
       venue_name: 'Topaz Marquee',
       venue_address: 'Topaz Marquee, Model Town, Lahore, Pakistan',
       city: 'Lahore, Pakistan',
       google_maps_url: 'https://maps.google.com/?q=Topaz+Marquee+Model+Town+Lahore',
       cover_image_url: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=1000&q=80',
-      dress_code: 'Royal Formal / Traditional Embellished Formals & Sherwanis',
-      color_palette: 'Emerald Green, Antique Gold, Deep Crimson & Regal Ivory',
-      menu_details: 'Royal Mughlai Banquet • Live Barbecue & Traditional Delicacies (Banquet served at 09:00 PM)',
       hospitality_notes: 'Valet parking available at Topaz Marquee entrance. Guests are requested to arrive by 07:00 PM.',
       additional_notes: 'Laraib Ajmal & Mirza Talal Baig warmly invite you to share this sacred milestone with prayers.',
-      program_highlights: '07:00 PM Baraat Arrival • 09:00 PM Dinner • 11:00 PM Ruksati',
+      program_highlights: '07:00 PM Baraat Arrival • 11:00 PM Ruksati',
       display_order: 1,
-      is_active: 1
-    },
-    {
-      id: 'event-walima',
-      slug: 'walima',
-      name: 'Walima Grand Reception',
-      event_day: 'Sunday',
-      event_date: '2026-12-13',
-      formatted_date: '13 December 2026',
-      start_time: '06:00 PM',
-      end_time: '10:00 PM',
-      tagline: 'The Blessed Walima Reception',
-      description: 'Hosted with profound gratitude by the Groom’s family to celebrate our new beginning. An enchanting dinner evening filled with heartfelt blessings, culinary creations, and joyous family portraits.',
-      venue_name: 'Grand Orchid Farm House (Proposed)',
-      venue_address: '7 KM Main Raiwind Road, Near Dubai Town, Lahore (Proposed, Subject to Confirmation)',
-      city: 'Lahore, Pakistan',
-      google_maps_url: 'https://maps.google.com/?q=Grand+Orchid+Farm+House+Raiwind+Road+Lahore',
-      cover_image_url: 'https://images.unsplash.com/photo-1519225424982-f79a957a0752?auto=format&fit=crop&w=1000&q=80',
-      dress_code: 'Formal Black Tie / Tuxedos, Dark Suits, Pastel Chiffons & Raw Silks',
-      color_palette: 'Soft Champagne, Slate Blue, Blush Pink & Rose Gold',
-      menu_details: 'Continental & Oriental Fusion Buffet • Live Carving Stations, Artisanal Pastries',
-      hospitality_notes: 'Valet parking available at venue entrance (Proposed venue, subject to confirmation).',
-      additional_notes: 'Hosted with profound gratitude by the Groom’s family to celebrate our new beginning. Venue details subject to final confirmation.',
-      program_highlights: 'Guest Reception at 06:00 PM • Couple Grand Entry at 07:30 PM • Gourmet Dinner at 08:30 PM',
-      display_order: 2,
       is_active: 1
     }
   ],
@@ -203,10 +175,10 @@ export const weddingData = {
     },
     {
       id: 'gal-6',
-      title: 'Walima Elegance',
+      title: 'Wedding Elegance',
       caption: 'Under the starlit chandeliers at Topaz Marquee, Model Town, Lahore.',
-      category: 'Walima',
-      collection_type: 'Walima',
+      category: 'Celebration',
+      collection_type: 'Celebration',
       image_url: 'https://images.unsplash.com/photo-1519225424982-f79a957a0752?auto=format&fit=crop&w=1200&q=85',
       display_order: 6,
       is_featured: 0
@@ -263,10 +235,10 @@ export const weddingData = {
     },
     {
       id: 'gal-12',
-      title: 'Starlit Evening Toasts',
+      title: 'Starlit Evening Celebrations',
       caption: 'Surrounded by family blessings, heartfelt speeches, and timeless warmth.',
-      category: 'Walima',
-      collection_type: 'Walima',
+      category: 'Celebration',
+      collection_type: 'Celebration',
       image_url: 'https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=1200&q=85',
       display_order: 12,
       is_featured: 1
@@ -301,22 +273,13 @@ export const weddingData = {
     }
   ],
 
-  // Verified Venue & Location Directory (Shehndi & Walima)
+  // Verified Venue & Location Directory (Shehndi)
   venues: [
     {
       name: 'Topaz Marquee, Model Town, Lahore',
       event: 'Shehndi',
       date: 'Saturday, 12 December 2026',
       time: '07:00 PM',
-      address: 'Topaz Marquee, Model Town, Lahore, Pakistan',
-      city: 'Lahore',
-      google_maps_url: 'https://maps.google.com/?q=Topaz+Marquee+Model+Town+Lahore'
-    },
-    {
-      name: 'Topaz Marquee, Model Town, Lahore',
-      event: 'Walima',
-      date: 'Sunday, 13 December 2026',
-      time: '06:00 PM',
       address: 'Topaz Marquee, Model Town, Lahore, Pakistan',
       city: 'Lahore',
       google_maps_url: 'https://maps.google.com/?q=Topaz+Marquee+Model+Town+Lahore'
@@ -372,18 +335,7 @@ export const weddingData = {
           event_date: '2026-12-12',
           start_time: '07:00 PM',
           venue_name: 'Topaz Marquee',
-          venue_address: 'Topaz Marquee, Model Town, Lahore',
-          dress_code: 'Royal Formal / Sherwani'
-        },
-        {
-          id: 'event-walima',
-          slug: 'walima',
-          name: 'Walima Grand Reception',
-          event_date: '2026-12-13',
-          start_time: '06:00 PM',
-          venue_name: 'Topaz Marquee',
-          venue_address: 'Topaz Marquee, Model Town, Lahore',
-          dress_code: 'Formal Black Tie / Dark Suits'
+          venue_address: 'Topaz Marquee, Model Town, Lahore'
         }
       ]
     },
@@ -406,18 +358,7 @@ export const weddingData = {
           event_date: '2026-12-12',
           start_time: '07:00 PM',
           venue_name: 'Topaz Marquee',
-          venue_address: 'Topaz Marquee, Model Town, Lahore',
-          dress_code: 'Royal Formal / Bridals'
-        },
-        {
-          id: 'event-walima',
-          slug: 'walima',
-          name: 'Walima Grand Reception',
-          event_date: '2026-12-13',
-          start_time: '06:00 PM',
-          venue_name: 'Topaz Marquee',
-          venue_address: 'Topaz Marquee, Model Town, Lahore',
-          dress_code: 'Formal Black Tie'
+          venue_address: 'Topaz Marquee, Model Town, Lahore'
         }
       ]
     },
@@ -440,18 +381,7 @@ export const weddingData = {
           event_date: '2026-12-12',
           start_time: '07:00 PM',
           venue_name: 'Topaz Marquee',
-          venue_address: 'Topaz Marquee, Model Town, Lahore',
-          dress_code: 'Royal Formal'
-        },
-        {
-          id: 'event-walima',
-          slug: 'walima',
-          name: 'Walima Grand Reception',
-          event_date: '2026-12-13',
-          start_time: '06:00 PM',
-          venue_name: 'Topaz Marquee',
-          venue_address: 'Topaz Marquee, Model Town, Lahore',
-          dress_code: 'Formal Black Tie'
+          venue_address: 'Topaz Marquee, Model Town, Lahore'
         }
       ]
     }
